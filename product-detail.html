@@ -94,7 +94,7 @@
   .breadcrumbs a { color: var(--terracotta); text-decoration: none; opacity: 0.7; }
   .breadcrumbs a:hover { opacity: 1; }
   .product-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,3.5vw,3rem); font-weight: 300; line-height: 1.1; }
-  .product-subtitle { font-size: 0.9rem; color: rgba(28,16,8,0.5); font-style: italic; margin-top: -0.8rem; }
+  .product-subtitle { font-size: 0.9rem; color: rgba(28,16,8,0.5); font-style: italic; margin-top: 0.4rem; }
   .product-price-display { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--deep); }
   .product-desc { font-size: 0.95rem; line-height: 1.9; color: rgba(28,16,8,0.7); }
 
@@ -217,15 +217,17 @@
 
   function updateDetailPrice() {
     if (!currentProduct) return;
-    document.getElementById('detail-price').innerText =
-      getProductPrice(currentProduct, selectedVariantIndex, currentCurrency, exchangeRates);
+    const price = typeof getProductPrice === 'function'
+      ? getProductPrice(currentProduct, selectedVariantIndex, currentCurrency, exchangeRates)
+      : formatPrice(currentProduct.variants ? currentProduct.variants[selectedVariantIndex].price_inr : currentProduct.price_inr, currentCurrency, exchangeRates);
+    document.getElementById('detail-price').innerText = price;
   }
 
   function addCurrentToCart() {
     if (!currentProduct) return;
     const variant = currentProduct.variants ? currentProduct.variants[selectedVariantIndex] : null;
     const inr = variant ? variant.price_inr : currentProduct.price_inr;
-    const priceDisplay = getProductPrice(currentProduct, selectedVariantIndex, currentCurrency, exchangeRates);
+    const priceDisplay = typeof getProductPrice === 'function' ? getProductPrice(currentProduct, selectedVariantIndex, currentCurrency, exchangeRates) : formatPrice(currentProduct.variants ? currentProduct.variants[selectedVariantIndex].price_inr : currentProduct.price_inr, currentCurrency, exchangeRates);
     const variantLabel = variant ? variant.label : null;
     addToCart(currentProduct.name, priceDisplay, currentProduct.images[0], variantLabel);
   }
@@ -233,7 +235,8 @@
   function renderDetail(p) {
     currentProduct = p;
     document.title = p.name + ' — Raivana';
-    const priceDisplay = getProductPrice(p, 0, currentCurrency, exchangeRates);
+    const baseInr = p.variants ? p.variants[0].price_inr : p.price_inr;
+    const priceDisplay = formatPrice(baseInr, currentCurrency, exchangeRates);
 
     const variantsHTML = p.variants ? `
       <div>
@@ -354,7 +357,7 @@
           </div>
 
         </div>
-      </div>\`;
+      </div>`;
   }
 
   var currentImageIndex = 0;
@@ -491,6 +494,7 @@
   });
 </script>
 
+<script> 
   // Touch swipe support
   let touchStartX = 0;
   document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
@@ -502,6 +506,6 @@
       diff > 0 ? carouselNext() : carouselPrev();
     }
   }, { passive: true });
-
+</script>   
 </body>
 </html>
