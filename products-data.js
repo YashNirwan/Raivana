@@ -150,7 +150,7 @@ const RAIVANA_PRODUCTS = [
       { label: "210 gm", price_inr: 2500 }
     ],
     details: {},
-    images: ["img/p12-1.jpeg", "img/p12-2.jpeg", "img/p12-3.jpeg"]
+    images: ["img/p12-2.jpeg", "img/p12-3.jpeg"]
   },
   {
     id: 13,
