@@ -50,10 +50,40 @@
   /* PRODUCT LAYOUT */
   .product-container { padding: 9rem 4rem 5rem; max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; gap: 6rem; align-items: start; }
   .gallery { position: sticky; top: 7rem; }
-  .main-image { width: 100%; aspect-ratio: 4/5; overflow: hidden; border: 1px solid rgba(28,16,8,0.06); background: var(--blush); cursor: zoom-in; }
-  .main-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-  .main-image:hover img { transform: scale(1.04); }
+
+  /* MAIN IMAGE + MAGNIFIER */
+  .main-image-wrap { position: relative; width: 100%; aspect-ratio: 4/5; overflow: hidden; border: 1px solid rgba(28,16,8,0.06); background: var(--blush); cursor: crosshair; }
+  .main-image-wrap img#mainImg { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.3s; }
+  .magnifier-glass {
+    position: absolute; width: 130px; height: 130px;
+    border: 2px solid rgba(201,168,76,0.6); border-radius: 50%;
+    box-shadow: 0 4px 20px rgba(28,16,8,0.2);
+    pointer-events: none; display: none;
+    background-repeat: no-repeat; background-color: var(--cream);
+    z-index: 10;
+  }
   .img-placeholder-large { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 6rem; color: rgba(28,16,8,0.06); }
+
+  /* CAROUSEL ARROWS */
+  .carousel-wrap { position: relative; }
+  .carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 36px; height: 36px; background: rgba(242,234,216,0.92);
+    border: 1px solid rgba(28,16,8,0.12); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 5; transition: all 0.2s;
+    box-shadow: 0 2px 10px rgba(28,16,8,0.1);
+  }
+  .carousel-btn:hover { background: var(--deep); }
+  .carousel-btn:hover svg { stroke: var(--sand); }
+  .carousel-btn svg { width: 14px; height: 14px; stroke: var(--deep); fill: none; stroke-width: 2; }
+  .carousel-prev { left: 0.7rem; }
+  .carousel-next { right: 0.7rem; }
+  .carousel-dots { display: flex; justify-content: center; gap: 0.4rem; margin-top: 0.8rem; }
+  .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(28,16,8,0.15); cursor: pointer; transition: all 0.2s; border: none; padding: 0; }
+  .carousel-dot.active { background: var(--terracotta); width: 18px; border-radius: 3px; }
+
+  /* THUMBNAILS */
   .thumbnail-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.8rem; margin-top: 1rem; }
   .thumbnail { aspect-ratio: 1; overflow: hidden; border: 1px solid rgba(28,16,8,0.06); cursor: pointer; background: var(--blush); transition: border-color 0.2s; }
   .thumbnail:hover, .thumbnail.active { border-color: var(--terracotta); }
@@ -224,17 +254,27 @@
       </div>`;
 
     const thumbsHTML = p.images.map((img, i) => `
-      <div class="thumbnail ${i === 0 ? 'active' : ''}" onclick="switchImage(this, '${img}')">
+      <div class="thumbnail ${i === 0 ? 'active' : ''}" onclick="goToImage(${i})">
         <img src="${img}" alt="${p.name}" onerror="this.parentElement.style.background='var(--blush)'">
       </div>`).join('');
 
     document.getElementById('productDetail').innerHTML = `
       <div class="gallery">
-        <div class="main-image" id="mainImage">
-          <img id="mainImg" src="${p.images[0]}" alt="${p.name}"
-            onerror="this.style.display='none';document.getElementById('mainPlaceholder').style.display='flex'">
-          <div class="img-placeholder-large" id="mainPlaceholder" style="display:none;">✦</div>
+        <div class="carousel-wrap">
+          <div class="main-image-wrap" id="mainImageWrap">
+            <img id="mainImg" src="${p.images[0]}" alt="${p.name}"
+              onerror="this.style.display='none';document.getElementById('mainPlaceholder').style.display='flex'">
+            <div class="img-placeholder-large" id="mainPlaceholder" style="display:none;">✦</div>
+            <div class="magnifier-glass" id="magnifierGlass"></div>
+          </div>
+          <button class="carousel-btn carousel-prev" onclick="carouselPrev()" aria-label="Previous">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="carousel-btn carousel-next" onclick="carouselNext()" aria-label="Next">
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+          </button>
         </div>
+        <div class="carousel-dots" id="carouselDots"></div>
         <div class="thumbnail-row">${thumbsHTML}</div>
       </div>
       <div class="product-info">
@@ -256,13 +296,103 @@
       </div>`;
   }
 
-  function switchImage(thumb, src) {
-    document.getElementById('mainImg').src = src;
-    document.getElementById('mainImg').style.display = 'block';
+  var currentImageIndex = 0;
+  var productImages = [];
+
+  function initCarousel(images) {
+    productImages = images;
+    currentImageIndex = 0;
+    renderDots();
+    updateCarousel();
+    initMagnifier();
+  }
+
+  function renderDots() {
+    const dots = document.getElementById('carouselDots');
+    if (!dots) return;
+    dots.innerHTML = productImages.map((_, i) =>
+      `<button class="carousel-dot ${i === 0 ? 'active' : ''}" onclick="goToImage(${i})"></button>`
+    ).join('');
+  }
+
+  function updateCarousel() {
+    const img = document.getElementById('mainImg');
     const placeholder = document.getElementById('mainPlaceholder');
-    if (placeholder) placeholder.style.display = 'none';
-    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-    thumb.classList.add('active');
+    if (img) {
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = productImages[currentImageIndex];
+        img.style.display = 'block';
+        img.style.opacity = '1';
+        if (placeholder) placeholder.style.display = 'none';
+      }, 150);
+    }
+    // Update dots
+    document.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === currentImageIndex);
+    });
+    // Update thumbnails
+    document.querySelectorAll('.thumbnail').forEach((t, i) => {
+      t.classList.toggle('active', i === currentImageIndex);
+    });
+    // Update magnifier source
+    initMagnifier();
+  }
+
+  function carouselNext() {
+    currentImageIndex = (currentImageIndex + 1) % productImages.length;
+    updateCarousel();
+  }
+
+  function carouselPrev() {
+    currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
+    updateCarousel();
+  }
+
+  function goToImage(index) {
+    currentImageIndex = index;
+    updateCarousel();
+  }
+
+  function switchImage(thumb, src) {
+    currentImageIndex = productImages.indexOf(src);
+    if (currentImageIndex === -1) currentImageIndex = 0;
+    updateCarousel();
+  }
+
+  // ── MAGNIFIER ────────────────────────────────────────────────────────────────
+  function initMagnifier() {
+    const wrap = document.getElementById('mainImageWrap');
+    const glass = document.getElementById('magnifierGlass');
+    const img = document.getElementById('mainImg');
+    if (!wrap || !glass || !img) return;
+
+    const ZOOM = 2.5;
+    const GLASS_SIZE = 130;
+
+    function moveMagnifier(e) {
+      const rect = wrap.getBoundingClientRect();
+      let x = (e.clientX || e.touches?.[0]?.clientX) - rect.left;
+      let y = (e.clientY || e.touches?.[0]?.clientY) - rect.top;
+
+      // Clamp so glass stays inside
+      x = Math.max(GLASS_SIZE / 2, Math.min(rect.width - GLASS_SIZE / 2, x));
+      y = Math.max(GLASS_SIZE / 2, Math.min(rect.height - GLASS_SIZE / 2, y));
+
+      glass.style.left = (x - GLASS_SIZE / 2) + 'px';
+      glass.style.top = (y - GLASS_SIZE / 2) + 'px';
+
+      // Background position
+      const bgX = (x / rect.width) * 100;
+      const bgY = (y / rect.height) * 100;
+      glass.style.backgroundImage = `url('${img.src}')`;
+      glass.style.backgroundSize = `${rect.width * ZOOM}px ${rect.height * ZOOM}px`;
+      glass.style.backgroundPosition = `${bgX}% ${bgY}%`;
+    }
+
+    wrap.addEventListener('mouseenter', () => { glass.style.display = 'block'; });
+    wrap.addEventListener('mouseleave', () => { glass.style.display = 'none'; });
+    wrap.addEventListener('mousemove', moveMagnifier);
   }
 
   // Re-apply price when currency changes
@@ -279,11 +409,25 @@
     const product = RAIVANA_PRODUCTS.find(p => p.id === id);
     if (product) {
       renderDetail(product);
+      initCarousel(product.images);
     } else {
       document.getElementById('productDetail').innerHTML =
         '<div style="padding:10rem 2rem;text-align:center;font-family:\'Cormorant Garamond\',serif;font-size:2rem;font-weight:300;color:rgba(28,16,8,0.4);">Product not found.<br><br><a href="products.html" style="font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);text-decoration:none;">Back to Collection</a></div>';
     }
   });
 </script>
+
+  // Touch swipe support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    const wrap = document.getElementById('mainImageWrap');
+    if (!wrap) return;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? carouselNext() : carouselPrev();
+    }
+  }, { passive: true });
+
 </body>
 </html>
