@@ -131,6 +131,24 @@
   .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--deep); }
 
   @media(max-width:900px) { nav { padding: 1rem 1.5rem; } .nav-links { display: none !important; } .nav-hamburger { display: flex; } .product-container { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; } .gallery { position: static; } .cart-drawer { max-width: 100%; } }
+
+  /* ACCORDION */
+  .accordion { border-top: 1px solid rgba(28,16,8,0.08); margin-top: 0.5rem; }
+  .accordion-item { border-bottom: 1px solid rgba(28,16,8,0.08); }
+  .accordion-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 0; cursor: pointer; list-style: none;
+    font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--deep); user-select: none;
+  }
+  .accordion-header:hover { color: var(--terracotta); }
+  .accordion-header svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform 0.3s; flex-shrink: 0; }
+  .accordion-header.open svg { transform: rotate(180deg); }
+  .accordion-body { display: none; padding: 0 0 1.4rem; font-size: 0.88rem; line-height: 1.9; color: rgba(28,16,8,0.68); }
+  .accordion-body.open { display: block; }
+  .accordion-body p { margin-bottom: 0.8rem; }
+  .accordion-body p:last-child { margin-bottom: 0; }
+  .accordion-body strong { color: var(--deep); font-weight: 500; }
 </style>
 </head>
 <body>
@@ -293,7 +311,53 @@
           <div class="trust-item"><div class="trust-icon">🤝</div><div class="trust-label">Fair Trade</div></div>
         </div>
         ${detailsHTML}
-      </div>`;
+        <div class="accordion">
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <span>Shipping & Returns</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="accordion-body">
+              <p>Most of our pieces are crafted to order and may take <strong>7–10 days</strong> to prepare before dispatch. In-stock pieces are shipped sooner.</p>
+              <p>We ship across India via DTDC and Bluedart, and internationally via DHL, FedEx, and UPS — with full tracking and door delivery.</p>
+              <p><strong>India:</strong> Delivered within 5–7 working days from dispatch.<br>
+              <strong>International:</strong> 7–10 working days, subject to customs clearance in your country.</p>
+              <p>Once shipped, you will receive a tracking ID and AWB bill at your registered email address.</p>
+              <p><strong>Custom duties:</strong> International orders may attract customs duties as per your country's regulations. These are payable by the recipient and are not included in our pricing.</p>
+              <p><strong>Please note:</strong> Orders once placed cannot be cancelled.</p>
+              <p><strong>Exchange policy:</strong> We offer an exchange if your product arrives damaged or broken in transit. Exchange requests must be raised within <strong>5 days of delivery</strong> and require an uncut, unedited video of the package being opened as proof.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <span>Care Instructions</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="accordion-body">
+              <p>Each piece is finished to a high standard and requires minimal upkeep to retain its beauty.</p>
+              <p><strong>Dust regularly</strong> with a soft, dry cotton cloth. Avoid abrasive materials that may scratch the surface.</p>
+              <p><strong>Do not use</strong> harsh chemicals, metal polishes, or liquid cleaning agents — these can damage the brass finish and patina over time.</p>
+              <p>Brass naturally develops a patina with age, which many collectors consider part of the piece's character. To restore the original shine, consult a professional brass cleaner.</p>
+              <p>Store in a cool, dry place away from direct sunlight and moisture.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <span>Handmade — What to Expect</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="accordion-body">
+              <p>Every Raivana piece is made entirely by hand by skilled artisans in Jaipur. As a result, slight variations in finish, texture, or dimension are natural and expected.</p>
+              <p>These are not imperfections — they are the signature of the human hand, and what makes each piece genuinely one of a kind.</p>
+              <p>The piece you receive may differ slightly from the product images, but will always meet our quality standards.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>\`;
   }
 
   var currentImageIndex = 0;
@@ -398,6 +462,19 @@
   // Re-apply price when currency changes
   function applyPrices() {
     updateDetailPrice();
+  }
+
+  function toggleAccordion(header) {
+    const body = header.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('open'));
+    // Open clicked if it was closed
+    if (!isOpen) {
+      body.classList.add('open');
+      header.classList.add('open');
+    }
   }
 </script>
 <script src="products-data.js"></script>
