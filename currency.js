@@ -36,8 +36,22 @@ async function initCurrency() {
   }
 
   await fetchRates();
-  if (typeof applyPrices === 'function') applyPrices();
-  if (typeof renderCurrencySelector === 'function') renderCurrencySelector();
+  // Call applyPrices if defined, otherwise wait for it
+  if (typeof applyPrices === 'function') {
+    applyPrices();
+  } else {
+    // Products/detail page defines applyPrices after this script loads
+    // Poll briefly until it's available
+    let attempts = 0;
+    const wait = setInterval(() => {
+      if (typeof applyPrices === 'function') {
+        clearInterval(wait);
+        applyPrices();
+      } else if (++attempts > 20) {
+        clearInterval(wait); // give up after 2 seconds
+      }
+    }, 100);
+  }
 }
 
 async function fetchRates() {
@@ -112,13 +126,4 @@ function renderCurrencySelector() {
 }
 
 // Run on load
-document.addEventListener('DOMContentLoaded', async function() {
-  try {
-    await initCurrency();
-  } catch(e) {
-    // If currency detection fails, still render with default USD
-    currentCurrency = 'USD';
-    exchangeRates = { USD: 1, GBP: 0.79, EUR: 0.92, INR: 83.5, AED: 3.67, AUD: 1.53, CAD: 1.36, SGD: 1.34 };
-    if (typeof applyPrices === 'function') applyPrices();
-  }
-});
+document.addEventListener('DOMContentLoaded', initCurrency);

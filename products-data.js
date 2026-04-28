@@ -354,13 +354,13 @@ const RAIVANA_PRODUCTS = [
     details: {},
     images: ["img/p28-1.jpeg", "img/p28-2.jpeg", "img/p28-3.jpeg"]
   }
-
+,
   {
     id: 29,
     name: "Blue Lotus Print Plate",
     subtitle: "Handcrafted Jaipur Blue Pottery",
     category: "ceramics",
-    description: "Bring home a piece of Rajasthan's timeless artistry with this 100% handmade blue pottery plate, carefully crafted by skilled artisans in the villages of Rajasthan. Each design reflects generations of traditional craftsmanship, using techniques passed down over centuries. The intricate floral and geometric patterns are inspired by classic Rajasthani motifs, giving your space a royal and artistic touch. Unlike mass-produced ceramics, every item is individually shaped, painted, and finished by hand — making no two pieces exactly alike.",
+    description: "Bring home a piece of Rajasthan's timeless artistry with this 100% handmade blue pottery plate, carefully crafted by skilled artisans in the villages of Rajasthan. Each design reflects generations of traditional craftsmanship using techniques passed down over centuries. The intricate floral and geometric patterns are inspired by classic Rajasthani motifs, giving your space a royal and artistic touch.",
     price_inr: null,
     price_inr_export: null,
     variants: [
@@ -376,7 +376,7 @@ const RAIVANA_PRODUCTS = [
     name: "Rajkumari Shringaar Vase",
     subtitle: "Royal Lady Adornment · Jaipur Blue Pottery",
     category: "ceramics",
-    description: "Bring home a piece of Rajasthan's royal heritage with this 100% handcrafted Jaipur Blue Pottery vase. The vase depicts a Rajkumari in her shringaar, adorning herself with jewellery, surrounded by delicate foliage. Rendered in the signature Jaipur cobalt blue on a crackled ivory base, the artwork captures the grace and quiet luxury of royal Indian courts. Every stroke is painted by master artisans using age-old techniques passed down through generations — no two pieces are ever alike.",
+    description: "Bring home a piece of Rajasthan's royal heritage with this 100% handcrafted Jaipur Blue Pottery vase. The vase depicts a Rajkumari in her shringaar, adorning herself with jewellery, surrounded by delicate foliage. Rendered in the signature Jaipur cobalt blue on a crackled ivory base, the artwork captures the grace and quiet luxury of royal Indian courts.",
     price_inr: 15000,
     price_inr_export: 25000,
     variants: null,
@@ -388,7 +388,7 @@ const RAIVANA_PRODUCTS = [
     name: "Mayur Vriksha Vase",
     subtitle: "Peacock & Blossoms · Jaipur Blue Pottery",
     category: "ceramics",
-    description: "Celebrate India's national bird with this 100% handcrafted Jaipur Blue Pottery wall plate. Painted entirely by hand, this piece captures a regal peacock perched on a blossoming tree, set against a vivid turquoise sky Jaipur's artisans are famed for. Each feather, leaf, and bloom is drawn with fine brushes using natural mineral colours — a technique perfected over 400 years in Rajasthan. The contrast of the emerald-green tail, sunshine-yellow flowers, and deep cobalt outlines makes this a striking statement for any wall or shelf.",
+    description: "Celebrate India's national bird with this 100% handcrafted Jaipur Blue Pottery piece. Painted entirely by hand, this piece captures a regal peacock perched on a blossoming tree, set against a vivid turquoise sky Jaipur's artisans are famed for. Each feather, leaf, and bloom is drawn with fine brushes using natural mineral colours — a technique perfected over 400 years in Rajasthan.",
     price_inr: 3000,
     price_inr_export: 9000,
     variants: null,
@@ -400,7 +400,7 @@ const RAIVANA_PRODUCTS = [
     name: "Neel Kamal Plate",
     subtitle: "Blue Lotus · Jaipur Blue Pottery",
     category: "ceramics",
-    description: "Echoing the elegance of Mughal gardens, this 100% handcrafted Jaipur Blue Pottery wall plate features delicate white lotus blooms dancing across a rich cobalt sky. Each flower and leaf is painted freehand by master artisans using the 400-year-old Jaipur blue pottery technique — no stencils, no machines. The crisp white motifs against the deep blue glaze create a look that's both regal and serene, perfect for modern and traditional spaces alike.",
+    description: "Echoing the elegance of Mughal gardens, this 100% handcrafted Jaipur Blue Pottery wall plate features delicate white lotus blooms dancing across a rich cobalt sky. Each flower and leaf is painted freehand by master artisans using the 400-year-old Jaipur blue pottery technique — no stencils, no machines.",
     price_inr: null,
     price_inr_export: null,
     variants: [
@@ -415,14 +415,16 @@ const RAIVANA_PRODUCTS = [
 
 // ── PRICING UTILS ─────────────────────────────────────────────────────────────
 
-const INTL_MARKUP = 1.15; // 15% markup for non-India
+const INTL_MARKUP = 1.15; // 15% markup for non-India (brass items without export price)
 
-function getBasePrice(product, variantIndex = 0) {
+function getBasePrice(product, variantIndex) {
+  variantIndex = variantIndex || 0;
   if (product.variants) return product.variants[variantIndex].price_inr;
   return product.price_inr;
 }
 
-function getExportPrice(product, variantIndex = 0) {
+function getExportPrice(product, variantIndex) {
+  variantIndex = variantIndex || 0;
   if (product.variants) {
     const v = product.variants[variantIndex];
     return v.price_inr_export || Math.round(v.price_inr * INTL_MARKUP);
@@ -430,31 +432,34 @@ function getExportPrice(product, variantIndex = 0) {
   return product.price_inr_export || Math.round(product.price_inr * INTL_MARKUP);
 }
 
-function formatPrice(inr, currency, rates, exportInr) {
+function formatPrice(inr, currency, rates) {
+  if (!inr) inr = 0;
   const isIndia = currency === 'INR';
-
   if (isIndia) {
     return '₹' + Math.round(inr).toLocaleString('en-IN');
   }
-
-  // Use explicit export price if provided, otherwise apply markup
-  const exportAmount = exportInr || Math.round(inr * INTL_MARKUP);
-  const rate = rates[currency] || 1;
-  const converted = (exportAmount / (rates['INR'] || 83.5)) * rate;
-
-  const cfg = {
-    USD: '$', GBP: '£', EUR: '€',
-    AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$'
-  };
-
-  const symbol = cfg[currency] || currency + ' ';
-  if (['AED'].includes(currency)) return symbol + Math.round(converted);
+  const amount = inr * INTL_MARKUP;
+  const inrRate = (rates && rates['INR']) || 83.5;
+  const targetRate = (rates && rates[currency]) || 1;
+  const converted = (amount / inrRate) * targetRate;
+  const symbols = { USD: '$', GBP: '£', EUR: '€', AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$' };
+  const symbol = symbols[currency] || currency + ' ';
+  if (currency === 'AED') return symbol + Math.round(converted);
   return symbol + converted.toFixed(2);
 }
 
-// Convenience: get correctly priced display string for a product
 function getProductPrice(product, variantIndex, currency, rates) {
+  variantIndex = variantIndex || 0;
   const inr = getBasePrice(product, variantIndex);
   const exportInr = getExportPrice(product, variantIndex);
-  return formatPrice(inr, currency, rates, exportInr);
+  if (currency === 'INR') {
+    return '₹' + Math.round(inr).toLocaleString('en-IN');
+  }
+  const inrRate = (rates && rates['INR']) || 83.5;
+  const targetRate = (rates && rates[currency]) || 1;
+  const converted = (exportInr / inrRate) * targetRate;
+  const symbols = { USD: '$', GBP: '£', EUR: '€', AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$' };
+  const symbol = symbols[currency] || currency + ' ';
+  if (currency === 'AED') return symbol + Math.round(converted);
+  return symbol + converted.toFixed(2);
 }
