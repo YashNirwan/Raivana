@@ -36,7 +36,8 @@ async function initCurrency() {
   }
 
   await fetchRates();
-  applyPrices();
+  if (typeof applyPrices === 'function') applyPrices();
+  if (typeof renderCurrencySelector === 'function') renderCurrencySelector();
 }
 
 async function fetchRates() {
@@ -111,4 +112,13 @@ function renderCurrencySelector() {
 }
 
 // Run on load
-document.addEventListener('DOMContentLoaded', initCurrency);
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    await initCurrency();
+  } catch(e) {
+    // If currency detection fails, still render with default USD
+    currentCurrency = 'USD';
+    exchangeRates = { USD: 1, GBP: 0.79, EUR: 0.92, INR: 83.5, AED: 3.67, AUD: 1.53, CAD: 1.36, SGD: 1.34 };
+    if (typeof applyPrices === 'function') applyPrices();
+  }
+});
