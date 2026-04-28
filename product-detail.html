@@ -494,6 +494,7 @@
   });
 </script>
 
+<script> 
   // Touch swipe support
   let touchStartX = 0;
   document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
@@ -505,6 +506,6 @@
       diff > 0 ? carouselNext() : carouselPrev();
     }
   }, { passive: true });
-
+</script>   
 </body>
 </html>
