@@ -25,17 +25,7 @@ let exchangeRates = { USD: 1 };
 
 // Base prices are in USD
 async function initCurrency() {
-  // 1. Check localStorage for saved preference
-  const saved = localStorage.getItem('raivana_currency');
-  if (saved && CURRENCY_CONFIG[saved]) {
-    currentCurrency = saved;
-    await fetchRates();
-    applyPrices();
-    renderCurrencySelector();
-    return;
-  }
-
-  // 2. Detect from IP
+  // Detect from IP — no manual override
   try {
     const res = await fetch('https://ipapi.co/json/');
     const data = await res.json();
@@ -47,7 +37,6 @@ async function initCurrency() {
 
   await fetchRates();
   applyPrices();
-  renderCurrencySelector();
 }
 
 async function fetchRates() {
@@ -106,46 +95,20 @@ function applyPrices() {
 }
 
 function setCurrency(code) {
+  // Manual switching disabled — currency is location-locked
   if (!CURRENCY_CONFIG[code]) return;
   currentCurrency = code;
-  localStorage.setItem('raivana_currency', code);
   applyPrices();
-  renderCurrencySelector();
-  // Update cart display too
-  if (typeof renderCart === 'function') renderCart();
 }
 
 function renderCurrencySelector() {
+  // Currency is auto-detected and locked — no manual switcher shown
   const el = document.getElementById('currency-selector');
   if (!el) return;
   const cfg = CURRENCY_CONFIG[currentCurrency];
-  el.innerHTML = `
-    <div class="currency-current" onclick="toggleCurrencyDropdown()">
-      <span>${cfg.flag}</span>
-      <span>${cfg.code}</span>
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="currency-dropdown" id="currencyDropdown">
-      ${Object.entries(CURRENCY_CONFIG).map(([code, c]) => `
-        <div class="currency-option ${code === currentCurrency ? 'active' : ''}" onclick="setCurrency('${code}')">
-          <span>${c.flag}</span>
-          <span>${c.code}</span>
-          <span class="currency-name">${c.name}</span>
-        </div>
-      `).join('')}
-    </div>`;
+  // Just show the detected currency as read-only text
+  el.innerHTML = `<span style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.55;color:var(--deep);">${cfg.flag} ${cfg.code}</span>`;
 }
-
-function toggleCurrencyDropdown() {
-  document.getElementById('currencyDropdown')?.classList.toggle('open');
-}
-
-// Close dropdown when clicking outside
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('#currency-selector')) {
-    document.getElementById('currencyDropdown')?.classList.remove('open');
-  }
-});
 
 // Run on load
 document.addEventListener('DOMContentLoaded', initCurrency);
