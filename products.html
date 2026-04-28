@@ -210,6 +210,44 @@
 <script src="currency.js"></script>
 <script src="cart.js"></script>
 <script>
+  function cardGoTo(productId, index) {
+    const card = document.querySelector(`.product-card[data-imgs]`);
+    const allCards = document.querySelectorAll('.product-card');
+    let targetCard = null;
+    allCards.forEach(c => {
+      const imgs = JSON.parse(c.dataset.imgs || '[]');
+      const img = c.querySelector(`#card-img-${productId}`);
+      if (img) targetCard = c;
+    });
+    if (!targetCard) return;
+    const imgs = JSON.parse(targetCard.dataset.imgs || '[]');
+    if (index < 0 || index >= imgs.length) return;
+    targetCard.dataset.imgIndex = index;
+    const imgEl = targetCard.querySelector(`#card-img-${productId}`);
+    if (imgEl) { imgEl.style.opacity = '0'; setTimeout(() => { imgEl.src = imgs[index]; imgEl.style.opacity = '1'; }, 150); }
+    targetCard.querySelectorAll('.card-dot').forEach((d, i) => d.classList.toggle('active', i === index));
+  }
+
+  function cardNext(productId) {
+    const imgEl = document.getElementById(`card-img-${productId}`);
+    if (!imgEl) return;
+    const card = imgEl.closest('.product-card');
+    const imgs = JSON.parse(card.dataset.imgs || '[]');
+    const current = parseInt(card.dataset.imgIndex || '0');
+    cardGoTo(productId, (current + 1) % imgs.length);
+  }
+
+  function cardPrev(productId) {
+    const imgEl = document.getElementById(`card-img-${productId}`);
+    if (!imgEl) return;
+    const card = imgEl.closest('.product-card');
+    const imgs = JSON.parse(card.dataset.imgs || '[]');
+    const current = parseInt(card.dataset.imgIndex || '0');
+    cardGoTo(productId, (current - 1 + imgs.length) % imgs.length);
+  }
+</script>
+
+<script>
   function toggleMenu() {
     document.getElementById('hamburger').classList.toggle('open');
     document.getElementById('mobileMenu').classList.toggle('open');
@@ -282,10 +320,7 @@
   }
 
   // Re-render prices when currency changes
-  const _origApplyPrices = typeof applyPrices === 'function' ? applyPrices : null;
-  function applyPrices() {
-    if (_origApplyPrices) _origApplyPrices();
-    // Update grid prices
+  function applyPrices() {    // Update grid prices
     RAIVANA_PRODUCTS.forEach(p => {
       const el = document.getElementById(`grid-price-${p.id}`);
       if (!el) return;
@@ -294,7 +329,359 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', renderProducts);
+  // Wait for currency to be ready before rendering products
+  // currency.js calls initCurrency() on DOMContentLoaded which is async
+  // We hook into it by overriding applyPrices which currency.js calls when ready
+  var _productsRendered = false;
+  function applyPrices() {
+    if (!_productsRendered) {
+      _productsRendered = true;
+      renderProducts();
+    } else {
+      // Re-render prices only
+      RAIVANA_PRODUCTS.forEach(p => {
+        const el = document.getElementById('grid-price-' + p.id);
+        if (!el) return;
+        const fromLabel = p.variants ? 'From ' : '';
+        el.innerText = fromLabel + getProductPrice(p, 0, currentCurrency, exchangeRates);
+      });
+    }
+  }
+
+  // Fallback: render after 3 seconds if currency never loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      if (!_productsRendered) {
+        _productsRendered = true;
+        renderProducts();
+      }
+    }, 3000);
+  });
+</script>
+
+
+</body>
+</html>E html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collection — Raivana</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --sand: #F2EAD8; --terracotta: #C1622F; --saffron: #E8A030; --deep: #1C1008; --gold: #C9A84C; --blush: #E8D5C0; --forest: #2D4A35; --cream: #FAF6EE; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--sand); color: var(--deep); font-family: 'Jost', sans-serif; font-weight: 300; overflow-x: hidden; }
+  .deco-border { height: 5px; background: repeating-linear-gradient(90deg, var(--terracotta) 0px, var(--terracotta) 20px, var(--saffron) 20px, var(--saffron) 40px, var(--gold) 40px, var(--gold) 60px, var(--deep) 60px, var(--deep) 80px); }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 4rem; background: rgba(242,234,216,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(201,168,76,0.22); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 300; letter-spacing: 0.18em; color: var(--deep); text-transform: uppercase; text-decoration: none; }
+  .nav-logo span { color: var(--terracotta); }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--deep); text-decoration: none; opacity: 0.62; transition: opacity 0.2s; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--terracotta); }
+
+  /* Currency: auto-detected, no manual switcher */
+
+  /* CART DRAWER */
+  .cart-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(28,16,8,0.4); backdrop-filter: blur(4px); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+  .cart-overlay.open { opacity: 1; pointer-events: auto; }
+  .cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 450px; height: 100vh; background: var(--sand); z-index: 1000; box-shadow: -10px 0 40px rgba(0,0,0,0.1); transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1); display: flex; flex-direction: column; }
+  .cart-drawer.open { right: 0; }
+  .cart-header { padding: 2rem; border-bottom: 1px solid rgba(28,16,8,0.1); display: flex; justify-content: space-between; align-items: center; }
+  .cart-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; }
+  .close-cart { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--deep); }
+  .cart-body { padding: 2rem; flex: 1; overflow-y: auto; }
+  .cart-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(28,16,8,0.05); }
+  .cart-item-img { width: 80px; height: 100px; object-fit: cover; background: var(--blush); flex-shrink: 0; }
+  .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .cart-item-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; }
+  .cart-item-price { font-size: 0.9rem; color: var(--gold); margin-top: 0.2rem; }
+  .cart-item-remove { font-size: 0.7rem; text-transform: uppercase; color: rgba(28,16,8,0.5); background: none; border: none; cursor: pointer; text-align: left; margin-top: auto; padding-top: 0.5rem; }
+  .cart-empty-msg { text-align: center; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: rgba(28,16,8,0.5); margin-top: 2rem; }
+  .cart-footer { padding: 2rem; border-top: 1px solid rgba(28,16,8,0.1); background: rgba(250,246,238,0.5); }
+  .cart-subtotal { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 1.1rem; }
+  .checkout-btn { width: 100%; padding: 1.2rem; background: var(--terracotta); border: none; color: var(--sand); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: background 0.2s; }
+  .checkout-btn:hover { background: var(--deep); }
+
+  /* SHOP */
+  .shop-header { padding: 9rem 4rem 3rem; text-align: center; background: var(--cream); }
+  .shop-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem,5vw,4rem); font-weight: 300; margin-bottom: 0.8rem; }
+  .shop-header p { font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); }
+  .filter-bar { display: flex; justify-content: center; gap: 0; margin: 3rem auto; width: fit-content; border: 1px solid rgba(28,16,8,0.15); flex-wrap: wrap; }
+  .filter-btn { background: transparent; border: none; border-right: 1px solid rgba(28,16,8,0.15); padding: 0.65rem 1.6rem; font-family: 'Jost', sans-serif; font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(28,16,8,0.5); cursor: pointer; transition: all 0.25s; }
+  .filter-btn:last-child { border-right: none; }
+  .filter-btn.active, .filter-btn:hover { background: var(--deep); color: var(--sand); }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 3rem; padding: 2rem 4rem 6rem; max-width: 1400px; margin: 0 auto; }
+  .product-card { display: flex; flex-direction: column; cursor: pointer; transition: transform 0.3s; }
+  .product-card:hover { transform: translateY(-5px); }
+  .product-card.hidden { display: none; }
+  .img-wrapper { width: 100%; aspect-ratio: 4/5; overflow: hidden; background: var(--blush); border: 1px solid rgba(28,16,8,0.05); position: relative; }
+  .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s, opacity 0.2s; }
+  .product-card:hover .img-wrapper img { transform: scale(1.04); }
+  .img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: rgba(28,16,8,0.08); }
+  /* CARD CAROUSEL */
+  .card-carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 30px; height: 30px; background: rgba(242,234,216,0.9);
+    border: 1px solid rgba(28,16,8,0.1); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 5; opacity: 0; transition: opacity 0.2s;
+  }
+  .img-wrapper:hover .card-carousel-btn { opacity: 1; }
+  .card-carousel-btn svg { width: 12px; height: 12px; stroke: var(--deep); fill: none; stroke-width: 2.5; }
+  .card-prev { left: 0.5rem; }
+  .card-next { right: 0.5rem; }
+  .card-dots { position: absolute; bottom: 0.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.3rem; }
+  .card-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.6); border: none; padding: 0; cursor: pointer; transition: all 0.2s; }
+  .card-dot.active { background: white; width: 12px; border-radius: 2px; }
+  .product-info { padding: 1.2rem 0 0; }
+  .product-category { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.4rem; }
+  .product-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 0.2rem; line-height: 1.2; }
+  .product-subtitle { font-size: 0.75rem; color: rgba(28,16,8,0.5); font-style: italic; margin-bottom: 0.8rem; }
+  .product-price { font-size: 0.95rem; color: var(--deep); margin-bottom: 1rem; }
+  .add-to-cart { width: 100%; padding: 0.85rem; background: transparent; border: 1px solid rgba(28,16,8,0.2); color: var(--deep); font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.7rem; cursor: pointer; transition: all 0.3s; }
+  .add-to-cart:hover { background: var(--deep); color: var(--sand); border-color: var(--deep); }
+
+  /* FOOTER */
+  footer { background: var(--deep); padding: 5rem 4rem 3rem; color: var(--sand); }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 2rem; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 2rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; display: block; text-decoration: none; color: var(--sand); }
+  .footer-logo span { color: var(--terracotta); }
+  .footer-tagline { font-size: 0.85rem; line-height: 1.8; opacity: 0.5; max-width: 300px; margin-bottom: 1.5rem; }
+  .footer-col-title { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.75rem; }
+  .footer-links a { font-size: 0.82rem; color: rgba(242,234,216,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--sand); }
+  .footer-bottom { display: flex; justify-content: space-between; font-size: 0.63rem; letter-spacing: 0.08em; opacity: 0.4; }
+
+  /* HAMBURGER */
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .nav-hamburger span { display: block; width: 24px; height: 1.5px; background: var(--deep); transition: all 0.3s; }
+  .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+  .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--sand); z-index: 150; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; font-weight: 300; color: var(--deep); text-decoration: none; }
+  .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--deep); }
+
+  @media(max-width:900px) { nav { padding: 1rem 1.5rem; } .nav-links { display: none !important; } .nav-hamburger { display: flex; } .product-grid { padding: 1rem 1.5rem 4rem; gap: 1.5rem; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } footer { padding: 3rem 2rem; } .shop-header { padding: 7rem 1.5rem 2rem; } .cart-drawer { max-width: 100%; } }
+  @media(max-width:480px) { .product-grid { grid-template-columns: 1fr 1fr; gap: 1rem; } .filter-bar { width: calc(100% - 3rem); } .filter-btn { flex: 1 1 40%; } }
+</style>
+</head>
+<body>
+<div class="deco-border"></div>
+<nav>
+  <a href="index.html" class="nav-logo">Rai<span>vana</span></a>
+  <ul class="nav-links">
+    <li><a href="products.html" class="active">Shop All</a></li>
+    <li><a href="index.html#process">The Craft</a></li>
+    <li><a href="story.html">Our Story</a></li>
+    <li><a href="index.html#custom">Custom Orders</a></li>
+    <li><a href="index.html#trade">Trade / Bulk</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li style="list-style:none;" id="currency-selector"></li>
+    <li style="list-style:none;">
+      <button onclick="openCart()" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:0.5rem;font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--deep);opacity:0.8;padding:0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Bag <span id="cart-count" style="background:var(--terracotta);color:var(--sand);border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:0.55rem;">0</span>
+      </button>
+    </li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">&#x2715;</button>
+  <a href="index.html" onclick="toggleMenu()">Home</a>
+  <a href="products.html" onclick="toggleMenu()">Shop All</a>
+  <a href="story.html" onclick="toggleMenu()">Our Story</a>
+  <a href="contact.html" onclick="toggleMenu()">Contact</a>
+</div>
+
+<div class="shop-header">
+  <div style="font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--terracotta);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.8rem;"><span style="display:inline-block;width:1.5rem;height:1px;background:var(--terracotta);"></span>Handcrafted in Rajasthan<span style="display:inline-block;width:1.5rem;height:1px;background:var(--terracotta);"></span></div>
+  <h1>The Collection</h1>
+  <p>Each piece made by hand. Each one, a story.</p>
+  <div class="filter-bar" style="margin-top:2.5rem;">
+    <button class="filter-btn active" onclick="filterProducts('all',this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('brass',this)">Brass</button>
+    <button class="filter-btn" onclick="filterProducts('ceramics',this)">Ceramics</button>
+    <button class="filter-btn" onclick="filterProducts('woodwork',this)">Woodwork</button>
+    <button class="filter-btn" onclick="filterProducts('textiles',this)">Textiles</button>
+  </div>
+</div>
+
+<section class="product-grid" id="productGrid"></section>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header"><div class="cart-title">Your Bag</div><button class="close-cart" onclick="closeCart()">&#x2715;</button></div>
+  <div class="cart-body" id="cart-items-container">
+    <div class="cart-empty-msg" id="cart-empty-msg">Your bag is empty.<br><br><a href="products.html" style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);text-decoration:none;">Explore Collection &rarr;</a></div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cart-subtotal-price">—</span></div>
+    <div style="font-size:0.72rem;color:rgba(28,16,8,0.5);margin-bottom:1rem;line-height:1.6;">Shipping calculated at checkout.</div>
+    <button class="checkout-btn" onclick="whatsappCheckout()">Proceed to Checkout</button>
+    <div style="font-size:0.62rem;color:rgba(28,16,8,0.4);text-align:center;margin-top:0.8rem;cursor:pointer;" onclick="whatsappFallback()">Or enquire via WhatsApp</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">Rai<span>vana</span></a>
+      <p class="footer-tagline">Authentic handcrafted pieces from the heart of Rajasthan to modern homes worldwide.</p>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;">
+        <div style="font-size:0.72rem;color:rgba(242,234,216,0.55);">✉ hello@raivana.in</div>
+        <div style="font-size:0.72rem;color:rgba(242,234,216,0.55);">📦 Available for global shipping</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Explore</div>
+      <ul class="footer-links">
+        <li><a href="story.html">Our Story</a></li>
+        <li><a href="products.html">Shop All</a></li>
+        <li><a href="index.html#process">The Craft</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Support</div>
+      <ul class="footer-links">
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="index.html#custom">Custom Orders</a></li>
+        <li><a href="index.html#trade">Trade / Bulk</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Follow Us</div>
+      <div style="margin-top:1rem;padding:1.2rem;border:1px solid rgba(255,255,255,0.07);">
+        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--saffron);margin-bottom:0.5rem;">Instagram</div>
+        <a href="https://instagram.com/raivana.in" target="_blank" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(242,234,216,0.7);text-decoration:none;font-style:italic;">@raivana.in</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Raivana. Crafted in Rajasthan.</span><span>Privacy · Terms · Cookies</span></div>
+</footer>
+<div class="deco-border"></div>
+
+<script src="products-data.js"></script>
+<script src="currency.js"></script>
+<script src="cart.js"></script>
+<script>
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
+  }
+  function filterProducts(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+    });
+  }
+  // Render all product cards dynamically
+  function renderProducts() {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = '';
+
+    RAIVANA_PRODUCTS.forEach(p => {
+      const price = getProductPrice(p, 0, currentCurrency, exchangeRates);
+      const fromLabel = p.variants ? 'From ' : '';
+      const imgs = p.images;
+      const dotsHTML = imgs.length > 1 ? `<div class="card-dots">${imgs.map((_, i) => `<button class="card-dot ${i===0?'active':''}" onclick="event.preventDefault();cardGoTo(${p.id},${i})"></button>`).join('')}</div>` : '';
+      const arrowsHTML = imgs.length > 1 ? `
+        <button class="card-carousel-btn card-prev" onclick="event.preventDefault();cardPrev(${p.id})">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="card-carousel-btn card-next" onclick="event.preventDefault();cardNext(${p.id})">
+          <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>` : '';
+
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.dataset.cat = p.category;
+      card.dataset.imgIndex = '0';
+      card.dataset.imgs = JSON.stringify(imgs);
+      card.innerHTML = `
+        <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
+          <div class="img-wrapper">
+            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="img-placeholder" style="display:none;">✦</div>
+            ${arrowsHTML}
+            ${dotsHTML}
+          </div>
+        </a>
+        <div class="product-info">
+          <div class="product-category">Brass · Handcrafted</div>
+          <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
+            <div class="product-name">${p.name}</div>
+            <div class="product-subtitle">${p.subtitle}</div>
+          </a>
+          <div class="product-price" id="grid-price-${p.id}">${fromLabel}${price}</div>
+          <button class="add-to-cart" onclick="quickAdd(${p.id})">Add to Bag</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function quickAdd(productId) {
+    const p = RAIVANA_PRODUCTS.find(x => x.id === productId);
+    if (!p) return;
+    const variant = p.variants ? p.variants[0] : null;
+    const varIdx = variant ? p.variants.indexOf(variant) : 0;
+    const priceDisplay = getProductPrice(p, varIdx, currentCurrency, exchangeRates);
+    const variantLabel = variant ? variant.label : null;
+    addToCart(p.name, priceDisplay, p.images[0], variantLabel);
+    if (p.variants) {
+      // If has variants, go to detail page instead
+      window.location.href = `product-detail.html?id=${p.id}`;
+    }
+  }
+
+  // Re-render prices when currency changes
+  function applyPrices() {    // Update grid prices
+    RAIVANA_PRODUCTS.forEach(p => {
+      const el = document.getElementById(`grid-price-${p.id}`);
+      if (!el) return;
+      const fromLabel = p.variants ? 'From ' : '';
+      el.innerText = fromLabel + getProductPrice(p, 0, currentCurrency, exchangeRates);
+    });
+  }
+
+  // Wait for currency to be ready before rendering products
+  // currency.js calls initCurrency() on DOMContentLoaded which is async
+  // We hook into it by overriding applyPrices which currency.js calls when ready
+  var _productsRendered = false;
+  function applyPrices() {
+    if (!_productsRendered) {
+      _productsRendered = true;
+      renderProducts();
+    } else {
+      // Re-render prices only
+      RAIVANA_PRODUCTS.forEach(p => {
+        const el = document.getElementById('grid-price-' + p.id);
+        if (!el) return;
+        const fromLabel = p.variants ? 'From ' : '';
+        el.innerText = fromLabel + getProductPrice(p, 0, currentCurrency, exchangeRates);
+      });
+    }
+  }
+
+  // Fallback: render after 3 seconds if currency never loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      if (!_productsRendered) {
+        _productsRendered = true;
+        renderProducts();
+      }
+    }, 3000);
+  });
 </script>
 
 <script>
