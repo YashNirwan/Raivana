@@ -144,7 +144,6 @@
   <div class="filter-bar" style="margin-top:2.5rem;">
     <button class="filter-btn active" onclick="filterProducts('all',this)">All</button>
     <button class="filter-btn" onclick="filterProducts('brass',this)">Brass</button>
-    <button class="filter-btn" onclick="filterProducts('blue-pottery',this)">Blue Pottery</button>
     <button class="filter-btn" onclick="filterProducts('ceramics',this)">Ceramics</button>
     <button class="filter-btn" onclick="filterProducts('woodwork',this)">Woodwork</button>
     <button class="filter-btn" onclick="filterProducts('textiles',this)">Textiles</button>
@@ -229,10 +228,7 @@
     grid.innerHTML = '';
 
     RAIVANA_PRODUCTS.forEach(p => {
-      const price = p.variants
-        ? formatPrice(p.variants[0].price_inr, currentCurrency, exchangeRates)
-        : formatPrice(p.price_inr, currentCurrency, exchangeRates);
-
+      const price = getProductPrice(p, 0, currentCurrency, exchangeRates);
       const fromLabel = p.variants ? 'From ' : '';
       const imgs = p.images;
       const dotsHTML = imgs.length > 1 ? `<div class="card-dots">${imgs.map((_, i) => `<button class="card-dot ${i===0?'active':''}" onclick="event.preventDefault();cardGoTo(${p.id},${i})"></button>`).join('')}</div>` : '';
@@ -275,8 +271,8 @@
     const p = RAIVANA_PRODUCTS.find(x => x.id === productId);
     if (!p) return;
     const variant = p.variants ? p.variants[0] : null;
-    const priceInr = variant ? variant.price_inr : p.price_inr;
-    const priceDisplay = formatPrice(priceInr, currentCurrency, exchangeRates);
+    const varIdx = variant ? p.variants.indexOf(variant) : 0;
+    const priceDisplay = getProductPrice(p, varIdx, currentCurrency, exchangeRates);
     const variantLabel = variant ? variant.label : null;
     addToCart(p.name, priceDisplay, p.images[0], variantLabel);
     if (p.variants) {
@@ -293,9 +289,8 @@
     RAIVANA_PRODUCTS.forEach(p => {
       const el = document.getElementById(`grid-price-${p.id}`);
       if (!el) return;
-      const baseInr = p.variants ? p.variants[0].price_inr : p.price_inr;
       const fromLabel = p.variants ? 'From ' : '';
-      el.innerText = fromLabel + formatPrice(baseInr, currentCurrency, exchangeRates);
+      el.innerText = fromLabel + getProductPrice(p, 0, currentCurrency, exchangeRates);
     });
   }
 

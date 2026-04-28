@@ -354,6 +354,63 @@ const RAIVANA_PRODUCTS = [
     details: {},
     images: ["img/p28-1.jpeg", "img/p28-2.jpeg", "img/p28-3.jpeg"]
   }
+
+  {
+    id: 29,
+    name: "Blue Lotus Print Plate",
+    subtitle: "Handcrafted Jaipur Blue Pottery",
+    category: "ceramics",
+    description: "Bring home a piece of Rajasthan's timeless artistry with this 100% handmade blue pottery plate, carefully crafted by skilled artisans in the villages of Rajasthan. Each design reflects generations of traditional craftsmanship, using techniques passed down over centuries. The intricate floral and geometric patterns are inspired by classic Rajasthani motifs, giving your space a royal and artistic touch. Unlike mass-produced ceramics, every item is individually shaped, painted, and finished by hand — making no two pieces exactly alike.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: '8 inch', price_inr: 1600, price_inr_export: 4500 },
+      { label: '10 inch', price_inr: 2000, price_inr_export: 5500 },
+      { label: '12 inch', price_inr: 2400, price_inr_export: 6500 }
+    ],
+    details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze", color: "Blue, green & white" },
+    images: ["img/p29-1.jpeg", "img/p29-2.jpeg", "img/p29-3.jpeg"]
+  },
+  {
+    id: 30,
+    name: "Rajkumari Shringaar Vase",
+    subtitle: "Royal Lady Adornment · Jaipur Blue Pottery",
+    category: "ceramics",
+    description: "Bring home a piece of Rajasthan's royal heritage with this 100% handcrafted Jaipur Blue Pottery vase. The vase depicts a Rajkumari in her shringaar, adorning herself with jewellery, surrounded by delicate foliage. Rendered in the signature Jaipur cobalt blue on a crackled ivory base, the artwork captures the grace and quiet luxury of royal Indian courts. Every stroke is painted by master artisans using age-old techniques passed down through generations — no two pieces are ever alike.",
+    price_inr: 15000,
+    price_inr_export: 25000,
+    variants: null,
+    details: { weight: "450 gm", height: "8 in", material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
+    images: ["img/p30-1.jpeg", "img/p30-2.jpeg", "img/p30-3.jpeg"]
+  },
+  {
+    id: 31,
+    name: "Mayur Vriksha Vase",
+    subtitle: "Peacock & Blossoms · Jaipur Blue Pottery",
+    category: "ceramics",
+    description: "Celebrate India's national bird with this 100% handcrafted Jaipur Blue Pottery wall plate. Painted entirely by hand, this piece captures a regal peacock perched on a blossoming tree, set against a vivid turquoise sky Jaipur's artisans are famed for. Each feather, leaf, and bloom is drawn with fine brushes using natural mineral colours — a technique perfected over 400 years in Rajasthan. The contrast of the emerald-green tail, sunshine-yellow flowers, and deep cobalt outlines makes this a striking statement for any wall or shelf.",
+    price_inr: 3000,
+    price_inr_export: 9000,
+    variants: null,
+    details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
+    images: ["img/p31-1.jpeg", "img/p31-2.jpeg", "img/p31-3.jpeg"]
+  },
+  {
+    id: 32,
+    name: "Neel Kamal Plate",
+    subtitle: "Blue Lotus · Jaipur Blue Pottery",
+    category: "ceramics",
+    description: "Echoing the elegance of Mughal gardens, this 100% handcrafted Jaipur Blue Pottery wall plate features delicate white lotus blooms dancing across a rich cobalt sky. Each flower and leaf is painted freehand by master artisans using the 400-year-old Jaipur blue pottery technique — no stencils, no machines. The crisp white motifs against the deep blue glaze create a look that's both regal and serene, perfect for modern and traditional spaces alike.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: '8 inch', price_inr: 1600, price_inr_export: 4500 },
+      { label: '10 inch', price_inr: 2000, price_inr_export: 5500 },
+      { label: '12 inch', price_inr: 2400, price_inr_export: 6500 }
+    ],
+    details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze", color: "Cobalt blue & white" },
+    images: ["img/p32-1.jpeg", "img/p32-2.jpeg", "img/p32-3.jpeg"]
+  }
 ];
 
 // ── PRICING UTILS ─────────────────────────────────────────────────────────────
@@ -365,16 +422,25 @@ function getBasePrice(product, variantIndex = 0) {
   return product.price_inr;
 }
 
-function formatPrice(inr, currency, rates) {
-  const isIndia = currency === 'INR';
-  const amount = isIndia ? inr : inr * INTL_MARKUP;
+function getExportPrice(product, variantIndex = 0) {
+  if (product.variants) {
+    const v = product.variants[variantIndex];
+    return v.price_inr_export || Math.round(v.price_inr * INTL_MARKUP);
+  }
+  return product.price_inr_export || Math.round(product.price_inr * INTL_MARKUP);
+}
 
-  if (currency === 'INR') {
-    return '₹' + Math.round(amount).toLocaleString('en-IN');
+function formatPrice(inr, currency, rates, exportInr) {
+  const isIndia = currency === 'INR';
+
+  if (isIndia) {
+    return '₹' + Math.round(inr).toLocaleString('en-IN');
   }
 
+  // Use explicit export price if provided, otherwise apply markup
+  const exportAmount = exportInr || Math.round(inr * INTL_MARKUP);
   const rate = rates[currency] || 1;
-  const converted = (amount / (rates['INR'] || 83.5)) * rate;
+  const converted = (exportAmount / (rates['INR'] || 83.5)) * rate;
 
   const cfg = {
     USD: '$', GBP: '£', EUR: '€',
@@ -384,4 +450,11 @@ function formatPrice(inr, currency, rates) {
   const symbol = cfg[currency] || currency + ' ';
   if (['AED'].includes(currency)) return symbol + Math.round(converted);
   return symbol + converted.toFixed(2);
+}
+
+// Convenience: get correctly priced display string for a product
+function getProductPrice(product, variantIndex, currency, rates) {
+  const inr = getBasePrice(product, variantIndex);
+  const exportInr = getExportPrice(product, variantIndex);
+  return formatPrice(inr, currency, rates, exportInr);
 }
