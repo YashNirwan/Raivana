@@ -76,6 +76,9 @@ function renderCart() {
 
   if (subtotalEl) subtotalEl.innerText = '$' + total.toFixed(2);
   if (countEl) countEl.innerText = cart.length;
+
+  // Re-apply currency conversion if available
+  if (typeof applyPrices === 'function') applyPrices();
 }
 
 function whatsappCheckout() {
@@ -99,11 +102,4 @@ function whatsappFallback() {
 // Render cart on every page load
 document.addEventListener('DOMContentLoaded', renderCart);
 
-// ── CURRENCY-AWARE CART DISPLAY ───────────────────────────────────────────────
-// Override renderCart to show prices in current currency
-const _origRenderCart = renderCart;
-function renderCart() {
-  _origRenderCart();
-  // Re-convert any data-usd elements that got rendered in cart
-  if (typeof applyPrices === 'function') applyPrices();
-}
+
