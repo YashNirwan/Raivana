@@ -1,0 +1,151 @@
+// ── RAIVANA CURRENCY DETECTION ───────────────────────────────────────────────
+// Detects user location via IP, converts prices automatically
+
+const CURRENCY_CONFIG = {
+  USD: { symbol: '$',  code: 'USD', name: 'US Dollar',       flag: '🇺🇸' },
+  GBP: { symbol: '£',  code: 'GBP', name: 'British Pound',   flag: '🇬🇧' },
+  EUR: { symbol: '€',  code: 'EUR', name: 'Euro',             flag: '🇪🇺' },
+  INR: { symbol: '₹',  code: 'INR', name: 'Indian Rupee',    flag: '🇮🇳' },
+  AED: { symbol: 'AED ', code: 'AED', name: 'UAE Dirham',    flag: '🇦🇪' },
+  AUD: { symbol: 'A$', code: 'AUD', name: 'Australian Dollar', flag: '🇦🇺' },
+  CAD: { symbol: 'CA$', code: 'CAD', name: 'Canadian Dollar', flag: '🇨🇦' },
+  SGD: { symbol: 'S$', code: 'SGD', name: 'Singapore Dollar', flag: '🇸🇬' },
+};
+
+// Country → currency mapping
+const COUNTRY_CURRENCY = {
+  US: 'USD', GB: 'GBP', IE: 'EUR', DE: 'EUR', FR: 'EUR', IT: 'EUR',
+  ES: 'EUR', NL: 'EUR', BE: 'EUR', AT: 'EUR', PT: 'EUR', FI: 'EUR',
+  IN: 'INR', AE: 'AED', SA: 'AED', QA: 'AED', KW: 'AED', BH: 'AED',
+  AU: 'AUD', NZ: 'AUD', CA: 'CAD', SG: 'SGD', MY: 'USD', HK: 'USD',
+};
+
+let currentCurrency = 'USD';
+let exchangeRates = { USD: 1 };
+
+// Base prices are in USD
+async function initCurrency() {
+  // 1. Check localStorage for saved preference
+  const saved = localStorage.getItem('raivana_currency');
+  if (saved && CURRENCY_CONFIG[saved]) {
+    currentCurrency = saved;
+    await fetchRates();
+    applyPrices();
+    renderCurrencySelector();
+    return;
+  }
+
+  // 2. Detect from IP
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    const country = data.country_code;
+    currentCurrency = COUNTRY_CURRENCY[country] || 'USD';
+  } catch (e) {
+    currentCurrency = 'USD';
+  }
+
+  await fetchRates();
+  applyPrices();
+  renderCurrencySelector();
+}
+
+async function fetchRates() {
+  try {
+    const cached = localStorage.getItem('raivana_rates');
+    const cacheTime = localStorage.getItem('raivana_rates_time');
+    const oneHour = 60 * 60 * 1000;
+
+    // Use cached rates if less than 1 hour old
+    if (cached && cacheTime && (Date.now() - parseInt(cacheTime)) < oneHour) {
+      exchangeRates = JSON.parse(cached);
+      return;
+    }
+
+    const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+    const data = await res.json();
+    exchangeRates = data.rates;
+    localStorage.setItem('raivana_rates', JSON.stringify(data.rates));
+    localStorage.setItem('raivana_rates_time', Date.now().toString());
+  } catch (e) {
+    // Fallback static rates if API fails
+    exchangeRates = {
+      USD: 1, GBP: 0.79, EUR: 0.92, INR: 83.5,
+      AED: 3.67, AUD: 1.53, CAD: 1.36, SGD: 1.34
+    };
+  }
+}
+
+function convertPrice(usdAmount) {
+  const rate = exchangeRates[currentCurrency] || 1;
+  const converted = usdAmount * rate;
+  const cfg = CURRENCY_CONFIG[currentCurrency];
+
+  // Format based on currency
+  if (currentCurrency === 'INR') {
+    return cfg.symbol + Math.round(converted).toLocaleString('en-IN');
+  }
+  if (['AED'].includes(currentCurrency)) {
+    return cfg.symbol + converted.toFixed(0);
+  }
+  return cfg.symbol + converted.toFixed(2);
+}
+
+function applyPrices() {
+  // Find all elements with data-usd attribute and convert
+  document.querySelectorAll('[data-usd]').forEach(el => {
+    const usd = parseFloat(el.dataset.usd);
+    if (!isNaN(usd)) el.innerText = convertPrice(usd);
+  });
+
+  // Also update any visible price displays
+  document.querySelectorAll('[data-usd-from]').forEach(el => {
+    const usd = parseFloat(el.dataset.usdFrom);
+    if (!isNaN(usd)) el.innerText = 'From ' + convertPrice(usd);
+  });
+}
+
+function setCurrency(code) {
+  if (!CURRENCY_CONFIG[code]) return;
+  currentCurrency = code;
+  localStorage.setItem('raivana_currency', code);
+  applyPrices();
+  renderCurrencySelector();
+  // Update cart display too
+  if (typeof renderCart === 'function') renderCart();
+}
+
+function renderCurrencySelector() {
+  const el = document.getElementById('currency-selector');
+  if (!el) return;
+  const cfg = CURRENCY_CONFIG[currentCurrency];
+  el.innerHTML = `
+    <div class="currency-current" onclick="toggleCurrencyDropdown()">
+      <span>${cfg.flag}</span>
+      <span>${cfg.code}</span>
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="currency-dropdown" id="currencyDropdown">
+      ${Object.entries(CURRENCY_CONFIG).map(([code, c]) => `
+        <div class="currency-option ${code === currentCurrency ? 'active' : ''}" onclick="setCurrency('${code}')">
+          <span>${c.flag}</span>
+          <span>${c.code}</span>
+          <span class="currency-name">${c.name}</span>
+        </div>
+      `).join('')}
+    </div>`;
+}
+
+function toggleCurrencyDropdown() {
+  document.getElementById('currencyDropdown')?.classList.toggle('open');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#currency-selector')) {
+    document.getElementById('currencyDropdown')?.classList.remove('open');
+  }
+});
+
+// Run on load
+document.addEventListener('DOMContentLoaded', initCurrency);

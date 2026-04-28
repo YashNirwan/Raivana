@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raivana — Soul of Rajasthan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --sand: #F2EAD8; --terracotta: #C1622F; --saffron: #E8A030;
+    --deep: #1C1008; --gold: #C9A84C; --blush: #E8D5C0;
+    --forest: #2D4A35; --cream: #FAF6EE;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--sand); color: var(--deep); font-family: 'Jost', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 4rem;
+    background: rgba(242,234,216,0.94); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(201,168,76,0.22);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 300; letter-spacing: 0.18em; color: var(--deep); text-transform: uppercase; }
+  .nav-logo span { color: var(--terracotta); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.67rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--deep); text-decoration: none; opacity: 0.62; transition: opacity 0.2s; white-space: nowrap; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-links .nav-cta a { background: var(--terracotta); color: var(--sand); padding: 0.55rem 1.3rem; opacity: 1; }
+  .nav-links .nav-cta a:hover { background: var(--deep); }
+
+  /* DECO BORDER */
+  .deco-border { height: 5px; background: repeating-linear-gradient(90deg, var(--terracotta) 0px, var(--terracotta) 20px, var(--saffron) 20px, var(--saffron) 40px, var(--gold) 40px, var(--gold) 60px, var(--deep) 60px, var(--deep) 80px); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 5rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 72% 50%, rgba(232,160,48,0.07) 0%, transparent 65%); pointer-events: none; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 6rem 4rem 6rem 6rem; }
+  .hero-eyebrow { font-size: 0.63rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.8rem; display: flex; align-items: center; gap: 1rem; }
+  .hero-eyebrow::before { content: ''; width: 2.5rem; height: 1px; background: var(--terracotta); }
+  .hero-h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 5.5vw, 5.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 2rem; }
+  .hero-h1 em { font-style: italic; color: var(--terracotta); }
+  .hero-sub { font-size: 1rem; line-height: 1.85; color: rgba(28,16,8,0.65); max-width: 400px; margin-bottom: 3rem; }
+  .hero-cta { display: flex; gap: 1.2rem; align-items: center; }
+  .btn-primary { display: inline-block; padding: 1rem 2.4rem; background: var(--terracotta); color: var(--sand); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; transition: background 0.25s, transform 0.2s; border: none; cursor: pointer; font-family: 'Jost', sans-serif; }
+  .btn-primary:hover { background: var(--deep); transform: translateY(-1px); }
+  .btn-ghost { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--deep); text-decoration: none; opacity: 0.6; display: flex; align-items: center; gap: 0.5rem; transition: opacity 0.2s; }
+  .btn-ghost:hover { opacity: 1; }
+  .btn-ghost::after { content: '→'; }
+  .hero-right { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-bg-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.10) 0%, transparent 60%), repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(201,168,76,0.03) 30px, rgba(201,168,76,0.03) 31px); }
+  .hero-card { position: relative; width: 72%; aspect-ratio: 3/4; overflow: hidden; box-shadow: 2px 8px 60px rgba(28,16,8,0.18); margin: 4rem auto; }
+  .hero-card-inner { width: 100%; height: 100%; background: url('hero.jpeg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 7rem; color: transparent; position: relative; }
+  .hero-card-inner::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 40% 60%, rgba(232,160,48,0.28) 0%, transparent 50%), radial-gradient(ellipse at 70% 30%, rgba(193,98,47,0.18) 0%, transparent 40%); }
+  .hero-product-text { position: absolute; bottom: 2rem; left: 2rem; right: 2rem; color: rgba(255,255,255,0.85); font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; letter-spacing: 0.04em; }
+  .hero-accent-box { position: absolute; bottom: -1.5rem; right: -1.5rem; width: 35%; background: var(--saffron); padding: 1.5rem; box-shadow: 4px 4px 30px rgba(28,16,8,0.14); }
+  .accent-number { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 600; color: var(--deep); line-height: 1; }
+  .accent-label { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(28,16,8,0.65); margin-top: 0.3rem; }
+
+  /* MARQUEE */
+  .marquee-wrap { background: var(--deep); padding: 0.9rem 0; overflow: hidden; white-space: nowrap; }
+  .marquee-inner { display: inline-block; animation: marquee 22s linear infinite; }
+  .marquee-inner span { font-size: 0.63rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin: 0 3rem; }
+  .marquee-inner span.dot { color: var(--terracotta); margin: 0 1.5rem; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SHARED */
+  .section-label { font-size: 0.6rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.4rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::before { content: ''; width: 2rem; height: 1px; background: var(--terracotta); }
+  .divider { display: flex; align-items: center; gap: 2rem; padding: 0 6rem; margin: 1.5rem 0; opacity: 0.2; }
+  .divider-line { flex: 1; height: 1px; background: var(--deep); }
+  .divider-motif { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gold); }
+
+  /* BRAND PHILOSOPHY */
+  .brand-philosophy { background: var(--cream); padding: 9rem 6rem; text-align: center; position: relative; overflow: hidden; }
+  .brand-philosophy::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%); pointer-events: none; }
+  .brand-philosophy .ornament { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); opacity: 0.45; letter-spacing: 0.3em; margin-bottom: 2rem; display: block; }
+  .brand-philosophy-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 2.5rem; color: var(--deep); }
+  .brand-philosophy-h2 em { font-style: italic; color: var(--terracotta); }
+  .brand-philosophy-body { font-size: 1.05rem; line-height: 2; color: rgba(28,16,8,0.62); max-width: 640px; margin: 0 auto 1.4rem; }
+  .brand-philosophy-body.last { margin-bottom: 3rem; }
+  .brand-philosophy-rule { width: 60px; height: 1px; background: var(--gold); margin: 2.5rem auto; opacity: 0.55; }
+
+  /* BRAND STORY */
+  .brand-story { padding: 8rem 6rem; display: grid; grid-template-columns: 1fr 1.4fr; gap: 8rem; align-items: center; }
+  .brand-story-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; margin-bottom: 2rem; }
+  .brand-story-body { font-size: 0.95rem; line-height: 1.9; color: rgba(28,16,8,0.65); margin-bottom: 1.4rem; }
+  .philosophy-right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.2rem; height: 420px; }
+  .phil-block { background: var(--blush); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; position: relative; overflow: hidden; }
+  .phil-block:nth-child(1) { grid-column: 1; grid-row: 1 / 3; background: linear-gradient(180deg, #C1622F 0%, #7A3018 100%); }
+  .phil-block:nth-child(2) { background: var(--forest); }
+  .phil-block:nth-child(3) { background: var(--saffron); }
+  .phil-block-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: rgba(255,255,255,0.14); position: absolute; top: 0.5rem; right: 1rem; }
+  .phil-block-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: rgba(255,255,255,0.95); margin-bottom: 0.3rem; }
+  .phil-block-sub { font-size: 0.63rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.52); }
+
+  /* USP */
+  .usp-section { background: var(--deep); padding: 8rem 6rem; position: relative; overflow: hidden; }
+  .usp-section::before { content: ''; position: absolute; bottom: -120px; right: -120px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(232,160,48,0.06) 0%, transparent 70%); }
+  .usp-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .usp-left .section-label { color: var(--saffron); }
+  .usp-left .section-label::before { background: var(--saffron); }
+  .usp-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; color: var(--sand); line-height: 1.15; margin-bottom: 1.8rem; }
+  .usp-body { font-size: 0.95rem; line-height: 1.95; color: rgba(242,234,216,0.52); margin-bottom: 1.4rem; }
+  .usp-signature { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-style: italic; color: var(--gold); opacity: 0.75; letter-spacing: 0.03em; margin-top: 1rem; }
+  .usp-pillars { display: flex; flex-direction: column; }
+  .usp-pillar { border-top: 1px solid rgba(255,255,255,0.08); padding: 1.8rem 0; display: grid; grid-template-columns: auto 1fr; gap: 1.8rem; align-items: start; }
+  .usp-pillar:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .usp-pillar-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: rgba(201,168,76,0.22); line-height: 1; min-width: 2.2rem; }
+  .usp-pillar-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--sand); margin-bottom: 0.45rem; }
+  .usp-pillar-desc { font-size: 0.78rem; line-height: 1.8; color: rgba(242,234,216,0.42); }
+
+  /* PROCESS */
+  .process-section { background: var(--cream); padding: 9rem 6rem; position: relative; overflow: hidden; }
+  .process-section::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--terracotta), var(--saffron), var(--gold)); }
+  .process-header { text-align: center; margin-bottom: 5rem; }
+  .process-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.2rem; }
+  .process-h2 em { font-style: italic; color: var(--terracotta); }
+  .process-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; color: rgba(28,16,8,0.5); letter-spacing: 0.04em; }
+  .process-tabs { display: flex; justify-content: center; width: fit-content; margin: 0 auto 5rem; border: 1px solid rgba(28,16,8,0.12); }
+  .process-tab { padding: 0.75rem 2rem; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; border: none; background: transparent; color: rgba(28,16,8,0.42); font-family: 'Jost', sans-serif; transition: all 0.25s; border-right: 1px solid rgba(28,16,8,0.12); }
+  .process-tab:last-child { border-right: none; }
+  .process-tab.active { background: var(--terracotta); color: var(--sand); }
+  .process-tab:hover:not(.active) { background: var(--blush); color: var(--deep); }
+  .process-panel { display: none; }
+  .process-panel.active { display: block; }
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  .process-steps::before { content: ''; position: absolute; top: 40px; left: 12.5%; right: 12.5%; height: 1px; background: linear-gradient(90deg, var(--terracotta), var(--saffron), var(--gold), var(--forest)); z-index: 0; }
+  .process-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 1.8rem; position: relative; z-index: 1; }
+  .process-step-icon { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; position: relative; font-size: 1.8rem; box-shadow: 0 0 0 8px var(--cream); border: 1px solid rgba(28,16,8,0.12); background: var(--cream); }
+  .step-1 .process-step-icon { background: #E8C5A0; border-color: #C1622F; }
+  .step-2 .process-step-icon { background: #D4956A; border-color: #8B4513; }
+  .step-3 .process-step-icon { background: #C9A84C; border-color: #8B6914; }
+  .step-4 .process-step-icon { background: #2D4A35; border-color: #1A2B1F; }
+  .process-step-num { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%; background: var(--terracotta); color: var(--sand); font-size: 0.54rem; display: flex; align-items: center; justify-content: center; font-family: 'Jost', sans-serif; }
+  .process-step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: var(--deep); margin-bottom: 0.7rem; }
+  .process-step-desc { font-size: 0.78rem; line-height: 1.8; color: rgba(28,16,8,0.52); }
+
+  /* PRODUCTS */
+  .products { padding: 7rem 6rem 8rem; }
+  .products-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; }
+  .products-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300; line-height: 1.1; }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .product-card { background: var(--blush); overflow: hidden; cursor: pointer; transition: transform 0.35s; }
+  .product-card:hover { transform: translateY(-6px); }
+  .product-img { width: 100%; height: 260px; display: flex; align-items: center; justify-content: center; }
+  .product-info { padding: 1.4rem 1.5rem 1.6rem; }
+  .product-category { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.5rem; }
+  .product-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; margin-bottom: 0.4rem; }
+  .product-origin { font-size: 0.7rem; color: rgba(28,16,8,0.5); }
+  .product-price { font-size: 0.8rem; letter-spacing: 0.1em; margin-top: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+  .price-from { font-size: 0.58rem; letter-spacing: 0.15em; opacity: 0.5; text-transform: uppercase; }
+
+  /* ARTISAN */
+  .artisan { background: var(--deep); padding: 8rem 6rem; display: grid; grid-template-columns: 1.2fr 1fr; gap: 8rem; align-items: center; position: relative; overflow: hidden; }
+  .artisan::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(232,160,48,0.07) 0%, transparent 70%); }
+  .artisan-visual { position: relative; }
+  .artisan-img-main { width: 100%; height: 440px; background: linear-gradient(160deg, #8B4513 0%, #4A1F0A 100%); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .artisan-img-main::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 40% 70%, rgba(232,160,48,0.22) 0%, transparent 55%); }
+  .artisan-img-overlay { position: absolute; bottom: -2rem; right: -2rem; width: 45%; background: var(--terracotta); padding: 2rem 1.8rem; }
+  .artisan-stat { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--sand); line-height: 1; }
+  .artisan-stat-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(242,234,216,0.58); margin-top: 0.4rem; line-height: 1.5; }
+  .artisan-text .section-label { color: var(--saffron); }
+  .artisan-text .section-label::before { background: var(--saffron); }
+  .artisan-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; color: var(--sand); line-height: 1.15; margin-bottom: 1.8rem; }
+  .artisan-body { font-size: 0.92rem; line-height: 1.9; color: rgba(242,234,216,0.52); margin-bottom: 1.4rem; }
+  .artisan-quote { border-left: 2px solid var(--saffron); padding-left: 1.5rem; margin: 2rem 0; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; color: rgba(242,234,216,0.78); line-height: 1.6; }
+
+  /* EXPORT */
+  .export-strip { background: var(--terracotta); padding: 4rem 6rem; display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center; }
+  .export-h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 300; color: var(--sand); line-height: 1.2; }
+  .export-h3 span { font-style: italic; }
+  .export-right { display: flex; flex-direction: column; align-items: flex-end; gap: 1rem; }
+  .export-flags { display: flex; gap: 1rem; }
+  .export-flag { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(242,234,216,0.68); border: 1px solid rgba(242,234,216,0.28); padding: 0.5rem 1rem; }
+  .btn-light { display: inline-block; padding: 1rem 2.4rem; background: var(--sand); color: var(--terracotta); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; transition: background 0.25s; }
+  .btn-light:hover { background: var(--deep); color: var(--sand); }
+
+  /* SOCIAL */
+  .social { padding: 7rem 6rem; }
+  .social-header { text-align: center; margin-bottom: 4rem; }
+  .social-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; margin-top: 1rem; }
+  .social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .social-item { aspect-ratio: 1; overflow: hidden; position: relative; cursor: pointer; }
+  .social-item::after { content: 'View'; position: absolute; inset: 0; background: rgba(28,16,8,0.6); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--sand); opacity: 0; transition: opacity 0.25s; }
+  .social-item:hover::after { opacity: 1; }
+  .social-item-bg { width: 100%; height: 100%; }
+  .si-1 { background: linear-gradient(135deg, #C1622F 0%, #7A3018 100%); }
+  .si-2 { background: linear-gradient(135deg, #2D4A35 0%, #1A2B1F 100%); }
+  .si-3 { background: linear-gradient(135deg, #E8A030 0%, #C1622F 100%); }
+  .si-4 { background: linear-gradient(135deg, #8B4513 0%, #3D1A08 100%); }
+
+  /* FOOTER */
+  footer { background: var(--deep); padding: 5rem 6rem 3rem; color: rgba(242,234,216,0.5); }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 2.5rem; }
+  .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; letter-spacing: 0.2em; color: var(--sand); text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-brand-name span { color: var(--terracotta); }
+  .footer-brand-desc { font-size: 0.82rem; line-height: 1.8; margin-bottom: 1.5rem; }
+  .footer-col-title { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sand); margin-bottom: 1.5rem; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.75rem; }
+  .footer-links a { font-size: 0.82rem; color: rgba(242,234,216,0.42); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--sand); }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.63rem; letter-spacing: 0.1em; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-eyebrow { animation: fadeUp 0.8s ease both; }
+  .hero-h1 { animation: fadeUp 0.9s 0.15s ease both; }
+  .hero-sub { animation: fadeUp 0.9s 0.28s ease both; }
+  .hero-cta { animation: fadeUp 0.9s 0.4s ease both; }
+  .hero-right { animation: fadeUp 1s 0.2s ease both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1100px) { .nav-links { gap: 1.4rem; } }
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 4rem 2rem 3rem; }
+    .hero-right { height: 380px; }
+    .brand-philosophy, .process-section { padding: 5rem 2rem; }
+    .brand-story, .artisan { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
+    .usp-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .usp-section { padding: 5rem 2rem; }
+    .products { padding: 4rem 2rem; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .process-steps::before { display: none; }
+    .process-tabs { flex-wrap: wrap; }
+    .export-strip { grid-template-columns: 1fr; padding: 3rem 2rem; }
+    .social { padding: 4rem 2rem; }
+    .social-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; padding: 3rem 2rem; gap: 2rem; }
+    footer { padding: 3rem 2rem; }
+    .divider { padding: 0 2rem; }
+  }
+
+  /* CART DRAWER */
+  .cart-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(28,16,8,0.4); backdrop-filter: blur(4px); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+  .cart-overlay.open { opacity: 1; pointer-events: auto; }
+  .cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 450px; height: 100vh; background: var(--sand); z-index: 1000; box-shadow: -10px 0 40px rgba(0,0,0,0.1); transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1); display: flex; flex-direction: column; }
+  .cart-drawer.open { right: 0; }
+  .cart-header { padding: 2rem; border-bottom: 1px solid rgba(28,16,8,0.1); display: flex; justify-content: space-between; align-items: center; }
+  .cart-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; }
+  .close-cart { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--deep); }
+  .cart-body { padding: 2rem; flex: 1; overflow-y: auto; }
+  .cart-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(28,16,8,0.05); }
+  .cart-item-img { width: 80px; height: 100px; object-fit: cover; }
+  .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .cart-item-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; }
+  .cart-item-price { font-size: 0.9rem; color: var(--gold); }
+  .cart-item-remove { font-size: 0.7rem; text-transform: uppercase; color: rgba(28,16,8,0.5); background: none; border: none; cursor: pointer; text-align: left; margin-top: auto; padding-top: 0.5rem; }
+  .cart-empty-msg { text-align: center; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: rgba(28,16,8,0.5); margin-top: 2rem; }
+  .cart-footer { padding: 2rem; border-top: 1px solid rgba(28,16,8,0.1); background: rgba(250,246,238,0.5); }
+  .cart-subtotal { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 1.1rem; }
+  .checkout-btn { width: 100%; padding: 1.2rem; background: var(--terracotta); border: none; color: var(--sand); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: background 0.2s; }
+  .checkout-btn:hover { background: var(--deep); }
+
+  /* ── MOBILE NAV ── */
+  .nav-hamburger {
+    display: none; flex-direction: column; gap: 5px; background: none;
+    border: none; cursor: pointer; padding: 4px; z-index: 200;
+  }
+  .nav-hamburger span {
+    display: block; width: 24px; height: 1.5px; background: var(--deep);
+    transition: all 0.3s ease;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  .mobile-menu {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--sand); z-index: 150; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2.5rem;
+    padding: 2rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 1.8rem; font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; color: var(--deep); text-decoration: none;
+    letter-spacing: 0.05em; transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--terracotta); }
+  .mobile-menu .mobile-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: none; border: none; font-size: 1.8rem;
+    cursor: pointer; color: var(--deep);
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none !important; }
+    .nav-hamburger { display: flex; }
+
+    /* HERO */
+    .hero { grid-template-columns: 1fr !important; min-height: auto !important; padding-top: 4.5rem !important; }
+    .hero-left { padding: 3rem 1.5rem 2rem !important; }
+    .hero-h1 { font-size: 2.6rem !important; }
+    .hero-sub { font-size: 0.9rem !important; }
+    .hero-right { height: 300px !important; }
+    .hero-card { width: 85% !important; }
+    .hero-accent-box { width: 45% !important; bottom: -1rem !important; right: -0.8rem !important; }
+
+    /* BRAND PHILOSOPHY */
+    .brand-philosophy { padding: 5rem 1.5rem !important; }
+    .brand-philosophy-h2 { font-size: 2.2rem !important; }
+    .brand-philosophy-body { font-size: 0.95rem !important; }
+
+    /* BRAND STORY */
+    .brand-story { grid-template-columns: 1fr !important; padding: 4rem 1.5rem !important; gap: 3rem !important; }
+    .brand-story-h2 { font-size: 2rem !important; }
+    .philosophy-right { height: auto !important; grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
+    .phil-block:nth-child(1) { grid-column: 1 !important; grid-row: auto !important; min-height: 140px; }
+
+    /* USP */
+    .usp-section { padding: 4rem 1.5rem !important; }
+    .usp-inner { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+    .usp-h2 { font-size: 2rem !important; }
+    .usp-pillar { grid-template-columns: auto 1fr !important; }
+
+    /* PROCESS */
+    .process-section { padding: 4rem 1.5rem !important; }
+    .process-tabs { width: 100% !important; flex-wrap: wrap !important; }
+    .process-tab { flex: 1 1 40% !important; font-size: 0.6rem !important; padding: 0.6rem 0.8rem !important; }
+    .process-steps { grid-template-columns: 1fr 1fr !important; gap: 2rem !important; }
+    .process-steps::before { display: none !important; }
+    .process-step { padding: 0 0.5rem !important; }
+    .process-step-desc { font-size: 0.72rem !important; }
+
+    /* COLLECTIONS */
+    .products { padding: 3rem 1.5rem 4rem !important; }
+    .products-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
+    .products-header { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; }
+
+    /* ARTISAN */
+    .artisan { grid-template-columns: 1fr !important; padding: 4rem 1.5rem !important; gap: 3rem !important; }
+    .artisan-img-main { height: 280px !important; }
+    .artisan-img-overlay { width: 55% !important; bottom: -1rem !important; right: -0.8rem !important; }
+
+    /* EXPORT */
+    .export-strip { grid-template-columns: 1fr !important; padding: 3rem 1.5rem !important; gap: 2rem !important; }
+    .export-flags { flex-wrap: wrap !important; gap: 0.5rem !important; }
+    .export-flag { font-size: 0.55rem !important; padding: 0.4rem 0.7rem !important; }
+
+    /* SOCIAL */
+    .social { padding: 4rem 1.5rem !important; }
+    .social-grid { grid-template-columns: 1fr 1fr !important; }
+
+    /* EMAIL BAND */
+    .footer-email-band { grid-template-columns: 1fr !important; padding: 3rem 1.5rem !important; gap: 2rem !important; }
+    [style*="grid-template-columns:1fr 1fr"][style*="blush"] { grid-template-columns: 1fr !important; padding: 3rem 1.5rem !important; }
+
+    /* FOOTER */
+    footer { padding: 3rem 1.5rem 2rem !important; }
+    .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 2rem !important; }
+
+    /* STORY PAGE */
+    .story-hero-content { padding: 0 1.5rem 3.5rem !important; }
+    .story-hero-h1 { font-size: 2.2rem !important; }
+    .chapter { padding: 4rem 1.5rem !important; }
+    .chapter-1-inner { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+    .chapter-3-inner { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+    .chapter-3-images { grid-template-columns: 1fr 1fr !important; }
+    .chapter-3-images img:first-child { grid-column: 1/3 !important; }
+    .chapter-process { padding: 4rem 1.5rem !important; }
+    .process-img-grid { grid-template-columns: 1fr 1fr !important; height: auto !important; }
+    .process-img-grid img:first-child { grid-column: 1/3 !important; aspect-ratio: 16/9 !important; grid-row: auto !important; }
+    .chapter-handmade { padding: 4rem 1.5rem !important; }
+    .chapter-handmade-inner { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+    .chapter-handmade-imgs { grid-template-columns: 1fr 1fr !important; }
+    .chapter-personal { padding: 5rem 1.5rem !important; }
+    .chapter-personal h2 { font-size: 1.8rem !important; }
+    .chapter-ahead { padding: 4rem 1.5rem !important; }
+    .chapter-ahead-inner { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+    .closing-band { padding: 4rem 1.5rem !important; }
+    .story-footer { padding: 2rem 1.5rem !important; flex-direction: column !important; gap: 0.8rem !important; text-align: center !important; }
+
+    /* PRODUCTS PAGE */
+    .shop-header { padding: 7rem 1.5rem 2rem !important; }
+    .filter-bar { width: calc(100% - 3rem) !important; margin: 2rem auto !important; }
+    .product-grid { grid-template-columns: 1fr 1fr !important; gap: 1.5rem !important; padding: 1rem 1.5rem 4rem !important; }
+    .product-title { font-size: 1.1rem !important; }
+
+    /* PRODUCT DETAIL */
+    .product-container { grid-template-columns: 1fr !important; padding: 6rem 1.5rem 3rem !important; gap: 2.5rem !important; }
+    .gallery { position: static !important; }
+    .thumbnail-row { grid-template-columns: repeat(4, 1fr) !important; }
+    .trust-strip { grid-template-columns: 1fr 1fr 1fr !important; }
+    .trust-label { font-size: 0.5rem !important; }
+    .size-selector { gap: 0.5rem !important; }
+    .size-btn { width: 38px !important; height: 38px !important; }
+
+    /* CART DRAWER */
+    .cart-drawer { max-width: 100% !important; }
+
+    /* DIVIDERS */
+    .divider { padding: 0 1.5rem !important; }
+
+    /* IMAGE BREAKS */
+    .image-break { height: 50vh !important; }
+  }
+
+  @media (max-width: 380px) {
+    .hero-h1 { font-size: 2.1rem !important; }
+    .products-grid { grid-template-columns: 1fr !important; }
+    .product-grid { grid-template-columns: 1fr !important; }
+    .chapter-3-images { grid-template-columns: 1fr !important; }
+    .chapter-3-images img:first-child { grid-column: 1 !important; }
+    .chapter-handmade-imgs { grid-template-columns: 1fr !important; }
+    .thumbnail-row { grid-template-columns: repeat(4, 1fr) !important; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="deco-border"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Rai<span>vana</span></div>
+  <ul class="nav-links">
+    <li><a href="products.html">Shop All</a></li>
+    <li><a href="#process">The Craft</a></li>
+    <li><a href="story.html">Our Story</a></li>
+    <li><a href="#custom">Custom Orders</a></li>
+    <li><a href="#trade">Trade / Bulk</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li style="list-style:none;">
+      <button onclick="openCart()" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:0.5rem;font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--deep);opacity:0.8;padding:0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Bag <span id="cart-count" style="background:var(--terracotta);color:var(--sand);border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:0.55rem;">0</span>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Handcrafted in Rajasthan, India</div>
+    <h1 class="hero-h1">Objects with<br><em>centuries</em><br>of memory</h1>
+    <p class="hero-sub">Each piece is made by a master artisan in the villages of Rajasthan — hand-painted, hand-forged, hand-finished. Raivana brings these heirlooms to homes across the world.</p>
+    <div class="hero-cta">
+      <a href="products.html" class="btn-primary">Explore Collection</a>
+      <a href="story.html" class="btn-ghost">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-pattern"></div>
+    <div style="position:relative; width:72%; margin: 4rem auto;">
+      <div class="hero-card">
+        <div class="hero-card-inner"><div class="hero-product-text">Ceramic Vase, 19th Century Design</div></div>
+      </div>
+      <div class="hero-accent-box">
+        <div class="accent-number">500+</div>
+        <div class="accent-label">Artisan families<br>supported</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>Blue Pottery</span><span class="dot">✦</span><span>Brass Metalwork</span><span class="dot">✦</span><span>Pichwai Paintings</span><span class="dot">✦</span><span>Meenakari Craft</span><span class="dot">✦</span><span>Hand-painted Ceramics</span><span class="dot">✦</span><span>Block Print Textiles</span><span class="dot">✦</span><span>Terracotta Art</span><span class="dot">✦</span><span>Kundan Jewellery</span><span class="dot">✦</span><span>Blue Pottery</span><span class="dot">✦</span><span>Brass Metalwork</span><span class="dot">✦</span><span>Pichwai Paintings</span><span class="dot">✦</span><span>Meenakari Craft</span><span class="dot">✦</span><span>Hand-painted Ceramics</span><span class="dot">✦</span><span>Block Print Textiles</span><span class="dot">✦</span><span>Terracotta Art</span><span class="dot">✦</span><span>Kundan Jewellery</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- 2. BRAND PHILOSOPHY -->
+<section class="brand-philosophy" id="story">
+  <span class="ornament">✦ &nbsp; ✦ &nbsp; ✦</span>
+  <div class="section-label" style="justify-content:center;">Brand Philosophy</div>
+  <h2 class="brand-philosophy-h2">More than <em>décor</em></h2>
+  <div class="brand-philosophy-rule"></div>
+  <p class="brand-philosophy-body">Raivana is rooted in the belief that true beauty takes time.</p>
+  <p class="brand-philosophy-body">Every piece is handcrafted by skilled artisans in Rajasthan, carrying generations of tradition, patience, and artistry.</p>
+  <p class="brand-philosophy-body last">We don't just sell products — we preserve stories.</p>
+  <a href="products.html" class="btn-primary">Explore Collection</a>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-motif">✦</div><div class="divider-line"></div></div>
+
+<!-- 3. BRAND STORY / ORIGIN -->
+<section class="brand-story">
+  <div>
+    <div class="section-label">Our Origin</div>
+    <h2 class="brand-story-h2">Not décor.<br>Devotion<br>made tangible.</h2>
+    <p class="brand-story-body">Raivana exists because the world's most beautiful handmade objects are being lost — slowly replaced by machine-made substitutes — while the families who make them struggle for market access.</p>
+    <p class="brand-story-body">We source directly from artisan clusters across Rajasthan — Jaipur, Jodhpur, Nathdwara, Pokaran — working with masters whose techniques are passed down through generations. Every object carries not just beauty, but lineage.</p>
+    <a href="#collections" class="btn-primary" style="display:inline-block; margin-top:1.2rem;">Shop the Collection</a>
+  </div>
+  <div class="philosophy-right">
+    <div class="phil-block">
+      <div class="phil-block-num">01</div>
+      <div class="phil-block-title">Direct from Artisan</div>
+      <div class="phil-block-sub">No middlemen. Full traceability.</div>
+    </div>
+    <div class="phil-block">
+      <div class="phil-block-num">02</div>
+      <div class="phil-block-title">Fairly Priced at Source</div>
+      <div class="phil-block-sub">Artisans earn 3× market rate</div>
+    </div>
+    <div class="phil-block">
+      <div class="phil-block-num">03</div>
+      <div class="phil-block-title">Each Piece is Unique</div>
+      <div class="phil-block-sub">Hand-variation is the point</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. USP / SIGNATURE -->
+<section class="usp-section">
+  <div class="usp-inner">
+    <div class="usp-left">
+      <div class="section-label">Our Signature</div>
+      <h2 class="usp-h2">Rooted in Jaipur.<br>Uncompromised<br>in every detail.</h2>
+      <p class="usp-body">We work closely with local craftsmen in and around Jaipur, ensuring fair practices, authentic techniques, and uncompromised quality in every piece.</p>
+      <p class="usp-body">Every order is personally reviewed before it leaves the workshop. Because the distance between a Jaipur alley and a New York shelf is bridged only by trust — and we take that seriously.</p>
+      <div class="usp-signature">— The Raivana Promise</div>
+    </div>
+    <div class="usp-pillars">
+      <div class="usp-pillar">
+        <div class="usp-pillar-num">I</div>
+        <div>
+          <div class="usp-pillar-title">Fair Craft Practices</div>
+          <div class="usp-pillar-desc">Artisans receive above-market rates with full transparency. No exploitation. No shortcuts.</div>
+        </div>
+      </div>
+      <div class="usp-pillar">
+        <div class="usp-pillar-num">II</div>
+        <div>
+          <div class="usp-pillar-title">Authentic Techniques Only</div>
+          <div class="usp-pillar-desc">We never substitute hand-work with machine replication. If it isn't made by hand, it isn't Raivana.</div>
+        </div>
+      </div>
+      <div class="usp-pillar">
+        <div class="usp-pillar-num">III</div>
+        <div>
+          <div class="usp-pillar-title">Uncompromised Quality</div>
+          <div class="usp-pillar-desc">Every piece is inspected at source before export. Defects go back to the artisan — not to you.</div>
+        </div>
+      </div>
+      <div class="usp-pillar">
+        <div class="usp-pillar-num">IV</div>
+        <div>
+          <div class="usp-pillar-title">Stories, Not Just Objects</div>
+          <div class="usp-pillar-desc">Each piece ships with the maker's name, village, and craft tradition. You know exactly who made it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. FROM EARTH TO ART -->
+<section class="process-section" id="process">
+  <div class="process-header">
+    <div class="section-label" style="justify-content:center;">The Making</div>
+    <h2 class="process-h2"><em>From Earth</em> to Art</h2>
+    <p class="process-sub">A slow, intricate journey — shaped by hand and heritage.</p>
+  </div>
+  <div class="process-tabs">
+    <button class="process-tab active" onclick="switchTab('ceramics',this)">Ceramics &amp; Pottery</button>
+    <button class="process-tab" onclick="switchTab('metalwork',this)">Brass Metalwork</button>
+    <button class="process-tab" onclick="switchTab('paintings',this)">Paintings</button>
+    <button class="process-tab" onclick="switchTab('textiles',this)">Textiles</button>
+  </div>
+
+  <div class="process-panel active" id="panel-ceramics">
+    <div class="process-steps">
+      <div class="process-step step-1">
+        <div class="process-step-icon">🪨<div class="process-step-num">01</div></div>
+        <div class="process-step-title">The Clay</div>
+        <div class="process-step-desc">Raw earth sourced from Jaipur's surroundings is cleaned and kneaded by hand until perfect consistency. No machines. Pure mineral memory.</div>
+      </div>
+      <div class="process-step step-2">
+        <div class="process-step-icon">🏺<div class="process-step-num">02</div></div>
+        <div class="process-step-title">Shaping</div>
+        <div class="process-step-desc">On a hand-turned wheel, the artisan coaxes the clay into form — plates, cups, vases — each one sculpted with muscle memory built over decades.</div>
+      </div>
+      <div class="process-step step-3">
+        <div class="process-step-icon">🖌️<div class="process-step-num">03</div></div>
+        <div class="process-step-title">Painting</div>
+        <div class="process-step-desc">Using a fine brush and mineral pigments, floral motifs and patterns are traced freehand, from memory. No stencils. No templates.</div>
+      </div>
+      <div class="process-step step-4">
+        <div class="process-step-icon">✨<div class="process-step-num">04</div></div>
+        <div class="process-step-title">Finished Piece</div>
+        <div class="process-step-desc">After glazing and kiln-firing, each piece emerges with its final colour and sheen. Inspected, signed, and ready to travel the world.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="process-panel" id="panel-metalwork">
+    <div class="process-steps">
+      <div class="process-step step-1">
+        <div class="process-step-icon">⚙️<div class="process-step-num">01</div></div>
+        <div class="process-step-title">Raw Brass</div>
+        <div class="process-step-desc">Sheets of brass sourced from Jaipur's old city foundries — the same alloys used for centuries in Rajasthani temple ware.</div>
+      </div>
+      <div class="process-step step-2">
+        <div class="process-step-icon">🔨<div class="process-step-num">02</div></div>
+        <div class="process-step-title">Hammering</div>
+        <div class="process-step-desc">The Thathera craftsman beats the metal over a mould in rhythmic patterns — a sound that has echoed through these lanes for generations.</div>
+      </div>
+      <div class="process-step step-3">
+        <div class="process-step-icon">🌺<div class="process-step-num">03</div></div>
+        <div class="process-step-title">Engraving</div>
+        <div class="process-step-desc">Fine chisels carve intricate motifs — deities, elephants, florals — into the surface by hand. No laser. No press. Only patience.</div>
+      </div>
+      <div class="process-step step-4">
+        <div class="process-step-icon">✨<div class="process-step-num">04</div></div>
+        <div class="process-step-title">Finished Piece</div>
+        <div class="process-step-desc">Polished to a warm glow, quality-checked, and individually wrapped. Heirloom-grade. Built to outlast generations.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="process-panel" id="panel-paintings">
+    <div class="process-steps">
+      <div class="process-step step-1">
+        <div class="process-step-icon">📜<div class="process-step-num">01</div></div>
+        <div class="process-step-title">The Canvas</div>
+        <div class="process-step-desc">Natural fabric or handmade paper primed with chalk and gum arabic — a preparation technique unchanged for 400 years.</div>
+      </div>
+      <div class="process-step step-2">
+        <div class="process-step-icon">✏️<div class="process-step-num">02</div></div>
+        <div class="process-step-title">Sketching</div>
+        <div class="process-step-desc">The master outlines intricate compositions in pencil — scenes of Krishna, peacocks, lotus — all drawn from sacred memory.</div>
+      </div>
+      <div class="process-step step-3">
+        <div class="process-step-icon">🎨<div class="process-step-num">03</div></div>
+        <div class="process-step-title">Painting in Layers</div>
+        <div class="process-step-desc">Natural pigments and gold leaf applied in up to 20 layers over weeks. Each dried before the next. Each stroke deliberate.</div>
+      </div>
+      <div class="process-step step-4">
+        <div class="process-step-icon">🖼️<div class="process-step-num">04</div></div>
+        <div class="process-step-title">Finished Piece</div>
+        <div class="process-step-desc">Signed by the artist and documented with provenance. A painting is not an object — it is a transmission of devotion.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="process-panel" id="panel-textiles">
+    <div class="process-steps">
+      <div class="process-step step-1">
+        <div class="process-step-icon">🌿<div class="process-step-num">01</div></div>
+        <div class="process-step-title">Natural Dyes</div>
+        <div class="process-step-desc">Indigo, pomegranate, turmeric, and madder root reduced into vivid dye baths. Natural colour — no synthetics. Hues deepen with age.</div>
+      </div>
+      <div class="process-step step-2">
+        <div class="process-step-icon">🧱<div class="process-step-num">02</div></div>
+        <div class="process-step-title">Carving the Block</div>
+        <div class="process-step-desc">Teak wood blocks hand-carved with floral and geometric patterns — some passed down through three generations of printers in Bagru.</div>
+      </div>
+      <div class="process-step step-3">
+        <div class="process-step-icon">👐<div class="process-step-num">03</div></div>
+        <div class="process-step-title">Block Printing</div>
+        <div class="process-step-desc">The printer stamps the block onto stretched fabric with precise alignment — repeat by repeat — building pattern by hand across metres of cloth.</div>
+      </div>
+      <div class="process-step step-4">
+        <div class="process-step-icon">🌅<div class="process-step-num">04</div></div>
+        <div class="process-step-title">Finished Piece</div>
+        <div class="process-step-desc">Sun-dried on village fields, washed, and hand-finished. Each piece carries the slight imperfection of the human hand — and that's everything.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-motif">✦</div><div class="divider-line"></div></div>
+
+<!-- 6. COLLECTIONS -->
+<section class="products" id="collections">
+  <div class="products-header">
+    <div>
+      <div class="section-label">Collections</div>
+      <h2 class="products-h2">Curated from<br>master workshops</h2>
+    </div>
+    <a href="#" style="text-decoration:none; color:var(--deep); font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.55; display:flex; align-items:center; gap:0.5rem;">View All →</a>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(160deg,#C9A84C 0%,#8B6914 50%,#3D2D08 100%);">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:4rem;color:rgba(255,255,255,0.14);">॥</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Metalwork</div>
+        <div class="product-name">Brass Puja Kalash</div>
+        <div class="product-origin">Jaipur, Rajasthan · Traditional Thathera craft</div>
+        <div class="product-price"><span class="price-from">From</span> $68 USD</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(160deg,#2D4A35 0%,#1A2B1F 100%);">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:4rem;color:rgba(255,255,255,0.1);">⊕</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Pottery</div>
+        <div class="product-name">Hand-painted Dinner Plates</div>
+        <div class="product-origin">Sanganer · Blue pottery &amp; terracotta tradition</div>
+        <div class="product-price"><span class="price-from">From</span> $42 USD</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(160deg,#C1622F 0%,#7A3018 100%);">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:4rem;color:rgba(255,255,255,0.1);">❋</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Ceramics</div>
+        <div class="product-name">Floral Chai Cup Set</div>
+        <div class="product-origin">Jaipur · Hand-painted glazed ceramic</div>
+        <div class="product-price"><span class="price-from">From</span> $55 USD</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(160deg,#8B4513 0%,#3D1A08 100%);">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:4rem;color:rgba(255,255,255,0.1);">⁕</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Wall Art</div>
+        <div class="product-name">Pichwai Painting</div>
+        <div class="product-origin">Nathdwara · 400-year-old temple art form</div>
+        <div class="product-price"><span class="price-from">From</span> $120 USD</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(160deg,#9B59B6 30%,#3D1A08 100%);">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:4rem;color:rgba(255,255,255,0.1);">✿</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Textiles</div>
+        <div class="product-name">Block Print Table Runner</div>
+        <div class="product-origin">Bagru · Natural dye block printing</div>
+        <div class="product-price"><span class="price-from">From</span> $35 USD</div>
+      </div>
+    </div>
+    <div class="product-card" id="custom" style="background:var(--deep);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:3rem;text-align:center;min-height:360px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--sand);margin-bottom:1rem;font-weight:300;">Bespoke<br>&amp; Wholesale</div>
+      <div style="font-size:0.72rem;color:rgba(242,234,216,0.48);line-height:1.8;margin-bottom:2rem;">Custom orders, retailer enquiries, and<br>interior design collaborations welcome.</div>
+      <a href="#trade" class="btn-primary">Enquire Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ARTISAN -->
+<section class="artisan" id="artisans">
+  <div class="artisan-visual">
+    <div class="artisan-img-main">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.85;"
+      >
+        <source src="artisan-process.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="artisan-img-overlay">
+      <div class="artisan-stat">15+</div>
+      <div class="artisan-stat-label">Years of craft heritage<br>per artisan, on average</div>
+    </div>
+  </div>
+  <div class="artisan-text">
+    <div class="section-label">The Makers</div>
+    <h2 class="artisan-h2">Every brushstroke<br>has a name<br>behind it</h2>
+    <p class="artisan-body">The women in our artisan network sit in the lanes of Jaipur's old city, painting the same floral motifs their mothers taught them — but now, their work reaches living rooms in London, New York, and Dubai.</p>
+    <blockquote class="artisan-quote">"When I paint, I am not making a cup. I am making something that will outlive me."</blockquote>
+    <p class="artisan-body">Raivana ensures each artisan receives transparent pricing and a fair share of every international sale — making the act of buying beautiful things also a meaningful one.</p>
+    <a href="story.html#artisans" class="btn-primary" style="display:inline-block;margin-top:1rem;">Meet the Artisans</a>
+  </div>
+</section>
+
+<!-- 8. TRADE STRIP -->
+<section class="export-strip" id="trade">
+  <div>
+    <h3 class="export-h3">Delivering to the US, UK,<br>Europe, and the <span>Gulf — seamlessly.</span></h3>
+    <p style="font-size:0.8rem;color:rgba(242,234,216,0.6);margin-top:1rem;line-height:1.7;">Wholesale pricing, consolidated freight, and white-label options for trade buyers and boutique retailers.</p>
+  </div>
+  <div class="export-right">
+    <div class="export-flags">
+      <div class="export-flag">🇺🇸 USA</div>
+      <div class="export-flag">🇬🇧 UK</div>
+      <div class="export-flag">🇦🇪 UAE</div>
+      <div class="export-flag">🇪🇺 EU</div>
+    </div>
+    <a href="mailto:hello@raivana.world" class="btn-light">Trade Enquiry</a>
+  </div>
+</section>
+
+<!-- 9. SOCIAL -->
+<section class="social" id="contact">
+  <div class="social-header">
+    <div class="section-label" style="justify-content:center;">Follow the Studio</div>
+    <h2 class="social-h2">@raivana.in</h2>
+  </div>
+  <div class="social-grid">
+    <div class="social-item"><div class="social-item-bg si-1"></div></div>
+    <div class="social-item"><div class="social-item-bg si-2"></div></div>
+    <div class="social-item"><div class="social-item-bg si-3"></div></div>
+    <div class="social-item"><div class="social-item-bg si-4"></div></div>
+  </div>
+</section>
+
+<!-- FOOTER EMAIL SIGNUP BAND -->
+<div style="background:var(--blush);padding:4rem 6rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;border-top:1px solid rgba(28,16,8,0.08);">
+  <div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:0.6rem;line-height:1.2;">Stay close to the craft</div>
+    <div style="font-size:0.82rem;color:rgba(28,16,8,0.55);line-height:1.8;">New arrivals, artisan stories, and early access — directly in your inbox. No noise, just beauty.</div>
+  </div>
+  <div style="display:flex;gap:0;">
+    <input type="email" placeholder="your@email.com" style="flex:1;padding:1rem 1.2rem;border:1px solid rgba(28,16,8,0.2);border-right:none;background:transparent;font-family:'Jost',sans-serif;font-size:0.85rem;outline:none;color:var(--deep);">
+    <button class="btn-primary" style="white-space:nowrap;">Subscribe</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Rai<span>vana</span></div>
+      <p class="footer-brand-desc">Authentic Rajasthani handicrafts, sourced directly from master artisans and curated for homes that value beauty with meaning.</p>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;margin-top:1.2rem;">
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:rgba(242,234,216,0.55);">✉ hello@raivana.in</div>
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:rgba(242,234,216,0.55);">📦 Available for global shipping</div>
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:rgba(242,234,216,0.55);">🤝 Bulk &amp; trade inquiries welcome</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="story.html">Our Story</a></li>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#process">The Craft</a></li>
+        <li><a href="#artisans">The Artisans</a></li>
+        <li><a href="#custom">Custom Orders</a></li>
+        <li><a href="#trade">Trade / Bulk</a></li>
+    <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Connect</div>
+      <ul class="footer-links">
+        <li>
+          <a href="https://instagram.com/raivana.in" target="_blank" style="display:flex;align-items:center;gap:0.5rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            @raivana.in
+          </a>
+        </li>
+        <li><a href="mailto:hello@raivana.in">hello@raivana.in</a></li>
+        <li><a href="#contact">Get in Touch</a></li>
+      </ul>
+      <div style="margin-top:2rem;">
+        <div class="footer-col-title">Support</div>
+        <ul class="footer-links">
+          <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#">Shipping &amp; Duties</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Care Guide</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Collections</div>
+      <ul class="footer-links">
+        <li><a href="#">Metalwork &amp; Brass</a></li>
+        <li><a href="#">Blue Pottery</a></li>
+        <li><a href="#">Ceramics</a></li>
+        <li><a href="#">Wall Art</a></li>
+        <li><a href="#">Textiles</a></li>
+        <li><a href="#">New Arrivals</a></li>
+      </ul>
+      <div style="margin-top:2rem;padding:1.2rem;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);">
+        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--saffron);margin-bottom:0.5rem;">Follow us</div>
+        <a href="https://instagram.com/raivana.in" target="_blank" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(242,234,216,0.7);text-decoration:none;font-style:italic;transition:color 0.2s;">@raivana.in</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Raivana. Crafted in Rajasthan, delivered to the world.</span>
+    <span>Privacy · Terms · Cookies</span>
+  </div>
+</footer>
+
+<div class="deco-border"></div>
+
+<script>
+  function switchTab(category, btn) {
+    document.querySelectorAll('.process-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.process-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + category).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <div class="cart-title">Your Bag</div>
+    <button class="close-cart" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cart-items-container">
+    <div class="cart-empty-msg" id="cart-empty-msg">Your bag is currently empty.<br><br>
+      <a href="products.html" style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);text-decoration:none;">Explore Collection →</a>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cart-subtotal-price">$0.00</span></div>
+    <div style="font-size:0.72rem;color:rgba(28,16,8,0.5);margin-bottom:1rem;line-height:1.6;">Shipping &amp; duties calculated at checkout.</div>
+    <button class="checkout-btn" onclick="whatsappCheckout()">Enquire to Purchase</button>
+    <div style="font-size:0.62rem;color:rgba(28,16,8,0.4);text-align:center;margin-top:0.8rem;">Secure checkout coming soon · We'll confirm via WhatsApp</div>
+  </div>
+</div>
+
+
+
+<script>
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
+  }
+</script>
+<script src="cart.js"></script>
+</body>
+</html>
