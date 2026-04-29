@@ -144,7 +144,6 @@
   <div class="filter-bar" style="margin-top:2.5rem;">
     <button class="filter-btn active" onclick="filterProducts('all',this)">All</button>
     <button class="filter-btn" onclick="filterProducts('brass',this)">Brass</button>
-    <button class="filter-btn" onclick="filterProducts('blue-pottery',this)">Blue Pottery</button>
     <button class="filter-btn" onclick="filterProducts('ceramics',this)">Ceramics</button>
     <button class="filter-btn" onclick="filterProducts('woodwork',this)">Woodwork</button>
     <button class="filter-btn" onclick="filterProducts('textiles',this)">Textiles</button>
@@ -229,9 +228,9 @@
     grid.innerHTML = '';
 
     RAIVANA_PRODUCTS.forEach(p => {
-      const price = p.variants
-        ? formatPrice(p.variants[0].price_inr, currentCurrency, exchangeRates)
-        : formatPrice(p.price_inr, currentCurrency, exchangeRates);
+      const price = typeof getProductPrice === 'function'
+        ? getProductPrice(p, 0, currentCurrency, exchangeRates)
+        : formatPrice(p.variants ? p.variants[0].price_inr : p.price_inr, currentCurrency, exchangeRates);
 
       const fromLabel = p.variants ? 'From ' : '';
       const imgs = p.images;
@@ -252,14 +251,14 @@
       card.innerHTML = `
         <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
           <div class="img-wrapper">
-            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" style="object-fit:${p.imagefit||'cover'};background:var(--blush);" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="img-placeholder" style="display:none;">✦</div>
             ${arrowsHTML}
             ${dotsHTML}
           </div>
         </a>
         <div class="product-info">
-          <div class="product-category">Brass · Handcrafted</div>
+          <div class="product-category">${p.category === "ceramics" ? "Ceramics · Handcrafted" : "Brass · Handcrafted"}</div>
           <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
             <div class="product-name">${p.name}</div>
             <div class="product-subtitle">${p.subtitle}</div>
@@ -275,8 +274,9 @@
     const p = RAIVANA_PRODUCTS.find(x => x.id === productId);
     if (!p) return;
     const variant = p.variants ? p.variants[0] : null;
-    const priceInr = variant ? variant.price_inr : p.price_inr;
-    const priceDisplay = formatPrice(priceInr, currentCurrency, exchangeRates);
+    const priceDisplay = typeof getProductPrice === 'function'
+      ? getProductPrice(p, 0, currentCurrency, exchangeRates)
+      : formatPrice(variant ? variant.price_inr : p.price_inr, currentCurrency, exchangeRates);
     const variantLabel = variant ? variant.label : null;
     addToCart(p.name, priceDisplay, p.images[0], variantLabel);
     if (p.variants) {
@@ -293,9 +293,10 @@
     RAIVANA_PRODUCTS.forEach(p => {
       const el = document.getElementById(`grid-price-${p.id}`);
       if (!el) return;
-      const baseInr = p.variants ? p.variants[0].price_inr : p.price_inr;
       const fromLabel = p.variants ? 'From ' : '';
-      el.innerText = fromLabel + formatPrice(baseInr, currentCurrency, exchangeRates);
+      el.innerText = fromLabel + (typeof getProductPrice === 'function'
+        ? getProductPrice(p, 0, currentCurrency, exchangeRates)
+        : formatPrice(p.variants ? p.variants[0].price_inr : p.price_inr, currentCurrency, exchangeRates));
     });
   }
 
