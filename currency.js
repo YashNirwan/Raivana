@@ -74,7 +74,7 @@ async function fetchRates() {
   } catch (e) {
     // Fallback static rates if API fails
     exchangeRates = {
-      USD: 1, GBP: 0.79, EUR: 0.92, INR: 83.5,
+      USD: 1, GBP: 0.79, EUR: 0.92, INR: 94.75,
       AED: 3.67, AUD: 1.53, CAD: 1.36, SGD: 1.34
     };
   }

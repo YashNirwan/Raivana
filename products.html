@@ -228,10 +228,7 @@
     grid.innerHTML = '';
 
     RAIVANA_PRODUCTS.forEach(p => {
-      const price = typeof getProductPrice === 'function'
-        ? getProductPrice(p, 0, currentCurrency, exchangeRates)
-        : formatPrice(p.variants ? p.variants[0].price_inr : p.price_inr, currentCurrency, exchangeRates);
-
+      const price = ''; // filled in by applyPrices once currency loads
       const fromLabel = p.variants ? 'From ' : '';
       const imgs = p.images;
       const dotsHTML = imgs.length > 1 ? `<div class="card-dots">${imgs.map((_, i) => `<button class="card-dot ${i===0?'active':''}" onclick="event.preventDefault();cardGoTo(${p.id},${i})"></button>`).join('')}</div>` : '';
@@ -285,22 +282,22 @@
     }
   }
 
-  // Re-render prices when currency changes
+  // Called by currency.js after live rates are fetched
   const _origApplyPrices = typeof applyPrices === 'function' ? applyPrices : null;
   function applyPrices() {
     if (_origApplyPrices) _origApplyPrices();
-    // Update grid prices
     RAIVANA_PRODUCTS.forEach(p => {
       const el = document.getElementById(`grid-price-${p.id}`);
       if (!el) return;
       const fromLabel = p.variants ? 'From ' : '';
-      el.innerText = fromLabel + (typeof getProductPrice === 'function'
-        ? getProductPrice(p, 0, currentCurrency, exchangeRates)
-        : formatPrice(p.variants ? p.variants[0].price_inr : p.price_inr, currentCurrency, exchangeRates));
+      el.innerText = fromLabel + getProductPrice(p, 0, currentCurrency, exchangeRates);
     });
   }
 
-  document.addEventListener('DOMContentLoaded', renderProducts);
+  document.addEventListener('DOMContentLoaded', function() {
+    renderProducts(); // renders cards with blank prices
+    // applyPrices() is called by currency.js once location + rates are ready
+  });
 </script>
 
 <script>

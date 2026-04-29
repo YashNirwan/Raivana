@@ -235,9 +235,7 @@
   function renderDetail(p) {
     currentProduct = p;
     document.title = p.name + ' — Raivana';
-    const priceDisplay = typeof getProductPrice === 'function'
-      ? getProductPrice(p, 0, currentCurrency, exchangeRates)
-      : formatPrice(p.variants ? p.variants[0].price_inr : p.price_inr, currentCurrency, exchangeRates);
+    const priceDisplay = ''; // filled by applyPrices() once currency.js loads live rates
 
     const variantsHTML = p.variants ? `
       <div>

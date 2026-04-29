@@ -437,7 +437,7 @@ function formatPrice(inr, currency, rates) {
   if (!inr) inr = 0;
   if (currency === 'INR') return '₹' + Math.round(inr).toLocaleString('en-IN');
   var amount = inr * INTL_MARKUP;
-  var inrRate = (rates && rates['INR']) || 83.5;
+  var inrRate = (rates && rates['INR']) || 94.75;
   var targetRate = (rates && rates[currency]) || 1;
   var converted = (amount / inrRate) * targetRate;
   var symbols = { USD: '$', GBP: '£', EUR: '€', AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$' };
@@ -450,12 +450,32 @@ function getProductPrice(product, variantIndex, currency, rates) {
   variantIndex = variantIndex || 0;
   var inr = getBasePrice(product, variantIndex);
   if (currency === 'INR') return '₹' + Math.round(inr).toLocaleString('en-IN');
-  var exportInr = getExportPrice(product, variantIndex);
-  var inrRate = (rates && rates['INR']) || 83.5;
-  var targetRate = (rates && rates[currency]) || 1;
-  var converted = (exportInr / inrRate) * targetRate;
+
   var symbols = { USD: '$', GBP: '£', EUR: '€', AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$' };
   var symbol = symbols[currency] || currency + ' ';
+
+  // Ceramics: price_inr_export is a fixed USD amount, not INR — convert from USD to target currency
+  if (product.category === 'ceramics') {
+    var exportUsd;
+    if (product.variants) {
+      exportUsd = product.variants[variantIndex].price_inr_export || null;
+    } else {
+      exportUsd = product.price_inr_export || null;
+    }
+    if (exportUsd) {
+      var usdRate = (rates && rates['USD']) || 1;
+      var targetRate = (rates && rates[currency]) || 1;
+      var converted = (exportUsd / usdRate) * targetRate;
+      if (currency === 'AED') return symbol + Math.round(converted);
+      return symbol + converted.toFixed(2);
+    }
+  }
+
+  // Brass: price_inr_export is in INR, convert to target currency
+  var exportInr = getExportPrice(product, variantIndex);
+  var inrRate = (rates && rates['INR']) || 94.75;
+  var targetRate = (rates && rates[currency]) || 1;
+  var converted = (exportInr / inrRate) * targetRate;
   if (currency === 'AED') return symbol + Math.round(converted);
   return symbol + converted.toFixed(2);
 }
