@@ -406,9 +406,9 @@ const RAIVANA_PRODUCTS = [
     price_inr: null,
     price_inr_export: null,
     variants: [
-      { label: '8 inch', price_inr: 1600, price_inr_export: 4500 },
-      { label: '10 inch', price_inr: 2000, price_inr_export: 5500 },
-      { label: '12 inch', price_inr: 2400, price_inr_export: 6500 }
+      { label: '8 inch', price_inr: 1450, price_inr_export: 3500 },
+      { label: '10 inch', price_inr: 1650, price_inr_export: 4500 },
+      { label: '12 inch', price_inr: 1850, price_inr_export: 5500 }
     ],
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
     images: ["img/p32-1.jpeg", "img/p32-2.jpeg"]

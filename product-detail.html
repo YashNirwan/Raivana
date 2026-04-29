@@ -217,17 +217,17 @@
 
   function updateDetailPrice() {
     if (!currentProduct) return;
-    const price = typeof getProductPrice === 'function'
-      ? getProductPrice(currentProduct, selectedVariantIndex, currentCurrency, exchangeRates)
-      : formatPrice(currentProduct.variants ? currentProduct.variants[selectedVariantIndex].price_inr : currentProduct.price_inr, currentCurrency, exchangeRates);
-    document.getElementById('detail-price').innerText = price;
+    const inr = currentProduct.variants
+      ? currentProduct.variants[selectedVariantIndex].price_inr
+      : currentProduct.price_inr;
+    document.getElementById('detail-price').innerText = formatPrice(inr, currentCurrency, exchangeRates);
   }
 
   function addCurrentToCart() {
     if (!currentProduct) return;
     const variant = currentProduct.variants ? currentProduct.variants[selectedVariantIndex] : null;
     const inr = variant ? variant.price_inr : currentProduct.price_inr;
-    const priceDisplay = typeof getProductPrice === 'function' ? getProductPrice(currentProduct, selectedVariantIndex, currentCurrency, exchangeRates) : formatPrice(currentProduct.variants ? currentProduct.variants[selectedVariantIndex].price_inr : currentProduct.price_inr, currentCurrency, exchangeRates);
+    const priceDisplay = formatPrice(inr, currentCurrency, exchangeRates);
     const variantLabel = variant ? variant.label : null;
     addToCart(currentProduct.name, priceDisplay, currentProduct.images[0], variantLabel);
   }
