@@ -272,15 +272,10 @@
     const p = RAIVANA_PRODUCTS.find(x => x.id === productId);
     if (!p) return;
     const variant = p.variants ? p.variants[0] : null;
-    const priceDisplay = typeof getProductPrice === 'function'
-      ? getProductPrice(p, 0, currentCurrency, exchangeRates)
-      : formatPrice(variant ? variant.price_inr : p.price_inr, currentCurrency, exchangeRates);
+    const priceDisplay = getProductPrice(p, 0, currentCurrency, exchangeRates);
     const variantLabel = variant ? variant.label : null;
     addToCart(p.name, priceDisplay, p.images[0], variantLabel);
-    if (p.variants) {
-      // If has variants, go to detail page instead
-      window.location.href = `product-detail.html?id=${p.id}`;
-    }
+    // cart drawer opens via addToCart → openCart()
   }
 
   // Re-render prices after currency.js updates rates
