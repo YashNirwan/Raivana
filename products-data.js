@@ -454,24 +454,7 @@ function getProductPrice(product, variantIndex, currency, rates) {
   var symbols = { USD: '$', GBP: '£', EUR: '€', AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$' };
   var symbol = symbols[currency] || currency + ' ';
 
-  // Ceramics: price_inr_export is a fixed USD amount, not INR — convert from USD to target currency
-  if (product.category === 'ceramics') {
-    var exportUsd;
-    if (product.variants) {
-      exportUsd = product.variants[variantIndex].price_inr_export || null;
-    } else {
-      exportUsd = product.price_inr_export || null;
-    }
-    if (exportUsd) {
-      var usdRate = (rates && rates['USD']) || 1;
-      var targetRate = (rates && rates[currency]) || 1;
-      var converted = (exportUsd / usdRate) * targetRate;
-      if (currency === 'AED') return symbol + Math.round(converted);
-      return symbol + converted.toFixed(2);
-    }
-  }
-
-  // Brass: price_inr_export is in INR, convert to target currency
+  // Use price_inr_export for ceramics (fixed export INR price), else brass markup
   var exportInr = getExportPrice(product, variantIndex);
   var inrRate = (rates && rates['INR']) || 94.75;
   var targetRate = (rates && rates[currency]) || 1;
