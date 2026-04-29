@@ -235,8 +235,9 @@
   function renderDetail(p) {
     currentProduct = p;
     document.title = p.name + ' — Raivana';
-    const baseInr = p.variants ? p.variants[0].price_inr : p.price_inr;
-    const priceDisplay = formatPrice(baseInr, currentCurrency, exchangeRates);
+    const priceDisplay = typeof getProductPrice === 'function'
+      ? getProductPrice(p, 0, currentCurrency, exchangeRates)
+      : formatPrice(p.variants ? p.variants[0].price_inr : p.price_inr, currentCurrency, exchangeRates);
 
     const variantsHTML = p.variants ? `
       <div>
@@ -249,6 +250,7 @@
         </div>
       </div>` : '';
 
+    const isCeramics = p.category === 'ceramics';
     const detailsHTML = (p.details && Object.keys(p.details).length > 0) ? `
       <div class="details-block">
         <div class="details-title">Details</div>
@@ -256,16 +258,16 @@
           ${p.details.weight ? `<li>Weight: ${p.details.weight}</li>` : ''}
           ${p.details.height ? `<li>Height: ${p.details.height}</li>` : ''}
           ${p.details.length ? `<li>Length: ${p.details.length}</li>` : ''}
-          <li>Material: Pure brass, handcrafted</li>
-          <li>Finish: Antique / natural brass</li>
+          ${p.details.material ? `<li>Material: ${p.details.material}</li>` : (!isCeramics ? '<li>Material: Pure brass, handcrafted</li>' : '')}
+          ${p.details.technique ? `<li>Technique: ${p.details.technique}</li>` : ''}
+          ${p.details.finish ? `<li>Finish: ${p.details.finish}</li>` : (!isCeramics ? '<li>Finish: Antique / natural brass</li>' : '')}
           <li>Origin: Jaipur, Rajasthan, India</li>
         </ul>
       </div>` : `
       <div class="details-block">
         <div class="details-title">Details</div>
         <ul class="details-list">
-          <li>Material: Pure brass, handcrafted</li>
-          <li>Finish: Antique / natural brass</li>
+          ${isCeramics ? '<li>Material: Quartz-based ceramic</li><li>Technique: Hand-molded &amp; hand-painted</li><li>Finish: Glossy glaze</li>' : '<li>Material: Pure brass, handcrafted</li><li>Finish: Antique / natural brass</li>'}
           <li>Origin: Jaipur, Rajasthan, India</li>
           <li>Each piece is unique — slight variations are natural</li>
         </ul>
@@ -280,7 +282,7 @@
       <div class="gallery">
         <div class="carousel-wrap">
           <div class="main-image-wrap" id="mainImageWrap">
-            <img id="mainImg" src="${p.images[0]}" alt="${p.name}"
+            <img id="mainImg" src="${p.images[0]}" alt="${p.name}" style="object-fit:${p.imagefit||'cover'}"
               onerror="this.style.display='none';document.getElementById('mainPlaceholder').style.display='flex'">
             <div class="img-placeholder-large" id="mainPlaceholder" style="display:none;">✦</div>
             <div class="magnifier-glass" id="magnifierGlass"></div>
@@ -296,7 +298,7 @@
         <div class="thumbnail-row">${thumbsHTML}</div>
       </div>
       <div class="product-info">
-        <div class="breadcrumbs"><a href="index.html">Home</a> / <a href="products.html">Collection</a> / Brass</div>
+        <div class="breadcrumbs"><a href="index.html">Home</a> / <a href="products.html">Collection</a> / ${p.category.charAt(0).toUpperCase() + p.category.slice(1)}</div>
         <div>
           <h1 class="product-title">${p.name}</h1>
           <div class="product-subtitle">${p.subtitle}</div>
