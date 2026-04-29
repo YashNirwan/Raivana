@@ -228,7 +228,7 @@
     grid.innerHTML = '';
 
     RAIVANA_PRODUCTS.forEach(p => {
-      const price = ''; // filled in by applyPrices once currency loads
+      const price = getProductPrice(p, 0, currentCurrency, exchangeRates);
       const fromLabel = p.variants ? 'From ' : '';
       const imgs = p.images;
       const dotsHTML = imgs.length > 1 ? `<div class="card-dots">${imgs.map((_, i) => `<button class="card-dot ${i===0?'active':''}" onclick="event.preventDefault();cardGoTo(${p.id},${i})"></button>`).join('')}</div>` : '';
@@ -282,22 +282,16 @@
     }
   }
 
-  // Called by currency.js after live rates are fetched
-  const _origApplyPrices = typeof applyPrices === 'function' ? applyPrices : null;
-  function applyPrices() {
-    if (_origApplyPrices) _origApplyPrices();
+  // Re-render prices after currency.js updates rates
+  window.onCurrencyReady = function() {
     RAIVANA_PRODUCTS.forEach(p => {
-      const el = document.getElementById(`grid-price-${p.id}`);
+      const el = document.getElementById('grid-price-' + p.id);
       if (!el) return;
-      const fromLabel = p.variants ? 'From ' : '';
-      el.innerText = fromLabel + getProductPrice(p, 0, currentCurrency, exchangeRates);
+      el.innerText = (p.variants ? 'From ' : '') + getProductPrice(p, 0, currentCurrency, exchangeRates);
     });
-  }
+  };
 
-  document.addEventListener('DOMContentLoaded', function() {
-    renderProducts(); // renders cards with blank prices
-    // applyPrices() is called by currency.js once location + rates are ready
-  });
+  document.addEventListener('DOMContentLoaded', renderProducts);
 </script>
 
 <script>

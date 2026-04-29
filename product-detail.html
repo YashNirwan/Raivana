@@ -235,7 +235,7 @@
   function renderDetail(p) {
     currentProduct = p;
     document.title = p.name + ' — Raivana';
-    const priceDisplay = ''; // filled by applyPrices() once currency.js loads live rates
+    const priceDisplay = getProductPrice(p, 0, currentCurrency, exchangeRates);
 
     const variantsHTML = p.variants ? `
       <div>
@@ -459,10 +459,9 @@
     wrap.addEventListener('mousemove', moveMagnifier);
   }
 
-  // Re-apply price when currency changes
-  function applyPrices() {
-    updateDetailPrice();
-  }
+  // Re-apply price when currency.js finishes loading rates
+  function applyPrices() { updateDetailPrice(); }
+  window.onCurrencyReady = function() { updateDetailPrice(); };
 
   function toggleAccordion(header) {
     const body = header.nextElementSibling;

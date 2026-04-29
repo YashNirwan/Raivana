@@ -36,22 +36,8 @@ async function initCurrency() {
   }
 
   await fetchRates();
-  // Call applyPrices if defined, otherwise wait for it
-  if (typeof applyPrices === 'function') {
-    applyPrices();
-  } else {
-    // Products/detail page defines applyPrices after this script loads
-    // Poll briefly until it's available
-    let attempts = 0;
-    const wait = setInterval(() => {
-      if (typeof applyPrices === 'function') {
-        clearInterval(wait);
-        applyPrices();
-      } else if (++attempts > 20) {
-        clearInterval(wait); // give up after 2 seconds
-      }
-    }, 100);
-  }
+  if (typeof applyPrices === 'function') applyPrices();
+  if (typeof window.onCurrencyReady === 'function') window.onCurrencyReady();
 }
 
 async function fetchRates() {
