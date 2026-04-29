@@ -228,7 +228,8 @@
     grid.innerHTML = '';
 
     RAIVANA_PRODUCTS.forEach(p => {
-      const price = getProductPrice(p, 0, currentCurrency, exchangeRates);
+      // Ceramics has separate domestic/export prices — wait for currency to load before showing
+      const price = p.category === 'ceramics' ? '' : getProductPrice(p, 0, currentCurrency, exchangeRates);
       const fromLabel = p.variants ? 'From ' : '';
       const imgs = p.images;
       const dotsHTML = imgs.length > 1 ? `<div class="card-dots">${imgs.map((_, i) => `<button class="card-dot ${i===0?'active':''}" onclick="event.preventDefault();cardGoTo(${p.id},${i})"></button>`).join('')}</div>` : '';

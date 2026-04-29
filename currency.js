@@ -37,7 +37,12 @@ async function initCurrency() {
 
   await fetchRates();
   if (typeof applyPrices === 'function') applyPrices();
+  // Re-render product grid prices if on products page
   if (typeof window.onCurrencyReady === 'function') window.onCurrencyReady();
+  // Also re-render after a short delay to catch any timing issues
+  setTimeout(function() {
+    if (typeof window.onCurrencyReady === 'function') window.onCurrencyReady();
+  }, 500);
 }
 
 async function fetchRates() {
@@ -93,6 +98,9 @@ function applyPrices() {
     const usd = parseFloat(el.dataset.usdFrom);
     if (!isNaN(usd)) el.innerText = 'From ' + convertPrice(usd);
   });
+
+  // Notify pages that have a currency-ready hook (products page, detail page)
+  if (typeof window.onCurrencyReady === 'function') window.onCurrencyReady();
 }
 
 function setCurrency(code) {

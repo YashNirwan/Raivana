@@ -235,7 +235,8 @@
   function renderDetail(p) {
     currentProduct = p;
     document.title = p.name + ' — Raivana';
-    const priceDisplay = getProductPrice(p, 0, currentCurrency, exchangeRates);
+    // Ceramics: wait for currency to load; brass fallback rate is close enough to show immediately
+    const priceDisplay = p.category === 'ceramics' ? '' : getProductPrice(p, 0, currentCurrency, exchangeRates);
 
     const variantsHTML = p.variants ? `
       <div>
