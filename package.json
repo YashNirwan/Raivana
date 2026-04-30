@@ -2,6 +2,6 @@
   "name": "raivana",
   "version": "1.0.0",
   "dependencies": {
-    "stripe": "^14.0.0"
+    "razorpay": "^2.9.2"
   }
 }
