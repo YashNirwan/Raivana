@@ -127,6 +127,38 @@
         <input type="tel" id="customer-phone" placeholder="+91 98765 43210" required>
       </div>
 
+      <div style="margin: 2rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid rgba(28,16,8,0.08);">
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; margin-bottom: 1.5rem; color: rgba(28,16,8,0.7); letter-spacing: 0.04em;">Shipping Address</div>
+        <div class="form-group">
+          <label>Address Line 1</label>
+          <input type="text" id="ship-address1" placeholder="House / Flat no., Street, Area" required>
+        </div>
+        <div class="form-group">
+          <label>Address Line 2 <span style="opacity:0.5;">(optional)</span></label>
+          <input type="text" id="ship-address2" placeholder="Landmark, Colony, etc.">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" id="ship-city" placeholder="City" required>
+          </div>
+          <div class="form-group">
+            <label>State / Province</label>
+            <input type="text" id="ship-state" placeholder="State" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>PIN / Postal Code</label>
+            <input type="text" id="ship-pin" placeholder="110001" required>
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <input type="text" id="ship-country" placeholder="India" required>
+          </div>
+        </div>
+      </div>
+
       <div class="pay-methods">
         <div class="pay-method">💳 Cards</div>
         <div class="pay-method">📱 UPI</div>
@@ -211,9 +243,19 @@
     const name = document.getElementById('customer-name').value.trim();
     const email = document.getElementById('customer-email').value.trim();
     const phone = document.getElementById('customer-phone').value.trim();
+    const address1 = document.getElementById('ship-address1').value.trim();
+    const city = document.getElementById('ship-city').value.trim();
+    const state = document.getElementById('ship-state').value.trim();
+    const pin = document.getElementById('ship-pin').value.trim();
+    const country = document.getElementById('ship-country').value.trim();
+    const address2 = document.getElementById('ship-address2').value.trim();
 
     if (!name || !email || !phone) {
       showMessage('Please fill in your name, email and phone number.');
+      return;
+    }
+    if (!address1 || !city || !state || !pin || !country) {
+      showMessage('Please fill in your complete shipping address.');
       return;
     }
 
@@ -251,6 +293,9 @@
         description: cartItems.map(i => i.name).join(', '),
         image: 'https://raivana.in/img/story-01-raivana-owl-artifact.jpeg',
         prefill: { name, email, contact: phone },
+        notes: {
+          shipping_address: [address1, address2, city, state, pin, country].filter(Boolean).join(', ')
+        },
         theme: { color: '#C1622F' },
         modal: {
           ondismiss: function() {
@@ -287,11 +332,25 @@
   function whatsappFallback() {
     const cart = getCart();
     if (cart.length === 0) return;
+
+    const name = document.getElementById('customer-name').value.trim();
+    const phone = document.getElementById('customer-phone').value.trim();
+    const address1 = document.getElementById('ship-address1').value.trim();
+    const address2 = document.getElementById('ship-address2').value.trim();
+    const city = document.getElementById('ship-city').value.trim();
+    const state = document.getElementById('ship-state').value.trim();
+    const pin = document.getElementById('ship-pin').value.trim();
+    const country = document.getElementById('ship-country').value.trim();
+
     let msg = 'Hello! I would like to purchase from Raivana:%0A%0A';
     cart.forEach(item => {
       msg += `• ${item.name}${item.size ? ' (' + item.size + ')' : ''} — ${item.price}%0A`;
     });
-    msg += '%0APlease share payment details. Thank you!';
+    if (name) msg += `%0AName: ${name}`;
+    if (phone) msg += `%0APhone: ${phone}`;
+    const addrParts = [address1, address2, city, state, pin, country].filter(Boolean).join(', ');
+    if (addrParts) msg += `%0AShip to: ${addrParts}`;
+    msg += '%0A%0APlease share payment details. Thank you!';
     window.open('https://wa.me/919599225549?text=' + msg, '_blank');
   }
 
