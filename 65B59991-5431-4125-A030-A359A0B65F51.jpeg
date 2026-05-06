@@ -448,7 +448,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:12px;text-decoration:none;"><img src="img/raivana-logo.png" alt="Raivana" style="height:48px;width:48px;object-fit:contain;"><span style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:300;letter-spacing:0.18em;color:var(--deep);text-transform:uppercase;">Rai<span style="color:var(--terracotta);">vana</span></span></a>
+  <div class="nav-logo">Rai<span>vana</span></div>
   <ul class="nav-links">
     <li><a href="products.html">Shop All</a></li>
     <li><a href="#process">The Craft</a></li>
@@ -532,21 +532,15 @@
         <div class="phil-block-sub" style="color:rgba(255,255,255,0.6);">No middlemen. Full traceability.</div>
       </div>
     </div>
-    <div class="phil-block" style="padding:0;overflow:hidden;position:relative;min-height:200px;">
-      <img src="img/Source.jpeg" alt="Fairly Priced at Source" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.7;">
-      <div style="position:absolute;inset:0;background:rgba(28,16,8,0.35);display:flex;flex-direction:column;justify-content:flex-end;padding:1.8rem;">
-        <div class="phil-block-num" style="color:rgba(255,255,255,0.2);">02</div>
-        <div class="phil-block-title" style="color:var(--sand);">Fairly Priced at Source</div>
-        <div class="phil-block-sub" style="color:rgba(255,255,255,0.6);">Artisans earn 3× market rate</div>
-      </div>
+    <div class="phil-block">
+      <div class="phil-block-num">02</div>
+      <div class="phil-block-title">Fairly Priced at Source</div>
+      <div class="phil-block-sub">Artisans earn 3× market rate</div>
     </div>
-    <div class="phil-block" style="padding:0;overflow:hidden;position:relative;min-height:200px;">
-      <img src="img/unique.png" alt="Each Piece is Unique" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.7;">
-      <div style="position:absolute;inset:0;background:rgba(28,16,8,0.35);display:flex;flex-direction:column;justify-content:flex-end;padding:1.8rem;">
-        <div class="phil-block-num" style="color:rgba(255,255,255,0.2);">03</div>
-        <div class="phil-block-title" style="color:var(--sand);">Each Piece is Unique</div>
-        <div class="phil-block-sub" style="color:rgba(255,255,255,0.6);">Hand-variation is the point</div>
-      </div>
+    <div class="phil-block">
+      <div class="phil-block-num">03</div>
+      <div class="phil-block-title">Each Piece is Unique</div>
+      <div class="phil-block-sub">Hand-variation is the point</div>
     </div>
   </div>
 </section>
@@ -870,7 +864,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name" style="display:flex;align-items:center;gap:14px;"><img src="img/raivana-logo.png" alt="" style="height:56px;width:56px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;"><span>Rai<span>vana</span></span></div>
+      <div class="footer-brand-name">Rai<span>vana</span></div>
       <p class="footer-brand-desc">Authentic Rajasthani handicrafts, sourced directly from master artisans and curated for homes that value beauty with meaning.</p>
       <div style="display:flex;flex-direction:column;gap:0.6rem;margin-top:1.2rem;">
         <div style="font-size:0.72rem;letter-spacing:0.08em;color:rgba(242,234,216,0.55);">✉ info@raivana.in</div>
