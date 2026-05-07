@@ -10,56 +10,54 @@
   :root { --sand: #F2EAD8; --terracotta: #C1622F; --saffron: #E8A030; --deep: #1C1008; --gold: #C9A84C; --cream: #FAF6EE; --blush: #E8D5C0; }
   body { background: var(--sand); color: var(--deep); font-family: 'Jost', sans-serif; font-weight: 300; min-height: 100vh; }
   .deco-border { height: 5px; background: repeating-linear-gradient(90deg, var(--terracotta) 0px, var(--terracotta) 20px, var(--saffron) 20px, var(--saffron) 40px, var(--gold) 40px, var(--gold) 60px, var(--deep) 60px, var(--deep) 80px); }
-
   nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 4rem; background: rgba(242,234,216,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(201,168,76,0.22); }
   .nav-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; letter-spacing: 0.1em; opacity: 0.6; }
   .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; letter-spacing: 0.18em; color: var(--deep); text-transform: uppercase; text-decoration: none; display: flex; align-items: center; gap: 10px; }
   .nav-logo span { color: var(--terracotta); }
-
   .wrap { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 6rem; }
   .page-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; margin-bottom: 0.4rem; }
   .page-sub { font-size: 0.82rem; color: rgba(28,16,8,0.55); line-height: 1.8; margin-bottom: 3rem; }
-
   .tip-box { background: var(--cream); border: 1px solid rgba(201,168,76,0.3); padding: 1.2rem 1.5rem; margin-bottom: 2.5rem; border-left: 3px solid var(--gold); }
   .tip-box p { font-size: 0.82rem; line-height: 1.8; color: rgba(28,16,8,0.7); }
   .tip-box a { color: var(--terracotta); }
-
   .section-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terracotta); margin: 2.5rem 0 1.5rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(201,168,76,0.25); }
-
   .form-group { margin-bottom: 1.6rem; }
   .form-group label { display: block; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(28,16,8,0.55); margin-bottom: 0.5rem; }
   .form-group label .req { color: var(--terracotta); }
   .form-group .hint { font-size: 0.72rem; color: rgba(28,16,8,0.4); margin-top: 0.35rem; line-height: 1.5; }
-  .form-group input, .form-group select, .form-group textarea {
-    width: 100%; padding: 0.85rem 1rem;
-    border: 1px solid rgba(28,16,8,0.15); background: var(--cream);
-    font-family: 'Jost', sans-serif; font-size: 0.9rem; color: var(--deep);
-    outline: none; transition: border-color 0.2s; border-radius: 0;
-  }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.85rem 1rem; border: 1px solid rgba(28,16,8,0.15); background: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.9rem; color: var(--deep); outline: none; transition: border-color 0.2s; border-radius: 0; }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--terracotta); }
   .form-group textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
   .form-group select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231C1008' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; cursor: pointer; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
   .password-wrap { position: relative; }
   .password-wrap input { padding-right: 3rem; }
   .toggle-pw { position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: rgba(28,16,8,0.4); font-size: 0.75rem; letter-spacing: 0.05em; }
-
   .img-preview { display: flex; gap: 0.8rem; margin-top: 0.8rem; flex-wrap: wrap; }
   .img-thumb { width: 80px; height: 80px; object-fit: cover; border: 1px solid rgba(28,16,8,0.1); display: none; background: var(--blush); }
+
+  /* Variants */
+  .toggle-row { display: flex; align-items: center; gap: 0.8rem; cursor: pointer; padding: 0.9rem 1rem; border: 1px solid rgba(28,16,8,0.15); background: var(--cream); user-select: none; }
+  .toggle-row input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--terracotta); cursor: pointer; flex-shrink: 0; }
+  .toggle-row span { font-size: 0.82rem; color: var(--deep); }
+  .variant-list { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.8rem; }
+  .variant-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 0.8rem; align-items: end; background: var(--cream); padding: 1rem; border: 1px solid rgba(28,16,8,0.1); }
+  .variant-row .form-group { margin-bottom: 0; }
+  .variant-row .form-group label { font-size: 0.58rem; }
+  .btn-remove-variant { background: none; border: 1px solid rgba(28,16,8,0.15); color: rgba(28,16,8,0.45); font-size: 1.1rem; width: 38px; height: 38px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; align-self: end; }
+  .btn-remove-variant:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .btn-add-variant { background: transparent; border: 1px dashed rgba(28,16,8,0.25); color: rgba(28,16,8,0.55); font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.7rem 1.2rem; cursor: pointer; width: 100%; margin-top: 0.6rem; transition: all 0.2s; }
+  .btn-add-variant:hover { border-color: var(--terracotta); color: var(--terracotta); }
 
   .btn-submit { width: 100%; padding: 1.3rem; background: var(--terracotta); border: none; color: var(--sand); font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; margin-top: 2rem; }
   .btn-submit:hover:not(:disabled) { background: var(--deep); }
   .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
-
   .msg { margin-top: 1.2rem; padding: 1rem 1.2rem; font-size: 0.85rem; line-height: 1.6; display: none; }
   .msg.error { background: #fdf0ec; border: 1px solid rgba(193,98,47,0.3); color: var(--terracotta); }
   .msg.success { background: #f0fdf4; border: 1px solid rgba(34,120,60,0.25); color: #1a6b3a; }
-
   .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(242,234,216,0.4); border-top-color: var(--sand); border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 0.5rem; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  @media (max-width: 600px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 2rem 1.2rem 4rem; } .form-row { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 2rem 1.2rem 4rem; } .form-row { grid-template-columns: 1fr; } .variant-row { grid-template-columns: 1fr 1fr; } .variant-row .btn-remove-variant { grid-column: span 2; width: 100%; height: 36px; } }
 </style>
 </head>
 <body>
@@ -71,11 +69,11 @@
 
 <div class="wrap">
   <h1 class="page-title">Add a New Product</h1>
-  <p class="page-sub">Fill in the details below and click Save. The product will appear on the website within about 1 minute after saving.</p>
+  <p class="page-sub">Fill in the details below and click Save. The product will appear on the website within about 1 minute.</p>
 
   <div class="tip-box">
-    <p><strong>Images:</strong> Upload your photos to <a href="https://cloudinary.com" target="_blank">Cloudinary.com</a> (free account) then copy and paste the image links here. You need at least one image.<br>
-    <strong>Price:</strong> Enter the India selling price in Rupees (just the number, e.g. 2500). International pricing is calculated automatically.</p>
+    <p><strong>Images:</strong> Upload photos to <a href="https://cloudinary.com" target="_blank">Cloudinary.com</a> (free), then paste the image links here. At least one image is required.<br>
+    <strong>Price:</strong> Enter the India price in Rupees (just the number, e.g. 2500). International price is calculated automatically.</p>
   </div>
 
   <form id="adminForm" onsubmit="submitProduct(event)" novalidate>
@@ -99,7 +97,7 @@
     <div class="form-group">
       <label>Subtitle <span class="req">*</span></label>
       <input type="text" id="subtitle" placeholder="e.g. Hand-engraved Decorative Piece">
-      <div class="hint">A short descriptive line shown below the name on the product card.</div>
+      <div class="hint">A short descriptive line shown under the name on the product card.</div>
     </div>
 
     <div class="form-group">
@@ -131,17 +129,32 @@
 
     <div class="section-label">Pricing</div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label>India Price (₹) <span class="req">*</span></label>
-        <input type="number" id="price_inr" placeholder="e.g. 2500" min="1" required>
-        <div class="hint">Selling price in Indian Rupees.</div>
+    <label class="toggle-row" onclick="toggleVariants()">
+      <input type="checkbox" id="hasVariants" onclick="event.stopPropagation();" onchange="toggleVariants()">
+      <span>This product has multiple sizes or weight options (e.g. Small / Large)</span>
+    </label>
+
+    <!-- Single price (shown when no variants) -->
+    <div id="singlePriceSection" style="margin-top:1.2rem;">
+      <div class="form-row">
+        <div class="form-group">
+          <label>India Price (₹) <span class="req">*</span></label>
+          <input type="number" id="price_inr" placeholder="e.g. 2500" min="1">
+          <div class="hint">Selling price in Rupees.</div>
+        </div>
+        <div class="form-group">
+          <label>International Price (₹) <span style="opacity:0.5;">(optional)</span></label>
+          <input type="number" id="price_inr_export" placeholder="Leave blank for auto">
+          <div class="hint">Blank = auto 15% above India price.</div>
+        </div>
       </div>
-      <div class="form-group">
-        <label>International Price (₹) <span style="opacity:0.5;">(optional)</span></label>
-        <input type="number" id="price_inr_export" placeholder="Leave blank for auto">
-        <div class="hint">Leave blank — it will be set to 15% above the India price automatically.</div>
-      </div>
+    </div>
+
+    <!-- Variants (shown when checkbox ticked) -->
+    <div id="variantsSection" style="display:none;margin-top:1.2rem;">
+      <div class="hint" style="margin-bottom:1rem;">Add each size or weight option below. Each one can have its own price.</div>
+      <div class="variant-list" id="variantList"></div>
+      <button type="button" class="btn-add-variant" onclick="addVariant()">+ Add another size / weight</button>
     </div>
 
     <div class="section-label">Images</div>
@@ -165,7 +178,6 @@
     </div>
 
     <div class="msg" id="msg"></div>
-
     <button type="submit" class="btn-submit" id="submitBtn">Save Product to Website</button>
   </form>
 </div>
@@ -173,11 +185,47 @@
 <div class="deco-border"></div>
 
 <script>
+  let variantCounter = 0;
+
   function togglePassword() {
     const inp = document.getElementById('password');
     const btn = document.querySelector('.toggle-pw');
     if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Hide'; }
     else { inp.type = 'password'; btn.textContent = 'Show'; }
+  }
+
+  function toggleVariants() {
+    const checked = document.getElementById('hasVariants').checked;
+    document.getElementById('singlePriceSection').style.display = checked ? 'none' : 'block';
+    document.getElementById('variantsSection').style.display = checked ? 'block' : 'none';
+    if (checked && document.getElementById('variantList').children.length === 0) {
+      addVariant();
+      addVariant();
+    }
+  }
+
+  function addVariant() {
+    variantCounter++;
+    const id = variantCounter;
+    const row = document.createElement('div');
+    row.className = 'variant-row';
+    row.id = 'vrow-' + id;
+    row.innerHTML = `
+      <div class="form-group">
+        <label>Label</label>
+        <input type="text" class="v-label" placeholder="e.g. Small · 260gm">
+      </div>
+      <div class="form-group">
+        <label>India Price (₹)</label>
+        <input type="number" class="v-price" placeholder="e.g. 2500" min="1">
+      </div>
+      <button type="button" class="btn-remove-variant" onclick="removeVariant(${id})" title="Remove">&#x2715;</button>`;
+    document.getElementById('variantList').appendChild(row);
+  }
+
+  function removeVariant(id) {
+    const row = document.getElementById('vrow-' + id);
+    if (row) row.remove();
   }
 
   function previewImg(n) {
@@ -186,7 +234,7 @@
     if (url) {
       thumb.src = url;
       thumb.style.display = 'block';
-      thumb.onerror = function() { thumb.style.display = 'none'; };
+      thumb.onerror = function() { this.style.display = 'none'; };
     } else {
       thumb.style.display = 'none';
     }
@@ -208,20 +256,43 @@
     const subtitle = document.getElementById('subtitle').value.trim();
     const category = document.getElementById('category').value;
     const description = document.getElementById('description').value.trim();
-    const price_inr = document.getElementById('price_inr').value.trim();
-    const price_inr_export = document.getElementById('price_inr_export').value.trim();
     const img1 = document.getElementById('img1').value.trim();
     const img2 = document.getElementById('img2').value.trim();
     const img3 = document.getElementById('img3').value.trim();
     const tag = document.getElementById('tag').value;
+    const hasVariants = document.getElementById('hasVariants').checked;
 
     if (!password) { showMsg('error', 'Please enter the admin password.'); return; }
     if (!name) { showMsg('error', 'Please enter a product name.'); return; }
     if (!subtitle) { showMsg('error', 'Please enter a subtitle.'); return; }
     if (!category) { showMsg('error', 'Please select a category.'); return; }
     if (!description) { showMsg('error', 'Please enter a product description.'); return; }
-    if (!price_inr || isNaN(price_inr) || parseInt(price_inr) <= 0) { showMsg('error', 'Please enter a valid India price (numbers only).'); return; }
     if (!img1) { showMsg('error', 'Please add at least one image URL.'); return; }
+
+    let price_inr = null;
+    let price_inr_export = null;
+    let variants = null;
+
+    if (hasVariants) {
+      const rows = document.querySelectorAll('#variantList .variant-row');
+      variants = [];
+      for (const row of rows) {
+        const label = row.querySelector('.v-label').value.trim();
+        const price = row.querySelector('.v-price').value.trim();
+        if (!label || !price || isNaN(price) || parseInt(price) <= 0) {
+          showMsg('error', 'Each size option needs a label and a valid price.');
+          return;
+        }
+        variants.push({ label, price_inr: parseInt(price), price_inr_export: null });
+      }
+      if (variants.length === 0) { showMsg('error', 'Please add at least one size option.'); return; }
+    } else {
+      const raw = document.getElementById('price_inr').value.trim();
+      const rawExport = document.getElementById('price_inr_export').value.trim();
+      if (!raw || isNaN(raw) || parseInt(raw) <= 0) { showMsg('error', 'Please enter a valid India price (numbers only).'); return; }
+      price_inr = parseInt(raw);
+      price_inr_export = rawExport ? parseInt(rawExport) : null;
+    }
 
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
@@ -233,10 +304,8 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          password,
-          name, subtitle, category, description,
-          price_inr: parseInt(price_inr),
-          price_inr_export: price_inr_export ? parseInt(price_inr_export) : null,
+          password, name, subtitle, category, description,
+          price_inr, price_inr_export, variants,
           images: [img1, img2, img3].filter(Boolean),
           tag: tag || null
         })
@@ -251,9 +320,12 @@
         return;
       }
 
-      showMsg('success', `"${data.name}" has been saved. It will appear on the website in about 1 minute.`);
+      showMsg('success', `"${data.name}" saved! It will appear on the website in about 1 minute.`);
       document.getElementById('adminForm').reset();
       document.querySelectorAll('.img-thumb').forEach(t => t.style.display = 'none');
+      document.getElementById('variantList').innerHTML = '';
+      document.getElementById('singlePriceSection').style.display = 'block';
+      document.getElementById('variantsSection').style.display = 'none';
       btn.disabled = false;
       btn.textContent = 'Save Product to Website';
 

@@ -325,24 +325,29 @@
       const tagHTML = p.tag ? `<div style="position:absolute;top:0.7rem;left:0.7rem;background:var(--terracotta);color:var(--sand);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.6rem;z-index:2;">${p.tag}</div>` : '';
       const catLabel = { brass: 'Brass · Handcrafted', ceramics: 'Ceramics · Handcrafted', woodwork: 'Woodwork · Handcrafted', textiles: 'Textiles · Handcrafted' }[p.category] || p.category;
 
+      const fromLabel = p.variants ? 'From ' : '';
       const card = document.createElement('div');
       card.className = 'product-card';
       card.dataset.cat = p.category;
       card.dataset.imgIndex = '0';
       card.dataset.imgs = JSON.stringify(imgs);
       card.innerHTML = `
-        <div class="img-wrapper">
-          <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" style="object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="img-placeholder" style="display:none;">✦</div>
-          ${tagHTML}
-          ${arrowsHTML}
-          ${dotsHTML}
-        </div>
+        <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
+          <div class="img-wrapper">
+            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" style="object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="img-placeholder" style="display:none;">✦</div>
+            ${tagHTML}
+            ${arrowsHTML}
+            ${dotsHTML}
+          </div>
+        </a>
         <div class="product-info">
           <div class="product-category">${catLabel}</div>
-          <div class="product-name">${p.name}</div>
-          <div class="product-subtitle">${p.subtitle}</div>
-          <div class="product-price" id="grid-price-${p.id}">${price}</div>
+          <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
+            <div class="product-name">${p.name}</div>
+            <div class="product-subtitle">${p.subtitle}</div>
+          </a>
+          <div class="product-price" id="grid-price-${p.id}">${fromLabel}${price}</div>
           <button class="add-to-cart" onclick="quickAddExtra(${p.id})">Add to Bag</button>
         </div>`;
       grid.appendChild(card);
@@ -352,6 +357,10 @@
   function quickAddExtra(productId) {
     const p = EXTRA_PRODUCTS.find(x => x.id === productId);
     if (!p) return;
+    if (p.variants) {
+      window.location.href = 'product-detail.html?id=' + p.id;
+      return;
+    }
     const priceDisplay = getProductPrice(p, 0, currentCurrency, exchangeRates);
     addToCart(p.name, priceDisplay, p.images[0], null);
   }

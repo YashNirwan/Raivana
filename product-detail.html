@@ -481,6 +481,11 @@
 <script src="currency.js"></script>
 <script src="cart.js"></script>
 <script>
+  function showNotFound() {
+    document.getElementById('productDetail').innerHTML =
+      '<div style="padding:10rem 2rem;text-align:center;font-family:\'Cormorant Garamond\',serif;font-size:2rem;font-weight:300;color:rgba(28,16,8,0.4);">Product not found.<br><br><a href="products.html" style="font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);text-decoration:none;">Back to Collection</a></div>';
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     const id = parseInt(new URLSearchParams(window.location.search).get('id'));
     const product = RAIVANA_PRODUCTS.find(p => p.id === id);
@@ -488,8 +493,18 @@
       renderDetail(product);
       initCarousel(product.images);
     } else {
-      document.getElementById('productDetail').innerHTML =
-        '<div style="padding:10rem 2rem;text-align:center;font-family:\'Cormorant Garamond\',serif;font-size:2rem;font-weight:300;color:rgba(28,16,8,0.4);">Product not found.<br><br><a href="products.html" style="font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);text-decoration:none;">Back to Collection</a></div>';
+      fetch('/products-extra.json?t=' + Date.now())
+        .then(r => r.ok ? r.json() : [])
+        .then(extras => {
+          const extra = Array.isArray(extras) ? extras.find(p => p.id === id) : null;
+          if (extra) {
+            renderDetail(extra);
+            initCarousel(extra.images);
+          } else {
+            showNotFound();
+          }
+        })
+        .catch(showNotFound);
     }
   });
 </script>

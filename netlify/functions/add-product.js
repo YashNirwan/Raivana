@@ -16,12 +16,23 @@ exports.handler = async function (event) {
     return { statusCode: 401, body: JSON.stringify({ error: 'Incorrect password.' }) };
   }
 
-  const { name, subtitle, category, description, price_inr, images } = body;
-  if (!name || !subtitle || !category || !description || !price_inr || !images || !images[0]) {
+  const { name, subtitle, category, description, images, variants } = body;
+  if (!name || !subtitle || !category || !description || !images || !images[0]) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Please fill in all required fields.' }) };
   }
-  if (isNaN(parseInt(price_inr)) || parseInt(price_inr) <= 0) {
-    return { statusCode: 400, body: JSON.stringify({ error: 'Domestic price must be a positive number.' }) };
+  if (variants) {
+    if (!Array.isArray(variants) || variants.length === 0) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Please add at least one size option.' }) };
+    }
+    for (const v of variants) {
+      if (!v.label || !v.price_inr || v.price_inr <= 0) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'Each size option needs a label and a valid price.' }) };
+      }
+    }
+  } else {
+    if (!body.price_inr || isNaN(body.price_inr) || body.price_inr <= 0) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Domestic price must be a positive number.' }) };
+    }
   }
 
   const token = process.env.GITHUB_TOKEN;
@@ -43,9 +54,9 @@ exports.handler = async function (event) {
       subtitle: body.subtitle.trim(),
       category: body.category,
       description: body.description.trim(),
-      price_inr: parseInt(body.price_inr),
-      price_inr_export: body.price_inr_export ? parseInt(body.price_inr_export) : null,
-      variants: null,
+      price_inr: body.variants ? null : parseInt(body.price_inr),
+      price_inr_export: body.variants ? null : (body.price_inr_export ? parseInt(body.price_inr_export) : null),
+      variants: body.variants || null,
       images: body.images.filter(Boolean),
       tag: body.tag || null
     };
