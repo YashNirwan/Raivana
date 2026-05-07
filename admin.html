@@ -56,7 +56,18 @@
   .msg.error { background: #fdf0ec; border: 1px solid rgba(193,98,47,0.3); color: var(--terracotta); }
   .msg.success { background: #f0fdf4; border: 1px solid rgba(34,120,60,0.25); color: #1a6b3a; }
   .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(242,234,216,0.4); border-top-color: var(--sand); border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 0.5rem; }
+  .spinner-dark { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(28,16,8,0.15); border-top-color: var(--terracotta); border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  .product-row { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--cream); border: 1px solid rgba(28,16,8,0.08); margin-bottom: 0.6rem; }
+  .product-row img { width: 56px; height: 56px; object-fit: cover; background: var(--blush); flex-shrink: 0; }
+  .product-row-info { flex: 1; min-width: 0; }
+  .product-row-name { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .product-row-sub { font-size: 0.7rem; color: rgba(28,16,8,0.45); margin-top: 0.15rem; }
+  .btn-remove { background: transparent; border: 1px solid rgba(193,98,47,0.3); color: var(--terracotta); font-family: 'Jost', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 0.9rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
+  .btn-remove:hover:not(:disabled) { background: var(--terracotta); color: var(--sand); }
+  .btn-remove:disabled { opacity: 0.4; cursor: not-allowed; }
+  .empty-manage { font-size: 0.85rem; color: rgba(28,16,8,0.4); font-style: italic; padding: 1.5rem 0; text-align: center; }
   @media (max-width: 600px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 2rem 1.2rem 4rem; } .form-row { grid-template-columns: 1fr; } .variant-row { grid-template-columns: 1fr 1fr; } .variant-row .btn-remove-variant { grid-column: span 2; width: 100%; height: 36px; } }
 </style>
 </head>
@@ -180,6 +191,15 @@
     <div class="msg" id="msg"></div>
     <button type="submit" class="btn-submit" id="submitBtn">Save Product to Website</button>
   </form>
+
+  <!-- MANAGE PRODUCTS -->
+  <div style="margin-top:4rem;">
+    <div class="section-label" style="margin-top:0;">Manage Existing Products</div>
+    <p style="font-size:0.82rem;color:rgba(28,16,8,0.55);line-height:1.8;margin-bottom:1.5rem;">Products you have added through this page. Click Remove to delete a product from the website.</p>
+    <button class="btn-add-variant" onclick="loadProducts()" id="loadBtn" style="margin-bottom:1.2rem;border-style:solid;">Load Products</button>
+    <div id="manageMsg" class="msg" style="margin-top:0;margin-bottom:1rem;"></div>
+    <div id="productList"></div>
+  </div>
 </div>
 
 <div class="deco-border"></div>
@@ -246,6 +266,86 @@
     el.textContent = text;
     el.style.display = 'block';
     el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function showManageMsg(type, text) {
+    const el = document.getElementById('manageMsg');
+    el.className = 'msg ' + type;
+    el.textContent = text;
+    el.style.display = 'block';
+  }
+
+  async function loadProducts() {
+    const btn = document.getElementById('loadBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-dark"></span> Loading...';
+    document.getElementById('manageMsg').style.display = 'none';
+
+    try {
+      const res = await fetch('/products-extra.json?t=' + Date.now());
+      const products = await res.json();
+      renderProductList(products);
+    } catch {
+      showManageMsg('error', 'Could not load products. Try again.');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Reload';
+  }
+
+  function renderProductList(products) {
+    const list = document.getElementById('productList');
+    if (!products || products.length === 0) {
+      list.innerHTML = '<div class="empty-manage">No products added yet.</div>';
+      return;
+    }
+    list.innerHTML = products.map(p => `
+      <div class="product-row" id="prow-${p.id}">
+        <img src="${p.images[0]}" alt="${p.name}" onerror="this.style.display='none'">
+        <div class="product-row-info">
+          <div class="product-row-name">${p.name}</div>
+          <div class="product-row-sub">${p.subtitle} &middot; ${p.category.charAt(0).toUpperCase() + p.category.slice(1)}</div>
+        </div>
+        <button class="btn-remove" id="rbtn-${p.id}" onclick="removeProduct(${p.id})">Remove</button>
+      </div>`).join('');
+  }
+
+  async function removeProduct(id) {
+    const password = document.getElementById('password').value.trim();
+    if (!password) {
+      showManageMsg('error', 'Enter your admin password at the top of the page first.');
+      return;
+    }
+    if (!confirm('Remove this product from the website?')) return;
+
+    const btn = document.getElementById('rbtn-' + id);
+    btn.disabled = true;
+    btn.textContent = 'Removing...';
+    document.getElementById('manageMsg').style.display = 'none';
+
+    try {
+      const res = await fetch('/.netlify/functions/remove-product', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, id })
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        showManageMsg('error', data.error || 'Could not remove product.');
+        btn.disabled = false;
+        btn.textContent = 'Remove';
+        return;
+      }
+      document.getElementById('prow-' + id).remove();
+      showManageMsg('success', 'Product removed. It will disappear from the site in about 1 minute.');
+      if (document.getElementById('productList').children.length === 0) {
+        document.getElementById('productList').innerHTML = '<div class="empty-manage">No products added yet.</div>';
+      }
+    } catch {
+      showManageMsg('error', 'Could not connect. Try again.');
+      btn.disabled = false;
+      btn.textContent = 'Remove';
+    }
   }
 
   async function submitProduct(e) {
