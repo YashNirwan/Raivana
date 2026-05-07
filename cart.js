@@ -74,7 +74,7 @@ function renderCart() {
     container.appendChild(el);
   });
 
-  if (subtotalEl) subtotalEl.innerText = '$' + total.toFixed(2);
+  if (subtotalEl) subtotalEl.innerText = (cart[0]?.price?.match(/^[^\d]*/)?.[0] || '$') + total.toFixed(2);
   if (countEl) countEl.innerText = cart.length;
 
   // Re-apply currency conversion if available

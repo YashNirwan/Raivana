@@ -330,7 +330,7 @@
       container.appendChild(div);
     });
 
-    const symbol = cartItems[0]?.price?.charAt(0) || '₹';
+    const symbol = cartItems[0]?.price?.match(/^[^\d]*/)?.[0] || '₹';
     document.getElementById('summary-totals').style.display = 'block';
     document.getElementById('subtotal-display').innerText = symbol + orderTotal.toFixed(2);
     document.getElementById('total-display').innerText = symbol + orderTotal.toFixed(2);
