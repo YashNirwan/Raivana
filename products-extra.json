@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "id": 1778125390933,
+    "name": "Pot",
+    "subtitle": "Very good pot",
+    "category": "ceramics",
+    "description": "Very Nice",
+    "price_inr": null,
+    "price_inr_export": null,
+    "variants": [
+      {
+        "label": "Smol",
+        "price_inr": 2000,
+        "price_inr_export": null
+      },
+      {
+        "label": "Big",
+        "price_inr": 5000,
+        "price_inr_export": null
+      }
+    ],
+    "images": [
+      "https://res.cloudinary.com/dujaayhyh/image/upload/v1778125058/IMG_3064_lgjvml.jpg",
+      "https://res.cloudinary.com/dujaayhyh/image/upload/v1778125083/IMG_3065_juaed4.jpg"
+    ],
+    "tag": "New"
+  }
+]
