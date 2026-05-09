@@ -286,7 +286,7 @@
     <div class="payment-success" id="payment-success">
       <span class="ornament">✦</span>
       <h2>Order Confirmed</h2>
-      <p>Thank you for your purchase. A confirmation has been sent to your email.<br>Your handcrafted piece will be carefully packaged and dispatched within 3–5 business days.</p>
+      <p>Thank you for your purchase. A confirmation will be sent to your email shortly.<br>Your handcrafted piece will be carefully packaged and dispatched within 3–5 business days.</p>
       <a href="products.html" class="btn-continue">Continue Shopping</a>
     </div>
   </div>
@@ -382,7 +382,13 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: cartItems,
-          currency: typeof currentCurrency !== 'undefined' ? currentCurrency : 'INR'
+          currency: typeof currentCurrency !== 'undefined' ? currentCurrency : 'INR',
+          customer: {
+            name: name,
+            email: email,
+            phone: phone,
+            address: [address1, address2, city, state, pin, country].filter(Boolean).join(', ')
+          }
         })
       });
 
