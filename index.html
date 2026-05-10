@@ -186,6 +186,7 @@
   .social-item { aspect-ratio: 1; overflow: hidden; position: relative; cursor: pointer; }
   .social-item::after { content: 'View'; position: absolute; inset: 0; background: rgba(28,16,8,0.6); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--sand); opacity: 0; transition: opacity 0.25s; }
   .social-item:hover::after { opacity: 1; }
+  .social-item-follow::after { display: none; }
   .social-item-bg { width: 100%; height: 100%; }
   .si-1 { background: linear-gradient(135deg, #C1622F 0%, #7A3018 100%); }
   .si-2 { background: linear-gradient(135deg, #2D4A35 0%, #1A2B1F 100%); }
@@ -847,10 +848,20 @@
     <h2 class="social-h2">@raivana.in</h2>
   </div>
   <div class="social-grid">
-    <div class="social-item"><div class="social-item-bg si-1"></div></div>
-    <div class="social-item"><div class="social-item-bg si-2"></div></div>
-    <div class="social-item"><div class="social-item-bg si-3"></div></div>
-    <div class="social-item"><div class="social-item-bg si-4"></div></div>
+    <a class="social-item" href="https://www.instagram.com/reel/DYIJlOqB3SX/" target="_blank" rel="noopener">
+      <img src="https://behold.pictures/5IxYsse6ghRnNgAUXIJ7xghg9qC3/O5JTHbq5lCvgnNjSuBb5/18352916656213388/medium.jpg" alt="Blue pottery craftsmanship" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </a>
+    <a class="social-item" href="https://www.instagram.com/reel/DYFZMwYhjAm/" target="_blank" rel="noopener">
+      <img src="https://behold.pictures/5IxYsse6ghRnNgAUXIJ7xghg9qC3/O5JTHbq5lCvgnNjSuBb5/18078470042638949/medium.jpg" alt="Welcome to Raivana" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </a>
+    <a class="social-item" href="https://www.instagram.com/p/DXo4YDEkbRL/" target="_blank" rel="noopener">
+      <img src="https://behold.pictures/5IxYsse6ghRnNgAUXIJ7xghg9qC3/O5JTHbq5lCvgnNjSuBb5/18100228289079059/medium.jpg" alt="A small beginning — Raivana" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </a>
+    <a class="social-item social-item-follow" href="https://instagram.com/raivana.in" target="_blank" rel="noopener" style="background:var(--deep);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-decoration:none;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(242,234,216,0.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="rgba(242,234,216,0.7)" stroke="none"/></svg>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:rgba(242,234,216,0.85);">@raivana.in</span>
+      <span style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(242,234,216,0.45);">Follow Us</span>
+    </a>
   </div>
 </section>
 
