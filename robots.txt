@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /checkout.html
+Disallow: /admin.html
+
+Sitemap: https://raivana.in/sitemap.xml
