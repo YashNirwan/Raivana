@@ -163,7 +163,6 @@
     <button class="filter-btn" onclick="filterProducts('brass',this)">Brass</button>
     <button class="filter-btn" onclick="filterProducts('ceramics',this)">Ceramics</button>
     <button class="filter-btn" onclick="filterProducts('woodwork',this)">Woodwork</button>
-    <button class="filter-btn" onclick="filterProducts('textiles',this)">Textiles</button>
   </div>
 </div>
 
@@ -273,7 +272,7 @@
           </div>
         </a>
         <div class="product-info">
-          <div class="product-category">${p.category === "ceramics" ? "Ceramics · Handcrafted" : "Brass · Handcrafted"}</div>
+          <div class="product-category">${{brass:'Brass · Handcrafted', ceramics:'Ceramics · Handcrafted', woodwork:'Woodwork · Handcrafted'}[p.category] || (p.category + ' · Handcrafted')}</div>
           <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
             <div class="product-name">${p.name}</div>
             <div class="product-subtitle">${p.subtitle}</div>

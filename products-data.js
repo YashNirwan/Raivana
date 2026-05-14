@@ -428,6 +428,184 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
     images: ["img/p32-1.jpeg", "img/p32-2.jpeg"]
+  },
+
+  // ── WOODWORK ──────────────────────────────────────────────────────────────────
+  {
+    id: 33,
+    name: "Heritage Elephant Sculpture",
+    subtitle: "Rajasthani Lattice Motifs · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved by master artisans in Jaipur from seasoned Kadam wood, this elephant sculpture features intricate Rajasthani lattice, floral, and geometric motifs on a howdah-style backrest. Kadam wood's fine grain and light weight make it ideal for deep, precise handcarving without splintering. Each piece is carved entirely by hand with no machines, so the pattern and depth vary slightly in every item. The smooth matte finish highlights the natural warmth of the wood and the depth of the carving.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: "8 inch",  price_inr: 6000,  price_inr_export: 12000, weight_g: 2400 },
+      { label: "12 inch", price_inr: 15000, price_inr_export: 24000, weight_g: 8000 }
+    ],
+    details: { material: "Seasoned Kadam Wood", craft: "100% Handcarved in Jaipur, India", finish: "Natural matte lacquer" },
+    images: ["img/w1-1.jpeg", "img/w1-2.jpeg"]
+  },
+  {
+    id: 34,
+    name: "Lattice Owl Bird Sculpture",
+    subtitle: "Hidden Owl in Jali Lattice · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this sculpture appears as a bird at first glance but reveals an intricately carved owl hidden within the open jali lattice on its body. The fine grain of Kadam wood allows for precise, delicate cuts done entirely by hand, so the pattern varies slightly in every piece. The openwork design creates dynamic shadow patterns when placed near light. A unique conversation piece for shelves, desks, and display cabinets.",
+    price_inr: 2500,
+    price_inr_export: 4500,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte polish", size: "6 inch" },
+    weight_g: 250,
+    images: ["img/w2-1.jpeg", "img/w2-2.jpeg"]
+  },
+  {
+    id: 35,
+    name: "Serene Buddha Head Sculpture",
+    subtitle: "Meditative Expression · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this Buddha head captures a calm, meditative expression with smooth contours and clean detailing. The fine grain of Kadam wood allows for precise handcarving entirely by hand, giving each piece its own subtle character. The natural matte finish highlights the wood's warmth and the softness of the facial features. Designed as a minimalist decor piece for shelves, mantels, and meditation spaces.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: "8 inch",  price_inr: 6000,  price_inr_export: 10000, weight_g: 1000 },
+      { label: "10 inch", price_inr: 8000,  price_inr_export: 12000, weight_g: 2000 },
+      { label: "12 inch", price_inr: 12000, price_inr_export: 16000, weight_g: 3000 }
+    ],
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer" },
+    images: ["img/w3-1.jpeg", "img/w3-2.jpeg"]
+  },
+  {
+    id: 36,
+    name: "Royal Procession Painted Elephant Sculpture",
+    subtitle: "Miniature Scenes · Hand-Painted Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood and hand-painted with fine detail, this elephant sculpture depicts a traditional royal procession scene with miniature-style figures, palace architecture, and ornate gold accents. Each piece is painted by hand, making the colours and patterns slightly unique across items. A vibrant statement decor piece for consoles, shelves, and display tables.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: "6.5 inch", price_inr: 6000, price_inr_export: 12000, weight_g: 600 },
+      { label: "8.5 inch", price_inr: 9000, price_inr_export: 18000, weight_g: 900 }
+    ],
+    details: { material: "Seasoned Kadam Wood with Hand-Painted Finish", craft: "Handcarved and Hand-Painted in India", finish: "Glossy lacquer" },
+    images: ["img/w4-1.jpeg", "img/w4-2.jpeg"]
+  },
+  {
+    id: 37,
+    name: "Festive Peacock Elephant Sculpture",
+    subtitle: "Floral & Peacock Motifs · Hand-Painted Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood and hand-painted with detailed floral and peacock motifs in vibrant red, gold, and green. Each piece is painted entirely by hand, so the patterns and colour placement vary slightly, making every sculpture one-of-a-kind. A compact statement piece for shelves, desks, and display tables.",
+    price_inr: 3500,
+    price_inr_export: 7000,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood with Hand-Painted Finish", craft: "Handcarved and Hand-Painted in India", finish: "Glossy lacquer", size: "3 inch" },
+    weight_g: 200,
+    images: ["img/w5-1.jpeg", "img/w5-2.jpeg"]
+  },
+  {
+    id: 38,
+    name: "Ornate Ganesha Shrine Sculpture",
+    subtitle: "Floral Arch Frame · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this Ganesha sculpture sits under a detailed arch with floral, geometric, and elephant motifs framing the deity. The fine grain of Kadam wood allows for deep, precise carving done entirely by hand. The natural matte finish highlights the intricate details of the crown, jewellery, and base. A statement decor piece for shelves, mantels, and display tables.",
+    price_inr: 24000,
+    price_inr_export: 35000,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "18 inch" },
+    weight_g: 4200,
+    images: ["img/w6-1.jpeg", "img/w6-2.jpeg"]
+  },
+  {
+    id: 39,
+    name: "Twin Parrots Lattice Sculpture",
+    subtitle: "Jali Openwork · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this sculpture features two parrots facing each other with open jali lattice work across their bodies. The fine grain of Kadam wood allows for delicate, precise cuts done entirely by hand, creating a light, airy form with detailed feather patterns. A striking decor piece for shelves, consoles, and display tables.",
+    price_inr: 1200,
+    price_inr_export: 2500,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "6 inch" },
+    weight_g: 150,
+    images: ["img/w7-1.jpeg", "img/w7-2.jpeg"]
+  },
+  {
+    id: 40,
+    name: "Carved Desert Camel Sculpture",
+    subtitle: "Floral & Paisley Etchings · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this camel sculpture features intricate floral and paisley patterns etched across its saddle and body. The fine grain of Kadam wood allows for clean, detailed carving done entirely by hand, giving each piece a distinct character. A compact decor piece ideal for shelves, desks, and display tables.",
+    price_inr: 1400,
+    price_inr_export: 3000,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "6 inch" },
+    weight_g: 275,
+    images: ["img/w8-1.jpeg", "img/w8-2.jpeg"]
+  },
+  {
+    id: 41,
+    name: "Divine Radha Krishna Sculpture",
+    subtitle: "Lotus Base · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this sculpture captures Radha and Krishna standing together on a lotus base with fine detailing in their attire, jewellery, and expressions. The dense grain of Kadam wood allows for precise handcarving, preserving delicate features and openwork details. A timeless decor piece for shelves, altars, and display tables.",
+    price_inr: 2500,
+    price_inr_export: 4000,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "6 inch" },
+    weight_g: 160,
+    images: ["img/w9-1.jpeg", "img/w9-2.jpeg"]
+  },
+  {
+    id: 42,
+    name: "Lattice Arch Buddha Sculpture",
+    subtitle: "Pierced Floral Arch · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this sculpture features Buddha seated in meditation under a pierced floral and vine arch. The fine grain of Kadam wood allows for delicate jali work and clean detailing on the robes and base, all done entirely by hand. A calming decor piece for shelves, meditation spaces, and display tables.",
+    price_inr: 4000,
+    price_inr_export: 7500,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "7 inch" },
+    weight_g: 400,
+    images: ["img/w10-1.jpeg", "img/w10-2.jpeg"]
+  },
+  {
+    id: 43,
+    name: "Lotus Seat Buddha Sculpture",
+    subtitle: "Layered Lotus Base · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this Buddha sits in meditation on a layered lotus base with clean, flowing lines in the robes and a calm expression. The dense grain of Kadam wood allows for smooth detailing and sharp contours, carved entirely by hand. A minimalist decor piece for shelves, desks, and meditation corners.",
+    price_inr: 2350,
+    price_inr_export: 4000,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "6 inch" },
+    weight_g: 250,
+    images: ["img/w11-1.jpeg", "img/w11-2.jpeg"]
+  },
+  {
+    id: 44,
+    name: "Laughing Hotei Sculpture",
+    subtitle: "Laughing Buddha · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this sculpture captures the Laughing Buddha in a standing pose with a wide smile, beaded necklace, and flowing robes. The fine grain of Kadam wood allows for smooth, rounded carving and clean detailing, done entirely by hand. A cheerful decor piece for entryways, shelves, and workspaces.",
+    price_inr: 10000,
+    price_inr_export: 16000,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "12 inch" },
+    weight_g: 2400,
+    images: ["img/w12-1.jpeg", "img/w12-2.jpeg"]
+  },
+  {
+    id: 45,
+    name: "Lattice Carved Elephant Sculpture",
+    subtitle: "Jali Openwork · Compact · Kadam Wood",
+    category: "woodwork",
+    description: "Handcarved from seasoned Kadam wood, this elephant features openwork lattice patterns across its body with fine floral and geometric detailing. The lightweight Kadam wood allows for delicate jali work done entirely by hand, creating a light, airy form without losing strength. A compact statement piece for shelves, desks, and display tables.",
+    price_inr: 2000,
+    price_inr_export: 3500,
+    variants: null,
+    details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "3 inch" },
+    weight_g: 250,
+    images: ["img/w13-1.jpeg", "img/w13-2.jpeg"]
   }
 ];
 

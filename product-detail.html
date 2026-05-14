@@ -272,10 +272,12 @@
       <div class="details-block">
         <div class="details-title">Details</div>
         <ul class="details-list">
+          ${p.details.size ? `<li>Size: ${p.details.size}</li>` : ''}
           ${p.details.weight ? `<li>Weight: ${p.details.weight}</li>` : ''}
           ${p.details.height ? `<li>Height: ${p.details.height}</li>` : ''}
           ${p.details.length ? `<li>Length: ${p.details.length}</li>` : ''}
           ${p.details.material ? `<li>Material: ${p.details.material}</li>` : (!isCeramics ? '<li>Material: Pure brass, handcrafted</li>' : '')}
+          ${p.details.craft ? `<li>Craft: ${p.details.craft}</li>` : ''}
           ${p.details.technique ? `<li>Technique: ${p.details.technique}</li>` : ''}
           ${p.details.finish ? `<li>Finish: ${p.details.finish}</li>` : (!isCeramics ? '<li>Finish: Antique / natural brass</li>' : '')}
           <li>Origin: Jaipur, Rajasthan, India</li>
