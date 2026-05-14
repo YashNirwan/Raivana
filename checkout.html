@@ -340,6 +340,45 @@
     document.getElementById('loading-overlay').classList.add('hidden');
   }
 
+  function recalcSummaryForInternational() {
+    if (!cartItems.length) return;
+    if (typeof RAIVANA_PRODUCTS === 'undefined' || typeof getProductPrice !== 'function') return;
+
+    var currency = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'USD';
+    var rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : null;
+    if (currency === 'INR') return;
+
+    var summaryItemEls = document.querySelectorAll('.summary-item');
+    orderTotal = 0;
+
+    cartItems.forEach(function(item, idx) {
+      var product = RAIVANA_PRODUCTS.find(function(p) { return p.name === item.name; });
+      if (!product) {
+        orderTotal += parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0;
+        return;
+      }
+      var vi = (product.variants && item.size)
+        ? product.variants.findIndex(function(v) { return v.label === item.size; })
+        : 0;
+      if (vi < 0) vi = 0;
+
+      var newPrice = getProductPrice(product, vi, currency, rates);
+      orderTotal += parseFloat(newPrice.replace(/[^0-9.]/g, '')) || 0;
+
+      if (summaryItemEls[idx]) {
+        var priceEl = summaryItemEls[idx].querySelector('.summary-item-price');
+        if (priceEl) priceEl.textContent = newPrice;
+      }
+    });
+
+    var firstProduct = RAIVANA_PRODUCTS.find(function(p) { return p.name === cartItems[0].name; });
+    var samplePrice = firstProduct
+      ? getProductPrice(firstProduct, 0, currency, rates)
+      : cartItems[0].price;
+    var symbol = (samplePrice.match(/^[^\d]*/) || ['$'])[0];
+    document.getElementById('subtotal-display').innerText = symbol + orderTotal.toFixed(2);
+  }
+
   function calculateCartWeight() {
     var totalG = 0, hasCeramics = false;
     cartItems.forEach(function(item) {
@@ -385,6 +424,7 @@
 
     // International: shipping is built into product prices
     if (country !== 'India') {
+      recalcSummaryForInternational();
       shippingInr = 0;
       document.getElementById('shipping-display').innerText = 'Included in price';
       updateOrderTotal();
@@ -562,6 +602,15 @@
   function showMessage(msg) {
     document.getElementById('payment-message').innerText = msg;
   }
+
+  // Re-recalc prices once currency/rates have loaded (async)
+  window.onCurrencyReady = function() {
+    var country = document.getElementById('ship-country') && document.getElementById('ship-country').value;
+    if (country && country !== 'India') {
+      recalcSummaryForInternational();
+      updateOrderTotal();
+    }
+  };
 
   document.addEventListener('DOMContentLoaded', renderSummary);
 </script>
