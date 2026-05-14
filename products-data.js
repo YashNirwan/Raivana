@@ -434,13 +434,6 @@ const RAIVANA_PRODUCTS = [
 // ── PRICING UTILS ─────────────────────────────────────────────────────────────
 const INTL_MARKUP = 1.15;
 
-// Mirrors get-shipping-rate.js fallback logic: 200g brass packaging + US rate ₹3000/500g slab
-function getBrassShippingSupplement(weightG) {
-  var totalKg = Math.max((weightG + 200) / 1000, 0.5);
-  var slabs = Math.ceil(totalKg / 0.5);
-  return 3000 * slabs;
-}
-
 function getBasePrice(product, variantIndex) {
   variantIndex = variantIndex || 0;
   if (product.variants) return product.variants[variantIndex].price_inr;
@@ -449,18 +442,11 @@ function getBasePrice(product, variantIndex) {
 
 function getExportPrice(product, variantIndex) {
   variantIndex = variantIndex || 0;
-  var base;
   if (product.variants) {
     var v = product.variants[variantIndex];
-    base = v.price_inr_export || Math.round(v.price_inr * INTL_MARKUP);
-  } else {
-    base = product.price_inr_export || Math.round(product.price_inr * INTL_MARKUP);
+    return v.price_inr_export || Math.round(v.price_inr * INTL_MARKUP);
   }
-  // Brass: add shipping supplement so international customers see shipping-inclusive price
-  if (product.category === 'brass') {
-    base += getBrassShippingSupplement(getProductWeight(product, variantIndex));
-  }
-  return base;
+  return product.price_inr_export || Math.round(product.price_inr * INTL_MARKUP);
 }
 
 function formatPrice(inr, currency, rates) {
