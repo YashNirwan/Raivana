@@ -473,7 +473,7 @@ const RAIVANA_PRODUCTS = [
       { label: "12 inch", price_inr: 12000, price_inr_export: 16000, weight_g: 3000 }
     ],
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer" },
-    images: ["img/w3-1.jpeg", "img/w3-2.jpeg"]
+    images: ["img/w3-1.jpeg", "img/w3-2.jpeg", "img/w3-3.jpeg"]
   },
   {
     id: 36,
@@ -488,7 +488,7 @@ const RAIVANA_PRODUCTS = [
       { label: "8.5 inch", price_inr: 9000, price_inr_export: 18000, weight_g: 900 }
     ],
     details: { material: "Seasoned Kadam Wood with Hand-Painted Finish", craft: "Handcarved and Hand-Painted in India", finish: "Glossy lacquer" },
-    images: ["img/w4-1.jpeg", "img/w4-2.jpeg"]
+    images: ["img/w4-1.jpeg", "img/w4-2.jpeg", "img/w4-3.jpeg", "img/w4-4.jpeg"]
   },
   {
     id: 37,
