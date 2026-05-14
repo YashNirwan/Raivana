@@ -434,13 +434,11 @@ const RAIVANA_PRODUCTS = [
 // ── PRICING UTILS ─────────────────────────────────────────────────────────────
 const INTL_MARKUP = 1.15;
 
-// Shipping supplements added to brass export prices (INR), averaged across UAE/USA/UK/SG/AU
-const BRASS_SHIPPING_SUPPLEMENT = { light: 1500, medium: 2200, heavy: 3000 };
-
+// Mirrors get-shipping-rate.js fallback logic: 200g brass packaging + US rate ₹3000/500g slab
 function getBrassShippingSupplement(weightG) {
-  if (weightG <= 300) return BRASS_SHIPPING_SUPPLEMENT.light;
-  if (weightG <= 600) return BRASS_SHIPPING_SUPPLEMENT.medium;
-  return BRASS_SHIPPING_SUPPLEMENT.heavy;
+  var totalKg = Math.max((weightG + 200) / 1000, 0.5);
+  var slabs = Math.ceil(totalKg / 0.5);
+  return 3000 * slabs;
 }
 
 function getBasePrice(product, variantIndex) {
