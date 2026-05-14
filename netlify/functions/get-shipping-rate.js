@@ -77,6 +77,14 @@ async function getShiprocketToken() {
   return data.token;
 }
 
+// Couriers excluded from domestic selection — slow, unreliable, or not e-commerce grade
+const EXCLUDED_COURIERS = ['india post', 'surface', 'ekart', 'amazon'];
+
+function isReliableCourier(name) {
+  const lower = name.toLowerCase();
+  return !EXCLUDED_COURIERS.some(excl => lower.includes(excl));
+}
+
 async function getDomesticRate(token, deliveryPincode, weightKg) {
   if (!deliveryPincode || String(deliveryPincode).replace(/\s/g, '').length < 6) {
     throw new Error('Invalid pincode');
@@ -85,11 +93,14 @@ async function getDomesticRate(token, deliveryPincode, weightKg) {
   const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
   const data = await res.json();
 
-  const couriers = data?.data?.available_courier_companies;
-  if (!couriers || couriers.length === 0) throw new Error('No domestic couriers available');
+  const all = data?.data?.available_courier_companies;
+  if (!all || all.length === 0) throw new Error('No domestic couriers available');
 
-  const cheapest = couriers.reduce((min, c) =>
-    c.freight_charge < min.freight_charge ? c : min, couriers[0]);
+  const reliable = all.filter(c => isReliableCourier(c.courier_name));
+  const pool = reliable.length > 0 ? reliable : all; // fallback to all if filter leaves nothing
+
+  const cheapest = pool.reduce((min, c) =>
+    c.freight_charge < min.freight_charge ? c : min, pool[0]);
   return Math.round(cheapest.freight_charge);
 }
 
