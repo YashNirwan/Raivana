@@ -70,7 +70,10 @@ async function getShiprocketToken() {
     }),
   });
   const data = await res.json();
-  if (!data.token) throw new Error('Shiprocket auth failed');
+  if (!data.token) {
+    console.error('Shiprocket auth response:', JSON.stringify(data));
+    throw new Error('Shiprocket auth failed');
+  }
   return data.token;
 }
 
