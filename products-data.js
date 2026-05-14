@@ -1,6 +1,7 @@
 // ── RAIVANA PRODUCT DATA ─────────────────────────────────────────────────────
 // All prices in INR (base currency)
 // International prices apply 15% markup before currency conversion
+// weight_g = product weight in grams (excludes packaging)
 
 const RAIVANA_PRODUCTS = [
   {
@@ -11,7 +12,8 @@ const RAIVANA_PRODUCTS = [
     description: "Beautifully handcrafted brass Lord Ganesha idol in a seated posture with intricate detailing and a rich antique finish. Symbolizing wisdom, prosperity, and good fortune, this piece is perfect for home temples, office desks, or gifting.",
     price_inr: 2500,
     variants: null,
-    details: { weight: null, height: null },
+    details: { weight: "200 gm" },
+    weight_g: 200,
     images: ["img/p1-1.jpeg", "img/p1-2.jpeg", "img/p1-3.jpeg"]
   },
   {
@@ -22,7 +24,8 @@ const RAIVANA_PRODUCTS = [
     description: "Elegant brass Goddess Lakshmi idol seated on a lotus, symbolizing wealth, prosperity, and abundance. Designed with fine craftsmanship, ideal for Diwali puja, home temples, and auspicious décor.",
     price_inr: 2600,
     variants: null,
-    details: {},
+    details: { weight: "200 gm" },
+    weight_g: 200,
     images: ["img/p2-1.jpeg", "img/p2-2.jpeg", "img/p2-3.jpeg"]
   },
   {
@@ -33,7 +36,8 @@ const RAIVANA_PRODUCTS = [
     description: "Premium brass idol of Lord Venkateswara in a standing posture, featuring detailed carvings and traditional design. A powerful symbol of devotion and blessings, perfect for temple placement and spiritual spaces.",
     price_inr: 1800,
     variants: null,
-    details: {},
+    details: { weight: "80–150 gm" },
+    weight_g: 150,
     images: ["img/p3-1.jpeg", "img/p3-2.jpeg"]
   },
   {
@@ -44,8 +48,8 @@ const RAIVANA_PRODUCTS = [
     description: "Exquisite brass idol of Lord Vishnu reclining on the serpent Sheshnag, accompanied by Goddess Lakshmi. A masterpiece of divine art representing cosmic balance and protection, ideal for spiritual décor and premium gifting.",
     price_inr: null,
     variants: [
-      { label: "300 gm", price_inr: 5600 },
-      { label: "460 gm", price_inr: 8200 }
+      { label: "300 gm", price_inr: 5600,  weight_g: 300 },
+      { label: "460 gm", price_inr: 8200,  weight_g: 460 }
     ],
     details: {},
     images: ["img/p4-1.jpeg", "img/p4-2.jpeg", "img/p4-3.jpeg"]
@@ -58,7 +62,8 @@ const RAIVANA_PRODUCTS = [
     description: "Beautifully detailed brass idol of Lord Vishnu with Goddess Lakshmi seated on Sheshnag. Symbolizing harmony, prosperity, and divine protection, this elegant piece enhances any home temple or sacred space.",
     price_inr: 6200,
     variants: null,
-    details: {},
+    details: { weight: "570 gm" },
+    weight_g: 570,
     images: ["img/p5-1.jpeg", "img/p5-2.jpeg"]
   },
   {
@@ -69,10 +74,10 @@ const RAIVANA_PRODUCTS = [
     description: "Beautifully crafted brass Radha Krishna idol symbolizing eternal love and devotion. Designed with intricate detailing and a rich finish, this elegant piece is perfect for home temples, décor, and spiritual gifting.",
     price_inr: null,
     variants: [
-      { label: "120 gm", price_inr: 2200 },
-      { label: "140 gm", price_inr: 2600 },
-      { label: "180 gm", price_inr: 2200 },
-      { label: "240 gm", price_inr: 3200 }
+      { label: "120 gm", price_inr: 2200, weight_g: 120 },
+      { label: "140 gm", price_inr: 2600, weight_g: 140 },
+      { label: "180 gm", price_inr: 2200, weight_g: 180 },
+      { label: "240 gm", price_inr: 3200, weight_g: 240 }
     ],
     details: {},
     images: ["img/p6-1.jpeg", "img/p6-2.jpeg", "img/p6-3.jpeg"]
@@ -85,8 +90,8 @@ const RAIVANA_PRODUCTS = [
     description: "Finely detailed brass Hanuman idol representing strength, devotion, and protection. Ideal for puja rooms and spiritual spaces, bringing courage and positivity into your home.",
     price_inr: null,
     variants: [
-      { label: "180 gm", price_inr: 2200 },
-      { label: "240 gm", price_inr: 3200 }
+      { label: "180 gm", price_inr: 2200, weight_g: 180 },
+      { label: "240 gm", price_inr: 3200, weight_g: 240 }
     ],
     details: {},
     images: ["img/p7-1.jpeg", "img/p7-2.jpeg", "img/p7-3.jpeg"]
@@ -99,8 +104,8 @@ const RAIVANA_PRODUCTS = [
     description: "Intricately crafted brass Lord Ganesha idol in a seated posture, holding traditional symbolic elements like trishul and axe. Designed with fine detailing and a rich antique finish — ideal for home temples, office décor, or gifting.",
     price_inr: null,
     variants: [
-      { label: "130 gm", price_inr: 1200 },
-      { label: "210 gm", price_inr: 1850 }
+      { label: "130 gm", price_inr: 1200, weight_g: 130 },
+      { label: "210 gm", price_inr: 1850, weight_g: 210 }
     ],
     details: {},
     images: ["img/p8-1.jpeg", "img/p8-2.jpeg", "img/p8-3.jpeg"]
@@ -113,7 +118,8 @@ const RAIVANA_PRODUCTS = [
     description: "Beautifully engraved brass kalash featuring traditional floral and peacock motifs. Perfect for religious rituals, vastu placement, and festive décor. Symbolizes purity, abundance, and auspicious beginnings.",
     price_inr: 1050,
     variants: null,
-    details: {},
+    details: { weight: "120 gm" },
+    weight_g: 120,
     images: ["img/p9-1.jpeg", "img/p9-2.jpeg", "img/p9-3.jpeg"]
   },
   {
@@ -124,7 +130,8 @@ const RAIVANA_PRODUCTS = [
     description: "Elegant brass diya stand with intricate carvings and a classic elevated design. Ideal for lighting diyas during puja, aarti, and festivals, adding a warm and spiritual glow to your home.",
     price_inr: 600,
     variants: null,
-    details: {},
+    details: { weight: "60 gm" },
+    weight_g: 60,
     images: ["img/p10-1.jpeg", "img/p10-2.jpeg"]
   },
   {
@@ -135,7 +142,8 @@ const RAIVANA_PRODUCTS = [
     description: "Finely detailed brass temple bell with an ornate handle and traditional design. Produces a clear, soothing sound that enhances the spiritual ambiance during puja and aarti rituals.",
     price_inr: 550,
     variants: null,
-    details: {},
+    details: { weight: "60 gm" },
+    weight_g: 60,
     images: ["img/p11-1.jpeg", "img/p11-2.jpeg", "img/p11-3.jpeg"]
   },
   {
@@ -146,8 +154,8 @@ const RAIVANA_PRODUCTS = [
     description: "A beautifully crafted brass Shiva Lingam with a Nandi bull, symbolizing Lord Shiva's presence and grace. Perfect for home worship, temple placement, and spiritual decor.",
     price_inr: null,
     variants: [
-      { label: "100 gm", price_inr: 1400 },
-      { label: "210 gm", price_inr: 2500 }
+      { label: "100 gm", price_inr: 1400, weight_g: 100 },
+      { label: "210 gm", price_inr: 2500, weight_g: 210 }
     ],
     details: {},
     images: ["img/p12-2.jpeg", "img/p12-3.jpeg"]
@@ -160,10 +168,10 @@ const RAIVANA_PRODUCTS = [
     description: "An intricately designed brass idol of Lord Ganesha, the elephant-headed deity of wisdom and prosperity, adorned with detailed embellishments. Available in four sizes to suit every sacred space.",
     price_inr: null,
     variants: [
-      { label: "125 gm", price_inr: 2200 },
-      { label: "210 gm", price_inr: 3300 },
-      { label: "300 gm", price_inr: 4200 },
-      { label: "510 gm", price_inr: 6800 }
+      { label: "125 gm", price_inr: 2200, weight_g: 125 },
+      { label: "210 gm", price_inr: 3300, weight_g: 210 },
+      { label: "300 gm", price_inr: 4200, weight_g: 300 },
+      { label: "510 gm", price_inr: 6800, weight_g: 510 }
     ],
     details: {},
     images: ["img/p13-1.jpeg", "img/p13-2.jpeg", "img/p13-3.jpeg"]
@@ -176,7 +184,8 @@ const RAIVANA_PRODUCTS = [
     description: "A stunning brass sculpture of an elephant, showcasing traditional Rajasthani craftsmanship and detailed ornamentation. A timeless statement piece for home decor and spiritual spaces.",
     price_inr: 3500,
     variants: null,
-    details: {},
+    details: { weight: "200 gm" },
+    weight_g: 200,
     images: ["img/p14-1.jpeg", "img/p14-2.jpeg", "img/p14-3.jpeg"]
   },
   {
@@ -187,8 +196,8 @@ const RAIVANA_PRODUCTS = [
     description: "A brass idol of Nandi, the sacred cow of Lord Shiva, symbolizing strength, abundance, and devotion. Handcrafted with fine detailing, available in two variants.",
     price_inr: null,
     variants: [
-      { label: "Small · 260 gm", price_inr: 2850 },
-      { label: "Large · 380 gm", price_inr: 3200 }
+      { label: "Small · 260 gm", price_inr: 2850, weight_g: 260 },
+      { label: "Large · 380 gm", price_inr: 3200, weight_g: 380 }
     ],
     details: {},
     images: ["img/p15-1.jpeg", "img/p15-2.jpeg", "img/p15-3.jpeg"]
@@ -202,6 +211,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 2000,
     variants: null,
     details: { weight: "110 gm", height: "5.5 in", length: "2 in" },
+    weight_g: 110,
     images: ["img/p16-1.jpeg", "img/p16-2.jpeg", "img/p16-3.jpeg"]
   },
   {
@@ -213,6 +223,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 6200,
     variants: null,
     details: { weight: "610 gm", height: "6.5 in", length: "4.25 in" },
+    weight_g: 610,
     images: ["img/p17-1.jpeg", "img/p17-2.jpeg"]
   },
   {
@@ -223,8 +234,8 @@ const RAIVANA_PRODUCTS = [
     description: "An elegant brass idol of Lord Ram with Sita and Lakshman, a depiction of divine harmony and virtue. A sacred centerpiece for home temples and devotional spaces.",
     price_inr: null,
     variants: [
-      { label: "260 gm", price_inr: 3800 },
-      { label: "500 gm", price_inr: 7500 }
+      { label: "260 gm", price_inr: 3800, weight_g: 260 },
+      { label: "500 gm", price_inr: 7500, weight_g: 500 }
     ],
     details: {},
     images: ["img/p18-1.jpeg", "img/p18-2.jpeg", "img/p18-3.jpeg"]
@@ -238,6 +249,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 6200,
     variants: null,
     details: { weight: "410 gm", height: "9.75 in", length: "2.75 in" },
+    weight_g: 410,
     images: ["img/p19-1.jpeg", "img/p19-2.jpeg", "img/p19-3.jpeg"]
   },
   {
@@ -248,8 +260,8 @@ const RAIVANA_PRODUCTS = [
     description: "Traditional brass idol of Lord Ganesha seated on a lotus base, crafted with exquisite embellishments. Ideal for pooja rooms, gifting, and auspicious beginnings. Available in two sizes.",
     price_inr: null,
     variants: [
-      { label: "330 gm · 5 in", price_inr: 5000 },
-      { label: "530 gm · 6 in", price_inr: 7500 }
+      { label: "330 gm · 5 in", price_inr: 5000, weight_g: 330 },
+      { label: "530 gm · 6 in", price_inr: 7500, weight_g: 530 }
     ],
     details: {},
     images: ["img/p20-1.jpeg", "img/p20-2.jpeg", "img/p20-3.jpeg"]
@@ -262,8 +274,8 @@ const RAIVANA_PRODUCTS = [
     description: "Divine statue of Goddess Saraswati seated on a lotus, playing the veena. Made of pure brass with intricate detailing, it embodies wisdom, music, and learning. Available in two sizes.",
     price_inr: null,
     variants: [
-      { label: "340 gm · 5 in", price_inr: 5000 },
-      { label: "540 gm · 6 in", price_inr: 7200 }
+      { label: "340 gm · 5 in", price_inr: 5000, weight_g: 340 },
+      { label: "540 gm · 6 in", price_inr: 7200, weight_g: 540 }
     ],
     details: {},
     images: ["img/p21-1.jpeg", "img/p21-2.jpeg", "img/p21-3.jpeg"]
@@ -276,8 +288,8 @@ const RAIVANA_PRODUCTS = [
     description: "A graceful statue of Goddess Lakshmi seated on a lotus flower, holding lotuses in both hands. Crafted in pure brass with fine detailing symbolizing abundance and purity. Available in two sizes.",
     price_inr: null,
     variants: [
-      { label: "310 gm · 5 in", price_inr: 4500 },
-      { label: "470 gm · 6 in", price_inr: 6200 }
+      { label: "310 gm · 5 in", price_inr: 4500, weight_g: 310 },
+      { label: "470 gm · 6 in", price_inr: 6200, weight_g: 470 }
     ],
     details: {},
     images: ["img/p22-1.jpeg", "img/p22-2.jpeg", "img/p22-3.jpeg"]
@@ -291,6 +303,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 4500,
     variants: null,
     details: { weight: "270 gm", height: "4 in", length: "3.25 in" },
+    weight_g: 270,
     images: ["img/p23-1.jpeg", "img/p23-2.jpeg", "img/p23-3.jpeg"]
   },
   {
@@ -302,6 +315,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 3700,
     variants: null,
     details: { weight: "240 gm", height: "5.5 in", length: "2 in" },
+    weight_g: 240,
     images: ["img/p24-1.jpeg", "img/p24-2.jpeg", "img/p24-3.jpeg"]
   },
   {
@@ -312,8 +326,8 @@ const RAIVANA_PRODUCTS = [
     description: "A graceful brass statue of Lord Krishna playing his flute, symbolizing love, compassion, and divine joy. Available in two sizes for different spaces.",
     price_inr: null,
     variants: [
-      { label: "70 gm", price_inr: 800 },
-      { label: "100 gm", price_inr: 1200 }
+      { label: "70 gm",  price_inr: 800,  weight_g: 70  },
+      { label: "100 gm", price_inr: 1200, weight_g: 100 }
     ],
     details: {},
     images: ["img/p25-1.jpeg", "img/p25-2.jpeg", "img/p25-3.jpeg"]
@@ -327,6 +341,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 3200,
     variants: null,
     details: { weight: "270 gm", height: "4 in", length: "3.25 in" },
+    weight_g: 270,
     images: ["img/p26-1.jpeg", "img/p26-2.jpeg", "img/p26-3.jpeg"]
   },
   {
@@ -338,6 +353,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 5400,
     variants: null,
     details: { weight: "490 gm", height: "6 in", length: "3.75 in" },
+    weight_g: 490,
     images: ["img/p27-1.jpeg", "img/p27-2.jpeg", "img/p27-3.jpeg"]
   },
   {
@@ -348,13 +364,12 @@ const RAIVANA_PRODUCTS = [
     description: "Beautifully detailed brass statue of Goddess Ganga standing on her divine vahana, the crocodile (Makara). She holds a trident and offers blessings — ideal for spiritual decor and devotion.",
     price_inr: null,
     variants: [
-      { label: "230 gm · 4.75 in", price_inr: 3200 },
-      { label: "350 gm · 5.75 in", price_inr: 4800 }
+      { label: "230 gm · 4.75 in", price_inr: 3200, weight_g: 230 },
+      { label: "350 gm · 5.75 in", price_inr: 4800, weight_g: 350 }
     ],
     details: {},
     images: ["img/p28-1.jpeg", "img/p28-2.jpeg", "img/p28-3.jpeg"]
-  }
-,
+  },
   {
     id: 29,
     name: "Blue Lotus Print Plate",
@@ -364,9 +379,9 @@ const RAIVANA_PRODUCTS = [
     price_inr: null,
     price_inr_export: null,
     variants: [
-      { label: '8 inch', price_inr: 1600, price_inr_export: 4500 },
-      { label: '10 inch', price_inr: 2000, price_inr_export: 5500 },
-      { label: '12 inch', price_inr: 2400, price_inr_export: 6500 }
+      { label: '8 inch',  price_inr: 1600, price_inr_export: 4500, weight_g: 200 },
+      { label: '10 inch', price_inr: 2000, price_inr_export: 5500, weight_g: 310 },
+      { label: '12 inch', price_inr: 2400, price_inr_export: 6500, weight_g: 450 }
     ],
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
     imagefit: "contain",
@@ -382,6 +397,7 @@ const RAIVANA_PRODUCTS = [
     price_inr_export: 25000,
     variants: null,
     details: { weight: "450 gm", height: "8 in", material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
+    weight_g: 450,
     images: ["img/p30-1.jpeg", "img/p30-2.jpeg", "img/p30-3.jpeg"]
   },
   {
@@ -394,7 +410,7 @@ const RAIVANA_PRODUCTS = [
     price_inr_export: 9000,
     variants: null,
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
-    imagefit: "contain",
+    weight_g: 250,
     images: ["img/p31-1.jpeg", "img/p31-2.jpeg"]
   },
   {
@@ -406,9 +422,9 @@ const RAIVANA_PRODUCTS = [
     price_inr: null,
     price_inr_export: null,
     variants: [
-      { label: '8 inch', price_inr: 1450, price_inr_export: 3500 },
-      { label: '10 inch', price_inr: 1650, price_inr_export: 4500 },
-      { label: '12 inch', price_inr: 1850, price_inr_export: 5500 }
+      { label: '8 inch',  price_inr: 1450, price_inr_export: 3500, weight_g: 200 },
+      { label: '10 inch', price_inr: 1650, price_inr_export: 4500, weight_g: 310 },
+      { label: '12 inch', price_inr: 1850, price_inr_export: 5500, weight_g: 450 }
     ],
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
     images: ["img/p32-1.jpeg", "img/p32-2.jpeg"]
@@ -461,4 +477,14 @@ function getProductPrice(product, variantIndex, currency, rates) {
   var converted = (exportInr / inrRate) * targetRate;
   if (currency === 'AED') return symbol + Math.round(converted);
   return symbol + converted.toFixed(2);
+}
+
+// ── WEIGHT UTIL ───────────────────────────────────────────────────────────────
+// Returns product weight in grams for a given variant index
+function getProductWeight(product, variantIndex) {
+  variantIndex = variantIndex || 0;
+  if (product.variants && product.variants[variantIndex]) {
+    return product.variants[variantIndex].weight_g || 500;
+  }
+  return product.weight_g || 500;
 }

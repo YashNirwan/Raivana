@@ -6,14 +6,14 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { items, currency, customer } = JSON.parse(event.body);
+    const { items, currency, customer, shippingCost } = JSON.parse(event.body);
 
     const razorpay = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
 
-    const amount = calculateTotal(items, currency);
+    const amount = calculateTotal(items, currency, shippingCost || 0);
 
     const notes = {
       items: JSON.stringify(items.map(i => ({ name: i.name, price: i.price, size: i.size || '' })))
@@ -24,6 +24,7 @@ exports.handler = async (event) => {
       notes.customer_email   = customer.email   || '';
       notes.customer_phone   = customer.phone   || '';
       notes.shipping_address = customer.address || '';
+      if (shippingCost) notes.shipping_cost = String(shippingCost);
     }
 
     const order = await razorpay.orders.create({
@@ -44,10 +45,11 @@ exports.handler = async (event) => {
   }
 };
 
-function calculateTotal(items, currency) {
-  const total = items.reduce((sum, item) => {
+function calculateTotal(items, currency, shippingCost) {
+  const productTotal = items.reduce((sum, item) => {
     return sum + (parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0);
   }, 0);
+  const total = productTotal + (shippingCost || 0);
 
   const zeroDecimal = ['JPY', 'KRW'];
   if (zeroDecimal.includes(currency.toUpperCase())) return Math.round(total);

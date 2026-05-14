@@ -105,7 +105,7 @@
     <div id="summary-items"><div class="empty-cart-msg">Your bag is empty</div></div>
     <div id="summary-totals" style="display:none;margin-top:1.5rem;">
       <div class="summary-row"><span>Subtotal</span><span id="subtotal-display">—</span></div>
-      <div class="summary-row"><span>Shipping</span><span>Confirmed on order</span></div>
+      <div class="summary-row"><span>Shipping</span><span id="shipping-display">Enter address below</span></div>
       <div class="summary-row total"><span>Total</span><span id="total-display">—</span></div>
     </div>
   </div>
@@ -206,11 +206,11 @@
         <div class="form-row">
           <div class="form-group">
             <label>Postal Code</label>
-            <input type="text" id="ship-pin" placeholder="e.g. 110001 / SW1A 1AA" required>
+            <input type="text" id="ship-pin" placeholder="e.g. 110001 / SW1A 1AA" required onblur="fetchShippingRate();">
           </div>
           <div class="form-group">
             <label>Country</label>
-            <select id="ship-country" required onchange="syncDialCode(this.value)">
+            <select id="ship-country" required onchange="syncDialCode(this.value); fetchShippingRate();">
               <option value="">Select country</option>
               <option value="India">India</option>
               <option value="United States">United States</option>
@@ -297,9 +297,11 @@
 
 <script src="currency.js"></script>
 <script src="cart.js"></script>
+<script src="products-data.js"></script>
 <script>
   var cartItems = [];
   var orderTotal = 0;
+  var shippingInr = 0;
 
   function renderSummary() {
     cartItems = getCart();
@@ -336,6 +338,84 @@
     document.getElementById('subtotal-display').innerText = symbol + orderTotal.toFixed(2);
     document.getElementById('total-display').innerText = symbol + orderTotal.toFixed(2);
     document.getElementById('loading-overlay').classList.add('hidden');
+  }
+
+  function calculateCartWeight() {
+    var totalG = 0, hasCeramics = false;
+    cartItems.forEach(function(item) {
+      var product = (typeof RAIVANA_PRODUCTS !== 'undefined')
+        ? RAIVANA_PRODUCTS.find(function(p) { return p.name === item.name; })
+        : null;
+      if (product) {
+        if (product.category === 'ceramics') hasCeramics = true;
+        var vi = product.variants && item.size
+          ? product.variants.findIndex(function(v) { return v.label === item.size; })
+          : -1;
+        totalG += (typeof getProductWeight === 'function')
+          ? getProductWeight(product, vi >= 0 ? vi : 0)
+          : 500;
+      } else {
+        totalG += 500;
+      }
+    });
+    return { totalG: totalG, hasCeramics: hasCeramics };
+  }
+
+  function getShippingInDisplayCurrency() {
+    if (!shippingInr) return 0;
+    var currency = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
+    if (currency === 'INR') return shippingInr;
+    var rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : null;
+    var inrRate = (rates && rates['INR']) || 94.75;
+    var targetRate = (rates && rates[currency]) || 1;
+    return parseFloat(((shippingInr / inrRate) * targetRate).toFixed(2));
+  }
+
+  function updateOrderTotal() {
+    if (!cartItems.length) return;
+    var symbol = cartItems[0].price.match(/^[^\d]*/)[0] || '₹';
+    var shipping = getShippingInDisplayCurrency();
+    document.getElementById('total-display').innerText = symbol + (orderTotal + shipping).toFixed(2);
+  }
+
+  async function fetchShippingRate() {
+    var country = document.getElementById('ship-country').value;
+    var pincode = document.getElementById('ship-pin').value.trim();
+    if (!country) return;
+    if (country === 'India' && pincode.replace(/\s/g, '').length < 6) return;
+
+    var shippingEl = document.getElementById('shipping-display');
+    shippingEl.innerText = 'Calculating…';
+
+    var weight = calculateCartWeight();
+    try {
+      var res = await fetch('/.netlify/functions/get-shipping-rate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          weightG: weight.totalG,
+          hasCeramics: weight.hasCeramics,
+          country: country,
+          pincode: pincode
+        })
+      });
+      var data = await res.json();
+      if (data.shipping_inr !== null && data.shipping_inr !== undefined) {
+        shippingInr = data.shipping_inr;
+        var currency = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
+        var symbols = { INR: '₹', USD: '$', GBP: '£', EUR: '€', AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$' };
+        var sym = symbols[currency] || (currency + ' ');
+        var displayAmt = currency === 'INR' ? shippingInr : getShippingInDisplayCurrency();
+        shippingEl.innerText = sym + (currency === 'INR' ? Math.round(displayAmt).toLocaleString('en-IN') : displayAmt.toFixed(2));
+      } else {
+        shippingInr = 0;
+        shippingEl.innerText = 'Confirmed on order';
+      }
+    } catch (_) {
+      shippingInr = 0;
+      shippingEl.innerText = 'Confirmed on order';
+    }
+    updateOrderTotal();
   }
 
   function syncDialCode(countryName) {
@@ -389,7 +469,8 @@
             email: email,
             phone: phone,
             address: [address1, address2, city, state, pin, country].filter(Boolean).join(', ')
-          }
+          },
+          shippingCost: getShippingInDisplayCurrency()
         })
       });
 
