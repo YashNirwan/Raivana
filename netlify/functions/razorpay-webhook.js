@@ -61,6 +61,7 @@ exports.handler = async (event) => {
         subject: `New order from ${customerName} — ${amountFormatted}`,
         html:    merchantEmailHtml({ customerName, customerEmail, customerPhone, items, shippingAddress, amountFormatted, orderId: payment.order_id, paymentId: payment.id }),
       }),
+      pushToShiprocket(notes, payment),
     ]);
   } catch (err) {
     // Log but return 200 so Razorpay doesn't retry — email failure shouldn't block capture acknowledgement
@@ -69,6 +70,79 @@ exports.handler = async (event) => {
 
   return { statusCode: 200, body: 'OK' };
 };
+
+async function pushToShiprocket(notes, payment) {
+  try {
+    const srEmail    = process.env.SHIPROCKET_EMAIL;
+    const srPassword = process.env.SHIPROCKET_PASSWORD;
+    if (!srEmail || !srPassword) return;
+
+    // Authenticate
+    const authRes = await fetch('https://apiv2.shiprocket.in/v1/external/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: srEmail, password: srPassword }),
+    });
+    const { token } = await authRes.json();
+    if (!token) { console.error('Shiprocket auth failed in webhook'); return; }
+
+    const items    = safeParseItems(notes.items);
+    const weightKg = Math.max((parseInt(notes.weight_g) || 500) / 1000, 0.5);
+    const nameParts = (notes.customer_name || 'Customer').split(' ');
+    const firstName = nameParts[0];
+    const lastName  = nameParts.slice(1).join(' ') || '.';
+
+    const orderItems = items.map((item, i) => ({
+      name:          item.name + (item.size ? ` (${item.size})` : ''),
+      sku:           `SKU-${i + 1}`,
+      units:         1,
+      selling_price: parseFloat((item.price || '0').replace(/[^0-9.]/g, '')) || 0,
+      discount:      0,
+      tax:           0,
+    }));
+
+    const subTotal = orderItems.reduce((s, i) => s + i.selling_price, 0);
+
+    const payload = {
+      order_id:               `RVN-${payment.order_id}`,
+      order_date:             new Date().toISOString().slice(0, 16).replace('T', ' '),
+      pickup_location:        process.env.SHIPROCKET_PICKUP_LOCATION || 'Primary',
+      billing_customer_name:  firstName,
+      billing_last_name:      lastName,
+      billing_address:        notes.ship_address1 || notes.shipping_address || '',
+      billing_address_2:      notes.ship_address2 || '',
+      billing_city:           notes.ship_city     || '',
+      billing_pincode:        notes.ship_pin      || '',
+      billing_state:          notes.ship_state    || '',
+      billing_country:        notes.ship_country  || 'India',
+      billing_email:          notes.customer_email || '',
+      billing_phone:          (notes.customer_phone || '').replace(/^\+\d{1,3}/, '').trim(),
+      shipping_is_billing:    true,
+      order_items:            orderItems,
+      payment_method:         'Prepaid',
+      sub_total:              subTotal,
+      length:                 20,
+      breadth:                15,
+      height:                 15,
+      weight:                 weightKg,
+    };
+
+    const res = await fetch('https://apiv2.shiprocket.in/v1/external/orders/create/adhoc', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body:    JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (data.order_id) {
+      console.log(`Shiprocket order created: ${data.order_id} for payment ${payment.id}`);
+    } else {
+      console.error('Shiprocket order creation failed:', JSON.stringify(data));
+    }
+  } catch (err) {
+    console.error('Shiprocket push error:', err.message);
+  }
+}
 
 function safeParseItems(raw) {
   try { return JSON.parse(raw || '[]'); } catch { return []; }

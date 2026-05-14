@@ -470,9 +470,16 @@
             name: name,
             email: email,
             phone: phone,
+            address1: address1,
+            address2: address2,
+            city: city,
+            state: state,
+            pin: pin,
+            country: country,
             address: [address1, address2, city, state, pin, country].filter(Boolean).join(', ')
           },
-          shippingCost: getShippingInDisplayCurrency()
+          shippingCost: getShippingInDisplayCurrency(),
+          weight: calculateCartWeight()
         })
       });
 
