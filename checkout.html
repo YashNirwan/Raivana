@@ -382,7 +382,16 @@
     var country = document.getElementById('ship-country').value;
     var pincode = document.getElementById('ship-pin').value.trim();
     if (!country) return;
-    if (country === 'India' && pincode.replace(/\s/g, '').length < 6) return;
+
+    // International: shipping is built into product prices
+    if (country !== 'India') {
+      shippingInr = 0;
+      document.getElementById('shipping-display').innerText = 'Included in price';
+      updateOrderTotal();
+      return;
+    }
+
+    if (pincode.replace(/\s/g, '').length < 6) return;
 
     var shippingEl = document.getElementById('shipping-display');
     shippingEl.innerText = 'Calculating…';

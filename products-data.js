@@ -434,6 +434,15 @@ const RAIVANA_PRODUCTS = [
 // ── PRICING UTILS ─────────────────────────────────────────────────────────────
 const INTL_MARKUP = 1.15;
 
+// Shipping supplements added to brass export prices (INR), averaged across UAE/USA/UK/SG/AU
+const BRASS_SHIPPING_SUPPLEMENT = { light: 1500, medium: 2200, heavy: 3000 };
+
+function getBrassShippingSupplement(weightG) {
+  if (weightG <= 300) return BRASS_SHIPPING_SUPPLEMENT.light;
+  if (weightG <= 600) return BRASS_SHIPPING_SUPPLEMENT.medium;
+  return BRASS_SHIPPING_SUPPLEMENT.heavy;
+}
+
 function getBasePrice(product, variantIndex) {
   variantIndex = variantIndex || 0;
   if (product.variants) return product.variants[variantIndex].price_inr;
@@ -442,11 +451,18 @@ function getBasePrice(product, variantIndex) {
 
 function getExportPrice(product, variantIndex) {
   variantIndex = variantIndex || 0;
+  var base;
   if (product.variants) {
     var v = product.variants[variantIndex];
-    return v.price_inr_export || Math.round(v.price_inr * INTL_MARKUP);
+    base = v.price_inr_export || Math.round(v.price_inr * INTL_MARKUP);
+  } else {
+    base = product.price_inr_export || Math.round(product.price_inr * INTL_MARKUP);
   }
-  return product.price_inr_export || Math.round(product.price_inr * INTL_MARKUP);
+  // Brass: add shipping supplement so international customers see shipping-inclusive price
+  if (product.category === 'brass') {
+    base += getBrassShippingSupplement(getProductWeight(product, variantIndex));
+  }
+  return base;
 }
 
 function formatPrice(inr, currency, rates) {
