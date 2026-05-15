@@ -58,10 +58,15 @@
   .shop-header { padding: 9rem 4rem 3rem; text-align: center; background: var(--cream); }
   .shop-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem,5vw,4rem); font-weight: 300; margin-bottom: 0.8rem; }
   .shop-header p { font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); }
-  .filter-bar { display: flex; justify-content: center; gap: 0; margin: 3rem auto; width: fit-content; border: 1px solid rgba(28,16,8,0.15); flex-wrap: wrap; }
+  .filter-bar { display: flex; justify-content: center; gap: 0; margin: 3rem auto 0; width: fit-content; border: 1px solid rgba(28,16,8,0.15); flex-wrap: wrap; }
   .filter-btn { background: transparent; border: none; border-right: 1px solid rgba(28,16,8,0.15); padding: 0.65rem 1.6rem; font-family: 'Jost', sans-serif; font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(28,16,8,0.5); cursor: pointer; transition: all 0.25s; }
   .filter-btn:last-child { border-right: none; }
   .filter-btn.active, .filter-btn:hover { background: var(--deep); color: var(--sand); }
+  .sub-filter-wrap { display: none; justify-content: center; margin: 1.2rem auto 0; width: fit-content; max-width: calc(100% - 8rem); flex-wrap: wrap; gap: 0.5rem; animation: subFadeIn 0.2s ease; }
+  .sub-filter-wrap.visible { display: flex; }
+  .sub-filter-btn { background: transparent; border: 1px solid rgba(28,16,8,0.15); padding: 0.45rem 1.1rem; font-family: 'Jost', sans-serif; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(28,16,8,0.45); cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .sub-filter-btn.active, .sub-filter-btn:hover { background: var(--terracotta); color: var(--sand); border-color: var(--terracotta); }
+  @keyframes subFadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
   .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 3rem; padding: 2rem 4rem 6rem; max-width: 1400px; margin: 0 auto; }
   .product-card { display: flex; flex-direction: column; cursor: pointer; transition: transform 0.3s; }
   .product-card:hover { transform: translateY(-5px); }
@@ -164,9 +169,10 @@
     <button class="filter-btn" onclick="filterProducts('ceramics',this)">Ceramics</button>
     <button class="filter-btn" onclick="filterProducts('woodwork',this)">Woodwork</button>
   </div>
+  <div class="sub-filter-wrap" id="subFilterWrap"></div>
 </div>
 
-<section class="product-grid" id="productGrid"></section>
+<section class="product-grid" id="productGrid" style="margin-top:2.5rem;"></section>
 
 <!-- CART DRAWER -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
@@ -231,11 +237,38 @@
     document.getElementById('mobileMenu').classList.toggle('open');
     document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
   }
+  const SUBCATS = {
+    brass:    ['Brass God Idols', 'Brass Animals', 'Brass Decor'],
+    ceramics: ['Vases', 'Plates', 'Bowls', 'Miniatures & Decor'],
+    woodwork: ['Animal Sculptures', 'God Idols', 'Buddha Collection', 'Wooden Home Decor']
+  };
+  const CAT_LABELS = { brass: 'Brass Collection', ceramics: 'Blue Pottery', woodwork: 'Wooden Handicrafts' };
+
   function filterProducts(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    const wrap = document.getElementById('subFilterWrap');
+    if (cat === 'all') {
+      wrap.classList.remove('visible');
+      wrap.innerHTML = '';
+      document.querySelectorAll('.product-card').forEach(card => card.classList.remove('hidden'));
+    } else {
+      const subs = SUBCATS[cat] || [];
+      wrap.innerHTML = `<button class="sub-filter-btn active" onclick="filterBySub('all',this,'${cat}')">All ${CAT_LABELS[cat]||cat}</button>`
+        + subs.map(s => `<button class="sub-filter-btn" onclick="filterBySub('${s}',this,'${cat}')">${s}</button>`).join('');
+      wrap.classList.add('visible');
+      document.querySelectorAll('.product-card').forEach(card => {
+        card.classList.toggle('hidden', card.dataset.cat !== cat);
+      });
+    }
+  }
+
+  function filterBySub(sub, btn, cat) {
+    document.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
     document.querySelectorAll('.product-card').forEach(card => {
-      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+      if (card.dataset.cat !== cat) { card.classList.add('hidden'); return; }
+      card.classList.toggle('hidden', sub !== 'all' && card.dataset.subcat !== sub);
     });
   }
   // Render all product cards dynamically
@@ -260,6 +293,7 @@
       const card = document.createElement('div');
       card.className = 'product-card';
       card.dataset.cat = p.category;
+      card.dataset.subcat = p.subcategory || '';
       card.dataset.imgIndex = '0';
       card.dataset.imgs = JSON.stringify(imgs);
       card.innerHTML = `
@@ -345,6 +379,7 @@
       const card = document.createElement('div');
       card.className = 'product-card';
       card.dataset.cat = p.category;
+      card.dataset.subcat = p.subcategory || '';
       card.dataset.imgIndex = '0';
       card.dataset.imgs = JSON.stringify(imgs);
       card.innerHTML = `
