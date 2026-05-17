@@ -334,13 +334,14 @@
     .nav-hamburger { display: flex; }
 
     /* HERO */
-    .hero { grid-template-columns: 1fr !important; min-height: auto !important; padding-top: 4.5rem !important; }
-    .hero-left { padding: 3rem 1.5rem 2rem !important; }
+    .hero { grid-template-columns: 1fr !important; min-height: auto !important; padding-top: 4.5rem !important; overflow: visible !important; }
+    .hero-left { padding: 2rem 1.5rem 1.5rem !important; }
     .hero-h1 { font-size: 2.6rem !important; }
-    .hero-sub { font-size: 0.9rem !important; }
-    .hero-right { height: 300px !important; }
-    .hero-card { width: 85% !important; }
-    .hero-accent-box { width: 45% !important; bottom: -1rem !important; right: -0.8rem !important; }
+    .hero-sub { font-size: 0.9rem !important; margin-bottom: 1.8rem !important; }
+    .hero-right { height: auto !important; overflow: visible !important; padding: 0 1.5rem 1.5rem !important; }
+    .hero-card-wrap { width: 100% !important; margin: 0 !important; }
+    .hero-card { width: 100% !important; height: 260px !important; aspect-ratio: unset !important; margin: 0 !important; }
+    .hero-accent-box { width: 42% !important; bottom: 0.8rem !important; right: 0 !important; }
 
     /* BRAND PHILOSOPHY */
     .brand-philosophy { padding: 5rem 1.5rem !important; }
@@ -393,6 +394,8 @@
 
     /* FOOTER */
     footer { padding: 3rem 1.5rem 2rem !important; }
+    .footer-top { grid-template-columns: 1fr !important; gap: 2rem !important; }
+    .footer-bottom { flex-direction: column !important; gap: 0.5rem !important; text-align: center !important; }
     .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 2rem !important; }
 
     /* STORY PAGE */
@@ -501,7 +504,19 @@
       </button>
     </li>
   </ul>
+  <button id="hamburger" class="nav-hamburger" onclick="toggleMenu()" aria-label="Open navigation">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div id="mobileMenu" class="mobile-menu">
+  <button class="mobile-close" onclick="toggleMenu()">&#x2715;</button>
+  <a href="products.html" onclick="toggleMenu()">Shop All</a>
+  <a href="#process" onclick="toggleMenu()">The Craft</a>
+  <a href="story.html" onclick="toggleMenu()">Our Story</a>
+  <a href="#custom" onclick="toggleMenu()">Custom Orders</a>
+  <a href="#trade" onclick="toggleMenu()">Trade / Bulk</a>
+  <a href="contact.html" onclick="toggleMenu()">Contact</a>
+</div>
 
 <!-- 1. HERO -->
 <section class="hero">
@@ -516,7 +531,7 @@
   </div>
   <div class="hero-right">
     <div class="hero-bg-pattern"></div>
-    <div style="position:relative; width:72%; margin: 4rem auto;">
+    <div class="hero-card-wrap" style="position:relative; width:72%; margin: 4rem auto;">
       <div class="hero-card">
         <div class="hero-card-inner"><div class="hero-product-text">Ceramic Vase, 19th Century Design</div></div>
       </div>
@@ -1043,6 +1058,11 @@
   function applyPrices() { if (_origApply) _origApply(); updateHomePrices(); }
   document.addEventListener('DOMContentLoaded', function() {
     setTimeout(updateHomePrices, 1500); // fallback after currency loads
+  });
+</script>
+<script>
+  document.querySelectorAll('img').forEach(function(img) {
+    if (!img.closest('nav')) img.setAttribute('loading', 'lazy');
   });
 </script>
 </html>
