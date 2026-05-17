@@ -532,6 +532,7 @@
       });
 
       const data = await res.json();
+      console.log('ORDER RESPONSE', data);
       if (data.error) throw new Error(data.error);
 
       // Launch Razorpay checkout
