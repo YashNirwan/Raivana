@@ -338,7 +338,7 @@
     container.innerHTML = '';
     orderTotal = 0;
 
-    cartItems.forEach(item => {
+    cartItems.forEach((item, i) => {
       const price = parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0;
       orderTotal += price;
 
