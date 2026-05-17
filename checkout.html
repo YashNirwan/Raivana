@@ -533,7 +533,7 @@
 
       const data = await res.json();
       console.log('ORDER RESPONSE', data);
-      if (data.error) throw new Error(data.error);
+      if (!res.ok || data.error) throw new Error(data.error || `Server error ${res.status}`);
 
       // Launch Razorpay checkout
       const options = {

@@ -51,7 +51,8 @@ exports.handler = async (event) => {
     };
   } catch (err) {
     console.error(err);
-    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+    const errorMsg = err.message || (err.error && err.error.description) || JSON.stringify(err);
+    return { statusCode: 500, body: JSON.stringify({ error: errorMsg }) };
   }
 };
 
