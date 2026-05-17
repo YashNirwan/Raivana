@@ -6,14 +6,17 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { items, currency, customer, shippingCost, weight } = JSON.parse(event.body);
+    const { items, currency, customer, shippingCost, weight, amountOverride } = JSON.parse(event.body);
 
     const razorpay = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
 
-    const amount = calculateTotal(items, currency, shippingCost || 0);
+    const zeroDecimalCurrencies = ['JPY', 'KRW'];
+    const amount = (amountOverride !== undefined && amountOverride !== null)
+      ? (zeroDecimalCurrencies.includes(currency.toUpperCase()) ? Math.round(amountOverride) : Math.round(amountOverride * 100))
+      : calculateTotal(items, currency, shippingCost || 0);
 
     const notes = {
       items: JSON.stringify(items.map(i => ({ name: i.name, price: i.price, size: i.size || '' })))
@@ -57,8 +60,6 @@ function calculateTotal(items, currency, shippingCost) {
     return sum + (parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0);
   }, 0);
   const total = productTotal + (shippingCost || 0);
-
-  const zeroDecimal = ['JPY', 'KRW'];
-  if (zeroDecimal.includes(currency.toUpperCase())) return Math.round(total);
+  if (['JPY', 'KRW'].includes(currency.toUpperCase())) return Math.round(total);
   return Math.round(total * 100);
 }
