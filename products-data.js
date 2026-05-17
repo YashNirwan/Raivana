@@ -1322,6 +1322,192 @@ const RAIVANA_PRODUCTS = [
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed" },
     weight_g: 300,
     images: ["img/v22-1.jpeg", "img/v22-2.jpeg"]
+  },
+  {
+    id: 92,
+    name: "Saffron Medallion Plate",
+    subtitle: "Radiating Floral Vines · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate featuring radiating floral vines in gradient saffron and rust tones on an off-white ground, centered around a circular medallion motif. The symmetrical scrollwork flows outward and is framed by a warm terracotta rim. The glazed finish locks in the hand-painted details and gives the surface a smooth, glossy sheen. A traditional decor piece for walls, sideboards, and festive table settings.",
+    price_inr: 6000,
+    price_inr_export: 12000,
+    variants: null,
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
+    weight_g: 500,
+    images: ["img/v23-1.jpeg", "img/v23-2.jpeg"]
+  },
+  {
+    id: 93,
+    name: "Indigo Bloom Plate",
+    subtitle: "Golden Vines on Cobalt Blue · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate with golden-yellow floral vines and leaves cascading across a rich indigo-blue ground. The bold contrast and flowing scrollwork create a striking, regal pattern reminiscent of Mughal jaali work. The glazed finish deepens the cobalt tone and gives the surface a smooth, luminous shine. An elegant decor piece for walls, mantels, and display shelves.",
+    price_inr: 5000,
+    price_inr_export: 10000,
+    variants: null,
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
+    weight_g: 500,
+    images: ["img/v24-1.jpeg", "img/v24-2.jpeg"]
+  },
+  {
+    id: 94,
+    name: "Marigold Flame Plate",
+    subtitle: "Crimson & Gold Floral Vines · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate with dense floral vines in gradient shades of crimson and golden yellow on an off-white ground. The warm tones and fine linework give the design an energetic, festive feel, framed by a deep red rim. The glazed finish enhances the color depth and seals the surface with a smooth, glossy shine. A vibrant decor piece for walls, dining tables, and festive displays.",
+    price_inr: 6000,
+    price_inr_export: 12000,
+    variants: null,
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
+    weight_g: 500,
+    images: ["img/v25-1.jpeg", "img/v25-2.jpeg"]
+  },
+  {
+    id: 95,
+    name: "Green Chintz Garden Plate",
+    subtitle: "White Blooms on Forest Green · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate featuring white floral scrollwork and yellow blossoms with maroon centers set against a deep forest-green ground. A border of white leaf motifs and mustard dots frames the design, finished with a bright yellow rim. The glazed finish locks in the vivid colors and gives the surface a smooth, glossy sheen. A bold decor piece for walls, consoles, and shelving displays.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: "10 inch", price_inr: 2500, price_inr_export: 5000, weight_g: 350 },
+      { label: "12 inch", price_inr: 5000, price_inr_export: 10000, weight_g: 500 }
+    ],
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
+    weight_g: 500,
+    images: ["img/v26-1.jpeg", "img/v26-2.jpeg"]
+  },
+  {
+    id: 96,
+    name: "Mustard Gaj Plate",
+    subtitle: "Ceremonial Elephant · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate featuring a white ceremonial elephant walking against a vibrant mustard-yellow ground. The elephant is adorned with a blue howdah and cloth detailed with floral and cross motifs in turquoise, red, and green, with red anklets and fine folk-art outlines. The glossy glaze locks in the bold colors and brushwork, giving the surface a smooth, luminous finish. An auspicious decor piece for walls, entryways, and shelves.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: "10 inch", price_inr: 4000, price_inr_export: 8000, weight_g: 350 },
+      { label: "12 inch", price_inr: 9000, price_inr_export: 18000, weight_g: 500 }
+    ],
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
+    weight_g: 500,
+    images: ["img/v27-1.jpeg", "img/v27-2.jpeg"]
+  },
+  {
+    id: 97,
+    name: "Saffron Ashwa Plate",
+    subtitle: "Folk Horse on Mustard Ground · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate featuring a white folk-style horse captured mid-gallop against a vibrant mustard-yellow ground. The horse wears a colorful saddle and bridle in turquoise, red, and blue with bold geometric patterns and a central rosette motif. The glossy glaze enhances the rich yellow background and seals the hand-painted details with a smooth, luminous finish. A dynamic decor piece for walls, consoles, and cultural displays.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: "10 inch", price_inr: 4000, price_inr_export: 8000, weight_g: 350 },
+      { label: "12 inch", price_inr: 9000, price_inr_export: 18000, weight_g: 500 }
+    ],
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
+    weight_g: 500,
+    images: ["img/v28-1.jpeg", "img/v28-2.jpeg"]
+  },
+  {
+    id: 98,
+    name: "Blue Matsya Plate",
+    subtitle: "Twin Fish on Cobalt Blue · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate featuring two stylized fish swimming in opposite directions against a deep cobalt-blue ground. The fish are rendered in white with turquoise scales, rust-red accents, and green fins, outlined in fine detail and framed by a simple white rim. The glossy glaze enhances the rich blue background and gives the hand-painted motifs a smooth, luminous finish. A symbolic decor piece for walls, shelves, and entryways, representing prosperity and good fortune.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: "10 inch", price_inr: 6000, price_inr_export: 12000, weight_g: 350 },
+      { label: "12 inch", price_inr: 12000, price_inr_export: 24000, weight_g: 500 }
+    ],
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
+    weight_g: 500,
+    images: ["img/v29-1.jpeg", "img/v29-2.jpeg"]
+  },
+  {
+    id: 99,
+    name: "Nandi Yellow Plate",
+    subtitle: "Sacred Cow on Mustard Ground · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate featuring a white sacred cow with red spots and decorative bells, set against a vibrant mustard-yellow ground. The cow is adorned with blue and green ornaments and captured mid-step, surrounded by a border of white floral motifs and green accents. The glossy glaze locks in the bold colors and fine brushwork with a smooth, luminous finish. An auspicious decor piece for pooja spaces, entryways, and wall displays.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: "10 inch", price_inr: 5500, price_inr_export: 11000, weight_g: 350 },
+      { label: "12 inch", price_inr: 10000, price_inr_export: 20000, weight_g: 500 }
+    ],
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
+    weight_g: 500,
+    images: ["img/v30-1.jpeg", "img/v30-2.jpeg"]
+  },
+  {
+    id: 100,
+    name: "Red Bloom Jaali Plate",
+    subtitle: "Turquoise Vines on Terracotta Red · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate with turquoise-blue floral vines and leaves swirling across a rich terracotta-red ground. The fine jaali-inspired scrollwork radiates from the center, creating a bold contrast between the cool blue motifs and warm red base. The glazed finish deepens the colors and seals the surface with a smooth, glossy sheen. A striking decor piece for walls, shelves, and festive displays.",
+    price_inr: 7500,
+    price_inr_export: 14000,
+    variants: null,
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
+    weight_g: 500,
+    images: ["img/v31-1.jpeg", "img/v31-2.jpeg"]
+  },
+  {
+    id: 101,
+    name: "Green Jaali Vine Plate",
+    subtitle: "Flowing Green Scrollwork · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate with flowing green floral vines and leaves spreading across an off-white ground. The dense scrollwork forms a balanced, organic pattern framed by a deep olive-green rim with a leaf-and-dot border. The glazed finish deepens the green tones and gives the surface a smooth, glossy sheen. A versatile decor piece for walls, consoles, and dining tables.",
+    price_inr: 5000,
+    price_inr_export: 10000,
+    variants: null,
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
+    weight_g: 500,
+    images: ["img/v32-1.jpeg", "img/v32-2.jpeg"]
+  },
+  {
+    id: 102,
+    name: "Blue Chintz Vine Plate",
+    subtitle: "Cascading Blue Vines on Off-White · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate featuring cascading blue floral vines with layered shading on an off-white ground. The dense scrollwork creates a flowing, organic pattern framed by a deep cobalt rim. The glazed finish enhances the depth of the blue tones and seals the surface with a smooth, glossy sheen. An elegant decor piece for walls, shelves, and dining tables.",
+    price_inr: 6000,
+    price_inr_export: 12000,
+    variants: null,
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
+    weight_g: 500,
+    images: ["img/v33-1.jpeg", "img/v33-2.jpeg"]
+  },
+  {
+    id: 103,
+    name: "Mughal Vine Plate",
+    subtitle: "Cobalt, Mustard & Crimson Vine · Handpainted Ceramic",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Handpainted ceramic plate with a flowing floral vine pattern in cobalt blue, mustard yellow, and crimson, set against an off-white ground. Lush green leaves intertwine across the surface, radiating from a central medallion and framed by a bright yellow rim. The glazed finish enhances the color depth and gives the surface a smooth, glossy shine. A versatile decor piece for walls, sideboards, and dining tables.",
+    price_inr: null,
+    price_inr_export: null,
+    variants: [
+      { label: "10 inch", price_inr: 2500, price_inr_export: 5000, weight_g: 350 },
+      { label: "12 inch", price_inr: 6000, price_inr_export: 12000, weight_g: 500 }
+    ],
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
+    weight_g: 500,
+    images: ["img/v34-1.jpeg", "img/v34-2.jpeg"]
   }
 ];
 
