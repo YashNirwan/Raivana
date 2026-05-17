@@ -83,30 +83,28 @@
     .pay-methods { grid-template-columns: 1fr 1fr; }
   }
 
-  /* Google Places Autocomplete dropdown */
-  .pac-container {
+  /* Address autocomplete dropdown */
+  #addr-dropdown {
+    display: none;
+    position: absolute;
+    left: 0; right: 0; top: 100%;
+    background: var(--cream);
     border: 1px solid rgba(28,16,8,0.15);
     border-top: none;
-    background: var(--cream);
-    font-family: 'Jost', sans-serif;
-    font-size: 0.85rem;
-    border-radius: 0;
+    z-index: 1000;
+    max-height: 260px;
+    overflow-y: auto;
     box-shadow: 0 6px 24px rgba(28,16,8,0.1);
-    margin-top: -1px;
   }
-  .pac-item {
+  .addr-item {
     padding: 0.75rem 1rem;
     cursor: pointer;
+    font-size: 0.85rem;
     color: var(--deep);
     border-top: 1px solid rgba(28,16,8,0.05);
     line-height: 1.4;
   }
-  .pac-item:hover, .pac-item-selected { background: var(--blush); }
-  .pac-item-query { font-size: 0.88rem; color: var(--deep); font-family: 'Jost', sans-serif; }
-  .pac-matched { font-weight: 500; color: var(--terracotta); }
-  .pac-secondary-text { font-size: 0.75rem; color: rgba(28,16,8,0.5); }
-  .pac-icon, .pac-logo { display: none !important; }
-  .hdpi .pac-icon { display: none !important; }
+  .addr-item:hover { background: var(--blush); color: var(--terracotta); }
 </style>
 </head>
 <body>
@@ -210,9 +208,9 @@
 
       <div style="margin: 2rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid rgba(28,16,8,0.08);">
         <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; margin-bottom: 1.5rem; color: rgba(28,16,8,0.7); letter-spacing: 0.04em;">Shipping Address</div>
-        <div class="form-group">
+        <div class="form-group" style="position:relative;">
           <label>Address Line 1</label>
-          <input type="text" id="ship-address1" placeholder="Start typing your address…" required autocomplete="off">
+          <input type="text" id="ship-address1" placeholder="Start typing your address…" required autocomplete="off" oninput="handleAddressInput()" onblur="setTimeout(closeAddressSuggestions,200)">
         </div>
         <div class="form-group">
           <label>Address Line 2 <span style="opacity:0.5;">(optional)</span></label>
@@ -588,51 +586,78 @@
     document.getElementById('payment-message').innerText = msg;
   }
 
-  function initAutocomplete() {
-    var input = document.getElementById('ship-address1');
-    var autocomplete = new google.maps.places.Autocomplete(input, {
-      fields: ['address_components'],
-      types: ['address']
-    });
+  var _acTimeout;
+  var _acSuggestions = [];
 
-    autocomplete.addListener('place_changed', function() {
-      var place = autocomplete.getPlace();
-      if (!place.address_components) return;
+  async function handleAddressInput() {
+    var val = document.getElementById('ship-address1').value.trim();
+    clearTimeout(_acTimeout);
+    closeAddressSuggestions();
+    if (val.length < 2) return;
+    _acTimeout = setTimeout(async function() {
+      try {
+        var { AutocompleteSuggestion } = await google.maps.importLibrary('places');
+        var result = await AutocompleteSuggestion.fetchAutocompleteSuggestions({ input: val });
+        _acSuggestions = result.suggestions || [];
+        renderAddressSuggestions(_acSuggestions);
+      } catch(e) {}
+    }, 300);
+  }
 
+  function renderAddressSuggestions(suggestions) {
+    var dropdown = document.getElementById('addr-dropdown');
+    if (!dropdown) {
+      dropdown = document.createElement('div');
+      dropdown.id = 'addr-dropdown';
+      var inp = document.getElementById('ship-address1');
+      inp.parentNode.insertBefore(dropdown, inp.nextSibling);
+    }
+    if (!suggestions.length) { dropdown.style.display = 'none'; return; }
+    dropdown.innerHTML = suggestions.map(function(s, i) {
+      return '<div class="addr-item" onmousedown="event.preventDefault()" onclick="selectAddress(' + i + ')">' + s.placePrediction.text.text + '</div>';
+    }).join('');
+    dropdown.style.display = 'block';
+  }
+
+  async function selectAddress(idx) {
+    closeAddressSuggestions();
+    var suggestion = _acSuggestions[idx];
+    if (!suggestion) return;
+    try {
+      var place = suggestion.placePrediction.toPlace();
+      await place.fetchFields({ fields: ['addressComponents', 'formattedAddress'] });
       var comp = {};
-      place.address_components.forEach(function(c) {
-        c.types.forEach(function(t) { comp[t] = { long: c.long_name, short: c.short_name }; });
+      (place.addressComponents || []).forEach(function(c) {
+        (c.types || []).forEach(function(t) { comp[t] = { long: c.longText, short: c.shortText }; });
       });
-
-      var streetNum  = (comp.street_number || {}).long || '';
-      var route      = (comp.route || {}).long || '';
-      var sublocal   = (comp.sublocality_level_1 || comp.sublocality || comp.neighborhood || {}).long || '';
-      var addr1Parts = [streetNum, route, sublocal].filter(Boolean).join(', ');
-      if (addr1Parts) input.value = addr1Parts;
-
-      var city = (comp.locality || comp.sublocality_level_1 || comp.administrative_area_level_2 || {}).long || '';
+      var streetNum = (comp['street_number'] || {}).long || '';
+      var route     = (comp['route'] || {}).long || '';
+      var sublocal  = (comp['sublocality_level_1'] || comp['sublocality'] || comp['neighborhood'] || {}).long || '';
+      var addr1     = [streetNum, route, sublocal].filter(Boolean).join(', ') || place.formattedAddress || '';
+      document.getElementById('ship-address1').value = addr1;
+      var city = (comp['locality'] || comp['sublocality_level_1'] || comp['administrative_area_level_2'] || {}).long || '';
       if (city) document.getElementById('ship-city').value = city;
-
-      var state = (comp.administrative_area_level_1 || {}).long || '';
+      var state = (comp['administrative_area_level_1'] || {}).long || '';
       if (state) document.getElementById('ship-state').value = state;
-
-      var pin = (comp.postal_code || {}).long || '';
+      var pin = (comp['postal_code'] || {}).long || '';
       if (pin) document.getElementById('ship-pin').value = pin;
-
-      var countryName = (comp.country || {}).long || '';
+      var countryName = (comp['country'] || {}).long || '';
       if (countryName) {
         var sel = document.getElementById('ship-country');
         var opt = Array.from(sel.options).find(function(o) { return o.value === countryName; });
         if (opt) { sel.value = countryName; syncDialCode(countryName); }
       }
-
       fetchShippingRate();
-    });
+    } catch(e) { console.error(e); }
+  }
+
+  function closeAddressSuggestions() {
+    var d = document.getElementById('addr-dropdown');
+    if (d) d.style.display = 'none';
   }
 
   document.addEventListener('DOMContentLoaded', renderSummary);
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcn4xjSQtiZVIckj_IfBS-JxB4UnoVMnQ&libraries=places"></script>
-<script>initAutocomplete();</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcn4xjSQtiZVIckj_IfBS-JxB4UnoVMnQ&loading=async" async defer></script>
 </body>
 </html>
