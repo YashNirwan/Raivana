@@ -644,7 +644,13 @@
       (place.addressComponents || []).forEach(function(c) {
         (c.types || []).forEach(function(t) { comp[t] = { long: c.longText, short: c.shortText }; });
       });
-      // Keep what the user typed in address1 — Google doesn't have flat/building detail
+      var streetNum = (comp['street_number'] || {}).long || '';
+      var route     = (comp['route'] || {}).long || '';
+      var sublocal  = (comp['sublocality_level_1'] || comp['sublocality'] || comp['neighborhood'] || {}).long || '';
+      if (streetNum || route) {
+        document.getElementById('ship-address1').value = [streetNum, route, sublocal].filter(Boolean).join(', ');
+      }
+      // else: Google only has a vague area — keep what the user typed
       var city = (comp['locality'] || comp['sublocality_level_1'] || comp['administrative_area_level_2'] || {}).long || '';
       if (city) document.getElementById('ship-city').value = city;
       var state = (comp['administrative_area_level_1'] || {}).long || '';
