@@ -30,6 +30,8 @@
   .summary-item-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; }
   .summary-item-sub { font-size: 0.72rem; color: rgba(28,16,8,0.5); margin-top: 0.2rem; }
   .summary-item-price { font-size: 0.9rem; font-weight: 400; }
+  .summary-item-remove { background: none; border: none; cursor: pointer; color: rgba(28,16,8,0.3); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0; margin-top: 0.4rem; display: block; transition: color 0.2s; }
+  .summary-item-remove:hover { color: var(--terracotta); }
   .summary-row { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.8rem; color: rgba(28,16,8,0.65); }
   .summary-row.total { font-size: 1.1rem; color: var(--deep); font-weight: 400; margin-top: 0.5rem; padding-top: 0.8rem; border-top: 1px solid rgba(28,16,8,0.1); }
   .empty-cart-msg { text-align: center; padding: 4rem 0; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; color: rgba(28,16,8,0.4); }
@@ -349,6 +351,7 @@
         <div class="summary-item-info">
           <div class="summary-item-name">${item.name}</div>
           ${item.size ? `<div class="summary-item-sub">Size: ${item.size}</div>` : ''}
+          <button class="summary-item-remove" onclick="removeFromCheckout(${i})">Remove</button>
         </div>
         <div class="summary-item-price">${item.price}</div>`;
       container.appendChild(div);
@@ -359,6 +362,18 @@
     document.getElementById('subtotal-display').innerText = symbol + orderTotal.toFixed(2);
     document.getElementById('total-display').innerText = symbol + orderTotal.toFixed(2);
     document.getElementById('loading-overlay').classList.add('hidden');
+  }
+
+  function removeFromCheckout(index) {
+    const cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    if (cart.length === 0) {
+      window.location.href = 'index.html';
+    } else {
+      renderSummary();
+      fetchShippingRate();
+    }
   }
 
   function calculateCartWeight() {
