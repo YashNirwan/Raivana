@@ -523,8 +523,6 @@
         paymentTotal = parseFloat(((rawTotal / inrRate) * usdRate).toFixed(2));
       }
 
-      console.log('DEBUG', { country, displayCurrency, paymentCurrency, orderTotal, shippingDisplay, rawTotal, paymentTotal });
-
       // Create order via Netlify function
       const res = await fetch('/.netlify/functions/create-order', {
         method: 'POST',
@@ -551,7 +549,6 @@
       });
 
       const data = await res.json();
-      console.log('ORDER RESPONSE', data);
       if (!res.ok || data.error) throw new Error(data.error || `Server error ${res.status}`);
 
       // Launch Razorpay checkout
