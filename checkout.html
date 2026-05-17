@@ -82,6 +82,31 @@
     .form-row { grid-template-columns: 1fr; }
     .pay-methods { grid-template-columns: 1fr 1fr; }
   }
+
+  /* Google Places Autocomplete dropdown */
+  .pac-container {
+    border: 1px solid rgba(28,16,8,0.15);
+    border-top: none;
+    background: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    border-radius: 0;
+    box-shadow: 0 6px 24px rgba(28,16,8,0.1);
+    margin-top: -1px;
+  }
+  .pac-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    color: var(--deep);
+    border-top: 1px solid rgba(28,16,8,0.05);
+    line-height: 1.4;
+  }
+  .pac-item:hover, .pac-item-selected { background: var(--blush); }
+  .pac-item-query { font-size: 0.88rem; color: var(--deep); font-family: 'Jost', sans-serif; }
+  .pac-matched { font-weight: 500; color: var(--terracotta); }
+  .pac-secondary-text { font-size: 0.75rem; color: rgba(28,16,8,0.5); }
+  .pac-icon, .pac-logo { display: none !important; }
+  .hdpi .pac-icon { display: none !important; }
 </style>
 </head>
 <body>
@@ -187,7 +212,7 @@
         <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; margin-bottom: 1.5rem; color: rgba(28,16,8,0.7); letter-spacing: 0.04em;">Shipping Address</div>
         <div class="form-group">
           <label>Address Line 1</label>
-          <input type="text" id="ship-address1" placeholder="House / Flat no., Street, Area" required>
+          <input type="text" id="ship-address1" placeholder="Start typing your address…" required autocomplete="off">
         </div>
         <div class="form-group">
           <label>Address Line 2 <span style="opacity:0.5;">(optional)</span></label>
@@ -563,7 +588,50 @@
     document.getElementById('payment-message').innerText = msg;
   }
 
+  function initAutocomplete() {
+    var input = document.getElementById('ship-address1');
+    var autocomplete = new google.maps.places.Autocomplete(input, {
+      fields: ['address_components'],
+      types: ['address']
+    });
+
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      if (!place.address_components) return;
+
+      var comp = {};
+      place.address_components.forEach(function(c) {
+        c.types.forEach(function(t) { comp[t] = { long: c.long_name, short: c.short_name }; });
+      });
+
+      var streetNum  = (comp.street_number || {}).long || '';
+      var route      = (comp.route || {}).long || '';
+      var sublocal   = (comp.sublocality_level_1 || comp.sublocality || comp.neighborhood || {}).long || '';
+      var addr1Parts = [streetNum, route, sublocal].filter(Boolean).join(', ');
+      if (addr1Parts) input.value = addr1Parts;
+
+      var city = (comp.locality || comp.sublocality_level_1 || comp.administrative_area_level_2 || {}).long || '';
+      if (city) document.getElementById('ship-city').value = city;
+
+      var state = (comp.administrative_area_level_1 || {}).long || '';
+      if (state) document.getElementById('ship-state').value = state;
+
+      var pin = (comp.postal_code || {}).long || '';
+      if (pin) document.getElementById('ship-pin').value = pin;
+
+      var countryName = (comp.country || {}).long || '';
+      if (countryName) {
+        var sel = document.getElementById('ship-country');
+        var opt = Array.from(sel.options).find(function(o) { return o.value === countryName; });
+        if (opt) { sel.value = countryName; syncDialCode(countryName); }
+      }
+
+      fetchShippingRate();
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', renderSummary);
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcn4xjSQtiZVIckj_IfBS-JxB4UnoVMnQ&libraries=places&callback=initAutocomplete" async defer></script>
 </body>
 </html>
