@@ -480,21 +480,28 @@
     showMessage('');
 
     try {
-      // Determine payment currency — international orders must use non-INR so Razorpay shows card options
+      // Payment currency: India → INR (supports UPI/Netbanking), international → non-INR (shows card options)
       const displayCurrency = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
-      const paymentCurrency = (country !== 'India' && displayCurrency === 'INR') ? 'USD' : displayCurrency;
-      const shippingDisplay = getShippingInDisplayCurrency();
       const rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : {};
+      const inrRate = rates['INR'] || 94.75;
+      const usdRate = rates['USD'] || 1;
 
-      // Always pre-calculate total on frontend — server-side string parsing is unreliable
-      // when cart item prices are in a different currency than the payment currency
+      const paymentCurrency = country === 'India'
+        ? 'INR'
+        : (displayCurrency === 'INR' ? 'USD' : displayCurrency);
+
+      const shippingDisplay = getShippingInDisplayCurrency();
+      const rawTotal = orderTotal + shippingDisplay;
+
       let paymentTotal;
-      if (paymentCurrency !== displayCurrency) {
-        const inrRate = rates['INR'] || 94.75;
-        const usdRate = rates['USD'] || 1;
-        paymentTotal = parseFloat(((orderTotal + shippingDisplay) / inrRate * usdRate).toFixed(2));
+      if (paymentCurrency === displayCurrency) {
+        paymentTotal = parseFloat(rawTotal.toFixed(2));
+      } else if (paymentCurrency === 'INR') {
+        // Convert display currency (USD etc.) → INR
+        paymentTotal = Math.round((rawTotal / usdRate) * inrRate);
       } else {
-        paymentTotal = parseFloat((orderTotal + shippingDisplay).toFixed(2));
+        // Convert INR → USD
+        paymentTotal = parseFloat(((rawTotal / inrRate) * usdRate).toFixed(2));
       }
 
       // Create order via Netlify function
