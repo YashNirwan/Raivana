@@ -131,6 +131,15 @@
   .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--deep); }
 
   @media(max-width:900px) { nav { padding: 1rem 1.5rem; } .nav-links { display: none !important; } .nav-hamburger { display: flex; } .product-container { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; } .gallery { position: static; } .cart-drawer { max-width: 100%; } }
+  @media(max-width:480px) {
+    .product-container { padding: 5.5rem 1.2rem 2.5rem !important; gap: 2rem !important; }
+    .product-title { font-size: 1.8rem !important; }
+    .thumbnail-row { grid-template-columns: repeat(4, 1fr) !important; gap: 0.5rem !important; }
+    .trust-strip { grid-template-columns: 1fr 1fr 1fr !important; }
+    .trust-label { font-size: 0.5rem !important; }
+    footer { padding: 3rem 1.5rem 2rem !important; }
+    .footer-bottom { flex-direction: column !important; gap: 0.5rem !important; text-align: center !important; }
+  }
 
   /* ACCORDION */
   .accordion { border-top: 1px solid rgba(28,16,8,0.08); margin-top: 0.5rem; }
@@ -302,6 +311,7 @@
         <div class="carousel-wrap">
           <div class="main-image-wrap" id="mainImageWrap">
             <img id="mainImg" src="${p.images[0]}" alt="${p.name}" style="object-fit:${p.imagefit||'cover'}"
+              fetchpriority="high"
               onerror="this.style.display='none';document.getElementById('mainPlaceholder').style.display='flex'">
             <div class="img-placeholder-large" id="mainPlaceholder" style="display:none;">✦</div>
             <div class="magnifier-glass" id="magnifierGlass"></div>
@@ -383,12 +393,24 @@
 
   var currentImageIndex = 0;
   var productImages = [];
+  var _imgCache = [];
 
   function initCarousel(images) {
     productImages = images;
     currentImageIndex = 0;
     renderDots();
-    updateCarousel();
+    // First image is already set in the HTML by renderDetail — just make it visible
+    var img = document.getElementById('mainImg');
+    var placeholder = document.getElementById('mainPlaceholder');
+    if (img) {
+      img.style.opacity = '1';
+      if (img.complete) { if (placeholder) placeholder.style.display = 'none'; }
+      else { img.onload = function() { if (placeholder) placeholder.style.display = 'none'; }; }
+    }
+    document.querySelectorAll('.carousel-dot').forEach(function(d, i) { d.classList.toggle('active', i === 0); });
+    document.querySelectorAll('.thumbnail').forEach(function(t, i) { t.classList.toggle('active', i === 0); });
+    // Preload every image immediately so navigation is instant
+    _imgCache = images.map(function(url) { var p = new Image(); p.src = url; return p; });
     initMagnifier();
   }
 
@@ -401,16 +423,17 @@
   }
 
   function updateCarousel() {
-    const img = document.getElementById('mainImg');
-    const placeholder = document.getElementById('mainPlaceholder');
+    var img = document.getElementById('mainImg');
+    var placeholder = document.getElementById('mainPlaceholder');
     if (img) {
       img.style.opacity = '0';
-      setTimeout(() => {
+      // Double-rAF: first frame paints opacity:0, second frame swaps src (cache hit = instant) and fades in
+      requestAnimationFrame(function() {
         img.src = productImages[currentImageIndex];
         img.style.display = 'block';
-        img.style.opacity = '1';
         if (placeholder) placeholder.style.display = 'none';
-      }, 50);
+        requestAnimationFrame(function() { img.style.opacity = '1'; });
+      });
     }
     // Update dots
     document.querySelectorAll('.carousel-dot').forEach((d, i) => {

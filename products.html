@@ -123,7 +123,14 @@
   .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--deep); }
 
   @media(max-width:900px) { nav { padding: 1rem 1.5rem; } .nav-links { display: none !important; } .nav-hamburger { display: flex; } .product-grid { padding: 1rem 1.5rem 4rem; gap: 1.5rem; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } footer { padding: 3rem 2rem; } .shop-header { padding: 7rem 1.5rem 2rem; } .cart-drawer { max-width: 100%; } }
-  @media(max-width:480px) { .product-grid { grid-template-columns: 1fr 1fr; gap: 1rem; } .filter-bar { width: calc(100% - 3rem); } .filter-btn { flex: 1 1 40%; } }
+  @media(max-width:480px) {
+    .product-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .filter-bar { width: calc(100% - 3rem); }
+    .filter-btn { flex: 1 1 40%; }
+    footer { padding: 3rem 1.5rem 2rem !important; }
+    .footer-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+    .footer-bottom { flex-direction: column !important; gap: 0.5rem !important; text-align: center !important; }
+  }
 </style>
 </head>
 <body>
@@ -299,7 +306,7 @@
       card.innerHTML = `
         <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
           <div class="img-wrapper">
-            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" style="object-fit:${p.imagefit||'cover'};background:var(--blush);" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" loading="lazy" style="object-fit:${p.imagefit||'cover'};background:var(--blush);" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="img-placeholder" style="display:none;">✦</div>
             ${arrowsHTML}
             ${dotsHTML}
@@ -385,7 +392,7 @@
       card.innerHTML = `
         <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
           <div class="img-wrapper">
-            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" style="object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" loading="lazy" style="object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="img-placeholder" style="display:none;">✦</div>
             ${tagHTML}
             ${arrowsHTML}
@@ -434,7 +441,7 @@
     if (index < 0 || index >= imgs.length) return;
     targetCard.dataset.imgIndex = index;
     const imgEl = targetCard.querySelector(`#card-img-${productId}`);
-    if (imgEl) { imgEl.style.opacity = '0'; setTimeout(() => { imgEl.src = imgs[index]; imgEl.style.opacity = '1'; }, 150); }
+    if (imgEl) { imgEl.style.opacity = '0'; requestAnimationFrame(function() { imgEl.src = imgs[index]; requestAnimationFrame(function() { imgEl.style.opacity = '1'; }); }); }
     targetCard.querySelectorAll('.card-dot').forEach((d, i) => d.classList.toggle('active', i === index));
   }
 
