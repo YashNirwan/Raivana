@@ -484,12 +484,17 @@
       const displayCurrency = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
       const paymentCurrency = (country !== 'India' && displayCurrency === 'INR') ? 'USD' : displayCurrency;
       const shippingDisplay = getShippingInDisplayCurrency();
-      let paymentTotal = null;
+      const rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : {};
+
+      // Always pre-calculate total on frontend — server-side string parsing is unreliable
+      // when cart item prices are in a different currency than the payment currency
+      let paymentTotal;
       if (paymentCurrency !== displayCurrency) {
-        const rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : {};
         const inrRate = rates['INR'] || 94.75;
         const usdRate = rates['USD'] || 1;
         paymentTotal = parseFloat(((orderTotal + shippingDisplay) / inrRate * usdRate).toFixed(2));
+      } else {
+        paymentTotal = parseFloat((orderTotal + shippingDisplay).toFixed(2));
       }
 
       // Create order via Netlify function
@@ -512,7 +517,7 @@
             country: country,
             address: [address1, address2, city, state, pin, country].filter(Boolean).join(', ')
           },
-          shippingCost: paymentTotal !== null ? 0 : shippingDisplay,
+          shippingCost: 0,
           weight: calculateCartWeight()
         })
       });
