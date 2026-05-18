@@ -409,9 +409,9 @@ const RAIVANA_PRODUCTS = [
     price_inr: null,
     price_inr_export: null,
     variants: [
-      { label: '8 inch',  price_inr: 1600, price_inr_export: 4500, weight_g: 200 },
-      { label: '10 inch', price_inr: 2000, price_inr_export: 5500, weight_g: 310 },
-      { label: '12 inch', price_inr: 2400, price_inr_export: 6500, weight_g: 450 }
+      { label: '8 inch',  price_inr: 2200, price_inr_export: 6000, weight_g: 200 },
+      { label: '10 inch', price_inr: 2750, price_inr_export: 7500, weight_g: 310 },
+      { label: '12 inch', price_inr: 3300, price_inr_export: 9000, weight_g: 450 }
     ],
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
     imagefit: "contain",
@@ -438,8 +438,8 @@ const RAIVANA_PRODUCTS = [
     category: "ceramics",
     subcategory: "Plates",
     description: "Celebrate India's national bird with this 100% handcrafted Jaipur Blue Pottery plate. Painted entirely by hand, capturing a regal peacock perched on a blossoming tree against a vivid turquoise sky. Each feather, leaf, and bloom is drawn with fine brushes using natural mineral colours.",
-    price_inr: 3000,
-    price_inr_export: 9000,
+    price_inr: 6000,
+    price_inr_export: 18000,
     variants: null,
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
     weight_g: 250,
