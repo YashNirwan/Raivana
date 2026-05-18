@@ -311,7 +311,7 @@
       <div class="gallery">
         <div class="carousel-wrap">
           <div class="main-image-wrap" id="mainImageWrap">
-            <img id="mainImg" src="${p.images[0]}" alt="${p.name}" style="object-fit:${p.imagefit||'cover'}"
+            <img id="mainImg" src="${p.images[0]}" alt="${p.name}" style="object-fit:${p.imagefit||'cover'};object-position:${p.imagepos||'center'}"
               fetchpriority="high"
               onerror="this.style.display='none';document.getElementById('mainPlaceholder').style.display='flex'">
             <div class="img-placeholder-large" id="mainPlaceholder" style="display:none;">✦</div>
