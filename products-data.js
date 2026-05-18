@@ -170,7 +170,7 @@ const RAIVANA_PRODUCTS = [
       { label: "210 gm", price_inr: 2500, weight_g: 210 }
     ],
     details: {},
-    imagepos: "25% center",
+    imagepos: "75% center",
     images: ["img/p12-2.jpeg", "img/p12-3.jpeg"]
   },
   {
