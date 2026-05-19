@@ -1662,7 +1662,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Distressed Antique White", type: "Wall-mounted jharoka frame", size: "16 × 30 in" },
     weight_g: 2500,
-    images: ["img/w114-1.jpeg", "img/w114-2.jpeg"]
+    images: ["img/w114-1.jpeg", "img/w114-2.jpeg", "img/w114-3.jpeg"]
   },
   {
     id: 115,
