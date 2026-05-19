@@ -175,10 +175,10 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 13,
-    name: "Ganesha Elephant God with Decorative Attire",
+    name: "Ganesha Elephant with Decorative Attire",
     subtitle: "Embellished Ganesh Murti",
     category: "brass",
-    subcategory: "Brass God Idols",
+    subcategory: "Brass Animals",
     description: "An intricately designed brass idol of Lord Ganesha, the elephant-headed deity of wisdom and prosperity, adorned with detailed embellishments. Available in four sizes to suit every sacred space.",
     price_inr: null,
     variants: [
@@ -208,7 +208,7 @@ const RAIVANA_PRODUCTS = [
     name: "Brass Cow (Holy Cow / Nandi)",
     subtitle: "Sacred Cow Idol",
     category: "brass",
-    subcategory: "Brass Animals",
+    subcategory: "God Idols",
     description: "A brass idol of Nandi, the sacred cow of Lord Shiva, symbolizing strength, abundance, and devotion. Handcrafted with fine detailing, available in two variants.",
     price_inr: null,
     variants: [
