@@ -426,27 +426,35 @@
 
   function updateCarousel() {
     var img = document.getElementById('mainImg');
-    var placeholder = document.getElementById('mainPlaceholder');
-    if (img) {
+    if (!img) return;
+    var targetSrc = productImages[currentImageIndex];
+    var cached = _imgCache[currentImageIndex];
+
+    function doSwap() {
       img.style.opacity = '0';
-      // Double-rAF: first frame paints opacity:0, second frame swaps src (cache hit = instant) and fades in
       requestAnimationFrame(function() {
-        img.src = productImages[currentImageIndex];
+        img.src = targetSrc;
         img.style.display = 'block';
-        if (placeholder) placeholder.style.display = 'none';
         requestAnimationFrame(function() { img.style.opacity = '1'; });
       });
+      initMagnifier();
     }
-    // Update dots
+
+    if (cached && cached.complete && cached.naturalWidth > 0) {
+      doSwap();
+    } else if (cached) {
+      cached.onload = doSwap;
+      cached.onerror = doSwap;
+    } else {
+      doSwap();
+    }
+
     document.querySelectorAll('.carousel-dot').forEach((d, i) => {
       d.classList.toggle('active', i === currentImageIndex);
     });
-    // Update thumbnails
     document.querySelectorAll('.thumbnail').forEach((t, i) => {
       t.classList.toggle('active', i === currentImageIndex);
     });
-    // Update magnifier source
-    initMagnifier();
   }
 
   function carouselNext() {
