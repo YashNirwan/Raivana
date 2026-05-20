@@ -116,7 +116,7 @@ async function pushToShiprocket(notes, payment) {
       billing_state:          notes.ship_state    || '',
       billing_country:        notes.ship_country  || 'India',
       billing_email:          notes.customer_email || '',
-      billing_phone:          (notes.customer_phone || '').replace(/^\+\d{1,3}/, '').trim(),
+      billing_phone:          (notes.customer_phone || '').replace(/\D/g, '').slice(-10),
       shipping_is_billing:    true,
       order_items:            orderItems,
       payment_method:         'Prepaid',
