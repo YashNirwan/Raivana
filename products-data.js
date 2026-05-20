@@ -1677,6 +1677,20 @@ const RAIVANA_PRODUCTS = [
     details: { material: "Solid Mango Wood", finish: "Distressed Ivory White", type: "Wall-mounted jharoka with mirror", size: "16 × 30 in" },
     weight_g: 2500,
     images: ["img/w115-1.jpeg", "img/w115-2.jpeg"]
+  },
+  {
+    id: 999,
+    name: "Test Product (Remove After Testing)",
+    subtitle: "Internal Test · Do Not Purchase",
+    category: "brass",
+    subcategory: "Brass Decor",
+    description: "Test product for internal use only.",
+    price_inr: 1,
+    price_inr_export: 1,
+    variants: null,
+    details: {},
+    weight_g: 500,
+    images: ["img/b1-1.jpeg"]
   }
 ];
 
