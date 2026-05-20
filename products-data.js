@@ -82,8 +82,8 @@ const RAIVANA_PRODUCTS = [
     variants: [
       { label: "120 gm", price_inr: 2200, weight_g: 120 },
       { label: "140 gm", price_inr: 2600, weight_g: 140 },
-      { label: "180 gm", price_inr: 2200, weight_g: 180 },
-      { label: "240 gm", price_inr: 3200, weight_g: 240 }
+      { label: "180 gm", price_inr: 3000, weight_g: 180 },
+      { label: "240 gm", price_inr: 3600, weight_g: 240 }
     ],
     details: {},
     images: ["img/p6-1.jpeg", "img/p6-2.jpeg", "img/p6-3.jpeg"]
