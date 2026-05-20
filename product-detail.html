@@ -261,6 +261,57 @@
     addToCart(currentProduct.name, priceDisplay, currentProduct.images[0], variantLabel);
   }
 
+  function getCareInstructions(p) {
+    if (p.category === 'woodwork') {
+      return `
+        <ul>
+          <li>Handmade by skilled artisans using traditional craftsmanship</li>
+          <li>Each piece may have slight variations in color, grain, and texture — this is what makes it unique</li>
+          <li>Keep away from excessive moisture and direct sunlight</li>
+          <li>Clean gently with a soft dry cloth</li>
+          <li>Avoid using harsh chemicals, water, or abrasive cleaners</li>
+          <li>Handle carefully to preserve intricate hand-carved details</li>
+          <li>Indoor use recommended</li>
+          <li>Store in a dry place to maintain finish and longevity</li>
+        </ul>`;
+    }
+    if (p.category === 'ceramics') {
+      const isVase = p.subcategory === 'Vases';
+      const specific = isVase ? `
+        <ul>
+          <li>Handmade and delicately crafted by artisans in Rajasthan</li>
+          <li>Ideal for decorative styling and floral arrangements</li>
+          <li>Handle with care due to handcrafted nature</li>
+          <li>Clean gently with a soft dry or slightly damp cloth</li>
+          <li>Avoid harsh chemicals or abrasive cleaning materials</li>
+          <li>Keep away from heavy impact or accidental drops</li>
+          <li>Indoor use recommended</li>
+        </ul>` : `
+        <ul>
+          <li>For decorative use only</li>
+          <li>Handle with care — blue pottery is fragile and handcrafted</li>
+          <li>Do not use for serving or eating</li>
+          <li>Avoid dropping or applying pressure</li>
+          <li>Clean gently with a soft dry or slightly damp cloth</li>
+          <li>Keep away from direct impact and extreme temperature changes</li>
+        </ul>`;
+      return specific + `
+        <p><strong>General Care</strong></p>
+        <ul>
+          <li>Each piece is handmade by artisans in Rajasthan — slight variations are natural and part of its beauty</li>
+          <li>Keep away from harsh chemicals and abrasive cleaners</li>
+          <li>Store safely to avoid chipping or cracks</li>
+          <li>Indoor use recommended</li>
+        </ul>`;
+    }
+    return `
+      <p>Each piece is finished to a high standard and requires minimal upkeep to retain its beauty.</p>
+      <p><strong>Dust regularly</strong> with a soft, dry cotton cloth. Avoid abrasive materials that may scratch the surface.</p>
+      <p><strong>Do not use</strong> harsh chemicals, metal polishes, or liquid cleaning agents — these can damage the brass finish and patina over time.</p>
+      <p>Brass naturally develops a patina with age, which many collectors consider part of the piece's character. To restore the original shine, consult a professional brass cleaner.</p>
+      <p>Store in a cool, dry place away from direct sunlight and moisture.</p>`;
+  }
+
   function renderDetail(p) {
     currentProduct = p;
     document.title = p.name + ' — Raivana';
@@ -369,11 +420,7 @@
               <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
             <div class="accordion-body">
-              <p>Each piece is finished to a high standard and requires minimal upkeep to retain its beauty.</p>
-              <p><strong>Dust regularly</strong> with a soft, dry cotton cloth. Avoid abrasive materials that may scratch the surface.</p>
-              <p><strong>Do not use</strong> harsh chemicals, metal polishes, or liquid cleaning agents — these can damage the brass finish and patina over time.</p>
-              <p>Brass naturally develops a patina with age, which many collectors consider part of the piece's character. To restore the original shine, consult a professional brass cleaner.</p>
-              <p>Store in a cool, dry place away from direct sunlight and moisture.</p>
+              ${getCareInstructions(p)}
             </div>
           </div>
 
