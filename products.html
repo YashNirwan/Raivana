@@ -326,6 +326,7 @@
           <button class="add-to-cart" onclick="quickAdd(${p.id})">Add to Bag</button>
         </div>`;
       grid.appendChild(card);
+      if (imgs.length > 1) preloadCardImages(p.id, imgs);
     });
   }
 
@@ -413,6 +414,7 @@
           <button class="add-to-cart" onclick="quickAddExtra(${p.id})">Add to Bag</button>
         </div>`;
       grid.appendChild(card);
+      if (imgs.length > 1) preloadCardImages(p.id, imgs);
     });
   }
 
@@ -431,21 +433,44 @@
 </script>
 
 <script>
+  var _cardImgCache = {};
+
+  function preloadCardImages(productId, imgs) {
+    if (!_cardImgCache[productId]) {
+      _cardImgCache[productId] = imgs.map(function(url) { var p = new Image(); p.src = url; return p; });
+    }
+  }
+
   function cardGoTo(productId, index) {
-    const card = document.querySelector(`.product-card[data-imgs]`);
     const allCards = document.querySelectorAll('.product-card');
     let targetCard = null;
-    allCards.forEach(c => {
-      const imgs = JSON.parse(c.dataset.imgs || '[]');
-      const img = c.querySelector(`#card-img-${productId}`);
-      if (img) targetCard = c;
-    });
+    allCards.forEach(c => { if (c.querySelector(`#card-img-${productId}`)) targetCard = c; });
     if (!targetCard) return;
     const imgs = JSON.parse(targetCard.dataset.imgs || '[]');
     if (index < 0 || index >= imgs.length) return;
     targetCard.dataset.imgIndex = index;
     const imgEl = targetCard.querySelector(`#card-img-${productId}`);
-    if (imgEl) { imgEl.style.opacity = '0'; requestAnimationFrame(function() { imgEl.src = imgs[index]; requestAnimationFrame(function() { imgEl.style.opacity = '1'; }); }); }
+    if (!imgEl) return;
+
+    const cached = _cardImgCache[productId] && _cardImgCache[productId][index];
+
+    function doSwap() {
+      imgEl.style.opacity = '0';
+      requestAnimationFrame(function() {
+        imgEl.src = imgs[index];
+        requestAnimationFrame(function() { imgEl.style.opacity = '1'; });
+      });
+    }
+
+    if (cached && cached.complete && cached.naturalWidth > 0) {
+      doSwap();
+    } else if (cached) {
+      cached.onload = doSwap;
+      cached.onerror = doSwap;
+    } else {
+      doSwap();
+    }
+
     targetCard.querySelectorAll('.card-dot').forEach((d, i) => d.classList.toggle('active', i === index));
   }
 
