@@ -11,7 +11,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "Beautifully handcrafted brass Lord Ganesha idol in a seated posture with intricate detailing and a rich antique finish. Symbolizing wisdom, prosperity, and good fortune, this piece is perfect for home temples, office desks, or gifting.",
-    price_inr: 2500,
+    price_inr: 3000,
     variants: null,
     details: { weight: "200 gm" },
     weight_g: 200,
@@ -24,7 +24,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "Elegant brass Goddess Lakshmi idol seated on a lotus, symbolizing wealth, prosperity, and abundance. Designed with fine craftsmanship, ideal for Diwali puja, home temples, and auspicious décor.",
-    price_inr: 2600,
+    price_inr: 3000,
     variants: null,
     details: { weight: "200 gm" },
     weight_g: 200,
@@ -37,10 +37,12 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "Premium brass idol of Lord Venkateswara in a standing posture, featuring detailed carvings and traditional design. A powerful symbol of devotion and blessings, perfect for temple placement and spiritual spaces.",
-    price_inr: 1800,
-    variants: null,
-    details: { weight: "80–150 gm" },
-    weight_g: 150,
+    price_inr: null,
+    variants: [
+      { label: "80 gm", price_inr: 1350, weight_g: 80 },
+      { label: "150 gm", price_inr: 1950, weight_g: 150 }
+    ],
+    details: {},
     images: ["img/p3-1.webp", "img/p3-2.webp"]
   },
   {
@@ -52,7 +54,7 @@ const RAIVANA_PRODUCTS = [
     description: "Exquisite brass idol of Lord Vishnu reclining on the serpent Sheshnag, accompanied by Goddess Lakshmi. A masterpiece of divine art representing cosmic balance and protection, ideal for spiritual décor and premium gifting.",
     price_inr: null,
     variants: [
-      { label: "300 gm", price_inr: 5600,  weight_g: 300 },
+      { label: "300 gm", price_inr: 5000,  weight_g: 300 },
       { label: "460 gm", price_inr: 8200,  weight_g: 460 }
     ],
     details: {},
@@ -65,7 +67,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "Beautifully detailed brass idol of Lord Vishnu with Goddess Lakshmi seated on Sheshnag. Symbolizing harmony, prosperity, and divine protection, this elegant piece enhances any home temple or sacred space.",
-    price_inr: 6200,
+    price_inr: 10000,
     variants: null,
     details: { weight: "570 gm" },
     weight_g: 570,
@@ -80,10 +82,8 @@ const RAIVANA_PRODUCTS = [
     description: "Beautifully crafted brass Radha Krishna idol symbolizing eternal love and devotion. Designed with intricate detailing and a rich finish, this elegant piece is perfect for home temples, décor, and spiritual gifting.",
     price_inr: null,
     variants: [
-      { label: "120 gm", price_inr: 2200, weight_g: 120 },
-      { label: "140 gm", price_inr: 2600, weight_g: 140 },
-      { label: "180 gm", price_inr: 3000, weight_g: 180 },
-      { label: "240 gm", price_inr: 3600, weight_g: 240 }
+      { label: "120 gm", price_inr: 1800, weight_g: 120 },
+      { label: "160 gm", price_inr: 2200, weight_g: 160 }
     ],
     details: {},
     images: ["img/p6-1.webp", "img/p6-2.webp", "img/p6-3.webp"]
@@ -97,8 +97,8 @@ const RAIVANA_PRODUCTS = [
     description: "Finely detailed brass Hanuman idol representing strength, devotion, and protection. Ideal for puja rooms and spiritual spaces, bringing courage and positivity into your home.",
     price_inr: null,
     variants: [
-      { label: "180 gm", price_inr: 2200, weight_g: 180 },
-      { label: "240 gm", price_inr: 3200, weight_g: 240 }
+      { label: "180 gm", price_inr: 2500, weight_g: 180 },
+      { label: "240 gm", price_inr: 3600, weight_g: 240 }
     ],
     details: {},
     images: ["img/p7-1.webp", "img/p7-2.webp", "img/p7-3.webp"]
@@ -112,8 +112,8 @@ const RAIVANA_PRODUCTS = [
     description: "Intricately crafted brass Lord Ganesha idol in a seated posture, holding traditional symbolic elements like trishul and axe. Designed with fine detailing and a rich antique finish — ideal for home temples, office décor, or gifting.",
     price_inr: null,
     variants: [
-      { label: "130 gm", price_inr: 1200, weight_g: 130 },
-      { label: "210 gm", price_inr: 1850, weight_g: 210 }
+      { label: "130 gm", price_inr: 1800, weight_g: 130 },
+      { label: "210 gm", price_inr: 3000, weight_g: 210 }
     ],
     details: {},
     images: ["img/p8-1.webp", "img/p8-2.webp", "img/p8-3.webp"]
@@ -125,7 +125,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass Decor",
     description: "Beautifully engraved brass kalash featuring traditional floral and peacock motifs. Perfect for religious rituals, vastu placement, and festive décor. Symbolizes purity, abundance, and auspicious beginnings.",
-    price_inr: 1050,
+    price_inr: 1500,
     variants: null,
     details: { weight: "120 gm" },
     weight_g: 120,
@@ -133,12 +133,12 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 10,
-    name: "Brass Decorative Diya Stand",
+    name: "Brass Decorative Diya",
     subtitle: "Traditional Oil Lamp Holder",
     category: "brass",
     subcategory: "Brass Decor",
     description: "Elegant brass diya stand with intricate carvings and a classic elevated design. Ideal for lighting diyas during puja, aarti, and festivals, adding a warm and spiritual glow to your home.",
-    price_inr: 600,
+    price_inr: 650,
     variants: null,
     details: { weight: "60 gm" },
     weight_g: 60,
@@ -151,7 +151,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass Decor",
     description: "Finely detailed brass temple bell with an ornate handle and traditional design. Produces a clear, soothing sound that enhances the spiritual ambiance during puja and aarti rituals.",
-    price_inr: 550,
+    price_inr: 650,
     variants: null,
     details: { weight: "60 gm" },
     weight_g: 60,
@@ -167,7 +167,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: null,
     variants: [
       { label: "100 gm", price_inr: 1400, weight_g: 100 },
-      { label: "210 gm", price_inr: 2500, weight_g: 210 }
+      { label: "210 gm", price_inr: 2800, weight_g: 210 }
     ],
     details: {},
     imagepos: "75% center",
@@ -197,7 +197,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass Animals",
     description: "A stunning brass sculpture of an elephant, showcasing traditional Rajasthani craftsmanship and detailed ornamentation. A timeless statement piece for home decor and spiritual spaces.",
-    price_inr: 3500,
+    price_inr: 3000,
     variants: null,
     details: { weight: "200 gm" },
     weight_g: 200,
@@ -238,7 +238,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "Beautiful brass sculpture of Lord Krishna and Goddess Radha standing together, symbolizing eternal love and divine union. Detailed craftsmanship enhances its spiritual and ornamental value.",
-    price_inr: 6200,
+    price_inr: 8200,
     variants: null,
     details: { weight: "610 gm", height: "6.5 in", length: "4.25 in" },
     weight_g: 610,
@@ -337,7 +337,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "Magnificent depiction of Goddess Lakshmi seated on a lotus with an ornate umbrella canopy. Crafted in brass with intricate artistry, symbolizing wealth and divine grace.",
-    price_inr: 3700,
+    price_inr: 3500,
     variants: null,
     details: { weight: "240 gm", height: "5.5 in", length: "2 in" },
     weight_g: 240,
@@ -378,7 +378,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "An intricately crafted brass idol of Lord Krishna playing the flute with Goddess Radha beside him. Symbolizing eternal love and devotion, this idol brings charm and serenity to any home or altar.",
-    price_inr: 5400,
+    price_inr: 6500,
     variants: null,
     details: { weight: "490 gm", height: "6 in", length: "3.75 in" },
     weight_g: 490,
@@ -1517,12 +1517,12 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "A divine pair of Radha and Krishna idols, crafted to bring grace and positivity to your home temple or decor space. Krishna is shown playing the flute in his signature pose, while Radha stands beside him in a graceful stance with detailed attire and jewelry. The idols sit on intricately carved lotus bases, making the set feel traditional and elegant. Fine detailing on the crown, ornaments, clothing, and facial expressions captures the serene and devotional essence of Radha Krishna. The antique finish enhances the traditional look and makes it suitable for both pooja and gifting.",
-    price_inr: 8500,
+    price_inr: 11500,
     price_inr_export: 18000,
     variants: null,
     details: { material: "Premium Brass", height: "8.5 in each", weight: "830g each", finish: "Antique Brass" },
     weight_g: 1660,
-    images: ["img/b104-1.webp", "img/b104-2.webp", "img/b104-3.webp"]
+    images: ["img/b104-1.webp", "img/b104-3.webp"]
   },
   {
     id: 105,
@@ -1531,12 +1531,12 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "A Shiva Parivar idol set featuring Lord Shiva, Goddess Parvati, Lord Ganesha, and Lord Kartikeya seated together on a rectangular base. Represents family unity, protection, and divine blessings — ideal for home temples, pooja rooms, and gifting on auspicious occasions. Shiva holds the trishul, Parvati sits in a graceful pose, Ganesha rests on their lap, and Kartikeya stands beside them. The base includes detailed carvings of Nandi and a peacock. The antique brass finish gives it a timeless, temple-like look.",
-    price_inr: 5500,
+    price_inr: 6500,
     price_inr_export: 11000,
     variants: null,
     details: { material: "Premium Brass", size: "5.5 × 2.25 × 4.5 in", weight: "400g", finish: "Antique Brass" },
     weight_g: 400,
-    images: ["img/b105-1.webp", "img/b105-2.webp", "img/b105-3.webp"]
+    images: ["img/b105-1.webp", "img/b105-2.webp"]
   },
   {
     id: 106,
@@ -1545,7 +1545,7 @@ const RAIVANA_PRODUCTS = [
     category: "brass",
     subcategory: "Brass God Idols",
     description: "A Pancha-Mukhi Hanuman idol depicting Lord Hanuman with five divine faces, representing protection, strength, courage, and the removal of obstacles. A powerful addition to your home temple, pooja space, or as a spiritual gift. Hanuman is seated in a meditative posture with five faces facing different directions, each symbolizing a divine form. He holds a gada and trishul, and is adorned with detailed jewelry and a garland. The antique brass finish enhances the divine and traditional look.",
-    price_inr: 9000,
+    price_inr: 10000,
     price_inr_export: 15000,
     variants: null,
     details: { material: "Premium Brass", size: "5.5 × 2.5 × 5 in", weight: "720g", finish: "Antique Brass" },
@@ -1564,7 +1564,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Premium Brass", size: "3.25 × 2.5 × 5 in", weight: "330g", finish: "Antique Brass" },
     weight_g: 330,
-    images: ["img/b107-1.webp", "img/b107-2.webp", "img/b107-3.webp"]
+    images: ["img/b107-1.webp", "img/b107-3.webp"]
   },
   {
     id: 108,
