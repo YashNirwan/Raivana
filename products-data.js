@@ -15,7 +15,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "200 gm" },
     weight_g: 200,
-    images: ["img/p1-1.jpeg", "img/p1-2.jpeg", "img/p1-3.jpeg"]
+    images: ["img/p1-1.webp", "img/p1-2.webp", "img/p1-3.webp"]
   },
   {
     id: 2,
@@ -28,7 +28,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "200 gm" },
     weight_g: 200,
-    images: ["img/p2-1.jpeg", "img/p2-2.jpeg", "img/p2-3.jpeg"]
+    images: ["img/p2-1.webp", "img/p2-2.webp", "img/p2-3.webp"]
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "80–150 gm" },
     weight_g: 150,
-    images: ["img/p3-1.jpeg", "img/p3-2.jpeg"]
+    images: ["img/p3-1.webp", "img/p3-2.webp"]
   },
   {
     id: 4,
@@ -56,7 +56,7 @@ const RAIVANA_PRODUCTS = [
       { label: "460 gm", price_inr: 8200,  weight_g: 460 }
     ],
     details: {},
-    images: ["img/p4-1.jpeg", "img/p4-2.jpeg", "img/p4-3.jpeg"]
+    images: ["img/p4-1.webp", "img/p4-2.webp", "img/p4-3.webp"]
   },
   {
     id: 5,
@@ -69,7 +69,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "570 gm" },
     weight_g: 570,
-    images: ["img/p5-1.jpeg", "img/p5-2.jpeg"]
+    images: ["img/p5-1.webp", "img/p5-2.webp"]
   },
   {
     id: 6,
@@ -86,7 +86,7 @@ const RAIVANA_PRODUCTS = [
       { label: "240 gm", price_inr: 3600, weight_g: 240 }
     ],
     details: {},
-    images: ["img/p6-1.jpeg", "img/p6-2.jpeg", "img/p6-3.jpeg"]
+    images: ["img/p6-1.webp", "img/p6-2.webp", "img/p6-3.webp"]
   },
   {
     id: 7,
@@ -101,7 +101,7 @@ const RAIVANA_PRODUCTS = [
       { label: "240 gm", price_inr: 3200, weight_g: 240 }
     ],
     details: {},
-    images: ["img/p7-1.jpeg", "img/p7-2.jpeg", "img/p7-3.jpeg"]
+    images: ["img/p7-1.webp", "img/p7-2.webp", "img/p7-3.webp"]
   },
   {
     id: 8,
@@ -116,7 +116,7 @@ const RAIVANA_PRODUCTS = [
       { label: "210 gm", price_inr: 1850, weight_g: 210 }
     ],
     details: {},
-    images: ["img/p8-1.jpeg", "img/p8-2.jpeg", "img/p8-3.jpeg"]
+    images: ["img/p8-1.webp", "img/p8-2.webp", "img/p8-3.webp"]
   },
   {
     id: 9,
@@ -129,7 +129,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "120 gm" },
     weight_g: 120,
-    images: ["img/p9-1.jpeg", "img/p9-2.jpeg", "img/p9-3.jpeg"]
+    images: ["img/p9-1.webp", "img/p9-2.webp", "img/p9-3.webp"]
   },
   {
     id: 10,
@@ -142,7 +142,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "60 gm" },
     weight_g: 60,
-    images: ["img/p10-1.jpeg", "img/p10-2.jpeg"]
+    images: ["img/p10-1.webp", "img/p10-2.webp"]
   },
   {
     id: 11,
@@ -155,7 +155,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "60 gm" },
     weight_g: 60,
-    images: ["img/p11-1.jpeg", "img/p11-2.jpeg", "img/p11-3.jpeg"]
+    images: ["img/p11-1.webp", "img/p11-2.webp", "img/p11-3.webp"]
   },
   {
     id: 12,
@@ -171,7 +171,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: {},
     imagepos: "75% center",
-    images: ["img/p12-2.jpeg", "img/p12-3.jpeg"]
+    images: ["img/p12-2.webp", "img/p12-3.webp"]
   },
   {
     id: 13,
@@ -188,7 +188,7 @@ const RAIVANA_PRODUCTS = [
       { label: "510 gm", price_inr: 6800, weight_g: 510 }
     ],
     details: {},
-    images: ["img/p13-1.jpeg", "img/p13-2.jpeg", "img/p13-3.jpeg"]
+    images: ["img/p13-1.webp", "img/p13-2.webp", "img/p13-3.webp"]
   },
   {
     id: 14,
@@ -201,7 +201,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "200 gm" },
     weight_g: 200,
-    images: ["img/p14-1.jpeg", "img/p14-2.jpeg", "img/p14-3.jpeg"]
+    images: ["img/p14-1.webp", "img/p14-2.webp", "img/p14-3.webp"]
   },
   {
     id: 15,
@@ -216,7 +216,7 @@ const RAIVANA_PRODUCTS = [
       { label: "Large · 380 gm", price_inr: 3200, weight_g: 380 }
     ],
     details: {},
-    images: ["img/p15-1.jpeg", "img/p15-2.jpeg", "img/p15-3.jpeg"]
+    images: ["img/p15-1.webp", "img/p15-2.webp", "img/p15-3.webp"]
   },
   {
     id: 16,
@@ -229,7 +229,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "110 gm", height: "5.5 in", length: "2 in" },
     weight_g: 110,
-    images: ["img/p16-1.jpeg", "img/p16-2.jpeg", "img/p16-3.jpeg"]
+    images: ["img/p16-1.webp", "img/p16-2.webp", "img/p16-3.webp"]
   },
   {
     id: 17,
@@ -242,7 +242,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "610 gm", height: "6.5 in", length: "4.25 in" },
     weight_g: 610,
-    images: ["img/p17-1.jpeg", "img/p17-2.jpeg"]
+    images: ["img/p17-1.webp", "img/p17-2.webp"]
   },
   {
     id: 18,
@@ -257,7 +257,7 @@ const RAIVANA_PRODUCTS = [
       { label: "500 gm", price_inr: 7500, weight_g: 500 }
     ],
     details: {},
-    images: ["img/p18-1.jpeg", "img/p18-2.jpeg", "img/p18-3.jpeg"]
+    images: ["img/p18-1.webp", "img/p18-2.webp", "img/p18-3.webp"]
   },
   {
     id: 19,
@@ -270,7 +270,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "410 gm", height: "9.75 in", length: "2.75 in" },
     weight_g: 410,
-    images: ["img/p19-1.jpeg", "img/p19-2.jpeg", "img/p19-3.jpeg"]
+    images: ["img/p19-1.webp", "img/p19-2.webp", "img/p19-3.webp"]
   },
   {
     id: 20,
@@ -285,7 +285,7 @@ const RAIVANA_PRODUCTS = [
       { label: "530 gm · 6 in", price_inr: 7500, weight_g: 530 }
     ],
     details: {},
-    images: ["img/p20-1.jpeg", "img/p20-2.jpeg", "img/p20-3.jpeg"]
+    images: ["img/p20-1.webp", "img/p20-2.webp", "img/p20-3.webp"]
   },
   {
     id: 21,
@@ -300,7 +300,7 @@ const RAIVANA_PRODUCTS = [
       { label: "540 gm · 6 in", price_inr: 7200, weight_g: 540 }
     ],
     details: {},
-    images: ["img/p21-1.jpeg", "img/p21-2.jpeg", "img/p21-3.jpeg"]
+    images: ["img/p21-1.webp", "img/p21-2.webp", "img/p21-3.webp"]
   },
   {
     id: 22,
@@ -315,7 +315,7 @@ const RAIVANA_PRODUCTS = [
       { label: "470 gm · 6 in", price_inr: 6200, weight_g: 470 }
     ],
     details: {},
-    images: ["img/p22-1.jpeg", "img/p22-2.jpeg", "img/p22-3.jpeg"]
+    images: ["img/p22-1.webp", "img/p22-2.webp", "img/p22-3.webp"]
   },
   {
     id: 23,
@@ -328,7 +328,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "270 gm", height: "4 in", length: "3.25 in" },
     weight_g: 270,
-    images: ["img/p23-1.jpeg", "img/p23-2.jpeg", "img/p23-3.jpeg"]
+    images: ["img/p23-1.webp", "img/p23-2.webp", "img/p23-3.webp"]
   },
   {
     id: 24,
@@ -341,7 +341,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "240 gm", height: "5.5 in", length: "2 in" },
     weight_g: 240,
-    images: ["img/p24-1.jpeg", "img/p24-2.jpeg", "img/p24-3.jpeg"]
+    images: ["img/p24-1.webp", "img/p24-2.webp", "img/p24-3.webp"]
   },
   {
     id: 25,
@@ -356,7 +356,7 @@ const RAIVANA_PRODUCTS = [
       { label: "100 gm", price_inr: 1200, weight_g: 100 }
     ],
     details: {},
-    images: ["img/p25-1.jpeg", "img/p25-2.jpeg", "img/p25-3.jpeg"]
+    images: ["img/p25-1.webp", "img/p25-2.webp", "img/p25-3.webp"]
   },
   {
     id: 26,
@@ -369,7 +369,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "270 gm", height: "4 in", length: "3.25 in" },
     weight_g: 270,
-    images: ["img/p26-1.jpeg", "img/p26-2.jpeg", "img/p26-3.jpeg"]
+    images: ["img/p26-1.webp", "img/p26-2.webp", "img/p26-3.webp"]
   },
   {
     id: 27,
@@ -382,7 +382,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "490 gm", height: "6 in", length: "3.75 in" },
     weight_g: 490,
-    images: ["img/p27-1.jpeg", "img/p27-2.jpeg", "img/p27-3.jpeg"]
+    images: ["img/p27-1.webp", "img/p27-2.webp", "img/p27-3.webp"]
   },
   {
     id: 28,
@@ -397,7 +397,7 @@ const RAIVANA_PRODUCTS = [
       { label: "350 gm · 5.75 in", price_inr: 4800, weight_g: 350 }
     ],
     details: {},
-    images: ["img/p28-1.jpeg", "img/p28-2.jpeg", "img/p28-3.jpeg"]
+    images: ["img/p28-1.webp", "img/p28-2.webp", "img/p28-3.webp"]
   },
   {
     id: 29,
@@ -415,7 +415,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
     imagefit: "contain",
-    images: ["img/p29-1.jpeg", "img/p29-2.jpeg"]
+    images: ["img/p29-1.webp", "img/p29-2.webp"]
   },
   {
     id: 30,
@@ -429,7 +429,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { weight: "450 gm", height: "8 in", material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
     weight_g: 450,
-    images: ["img/p30-1.jpeg", "img/p30-2.jpeg", "img/p30-3.jpeg"]
+    images: ["img/p30-1.webp", "img/p30-2.webp", "img/p30-3.webp"]
   },
   {
     id: 31,
@@ -443,7 +443,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
     weight_g: 250,
-    images: ["img/p31-1.jpeg", "img/p31-2.jpeg"]
+    images: ["img/p31-1.webp", "img/p31-2.webp"]
   },
   {
     id: 32,
@@ -460,7 +460,7 @@ const RAIVANA_PRODUCTS = [
       { label: '12 inch', price_inr: 1850, price_inr_export: 5500, weight_g: 450 }
     ],
     details: { material: "Quartz-based ceramic", technique: "Hand-molded & hand-painted", finish: "Glossy glaze" },
-    images: ["img/p32-1.jpeg", "img/p32-2.jpeg"]
+    images: ["img/p32-1.webp", "img/p32-2.webp"]
   },
 
   // ── WOODWORK ──────────────────────────────────────────────────────────────────
@@ -478,7 +478,7 @@ const RAIVANA_PRODUCTS = [
       { label: "12 inch", price_inr: 15000, price_inr_export: 24000, weight_g: 8000 }
     ],
     details: { material: "Seasoned Kadam Wood", craft: "100% Handcarved in Jaipur, India", finish: "Natural matte lacquer" },
-    images: ["img/w1-1.jpeg", "img/w1-2.jpeg"]
+    images: ["img/w1-1.webp", "img/w1-2.webp"]
   },
   {
     id: 34,
@@ -492,7 +492,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte polish", size: "6 inch" },
     weight_g: 250,
-    images: ["img/w2-1.jpeg", "img/w2-2.jpeg"]
+    images: ["img/w2-1.webp", "img/w2-2.webp"]
   },
   {
     id: 35,
@@ -509,7 +509,7 @@ const RAIVANA_PRODUCTS = [
       { label: "12 inch", price_inr: 12000, price_inr_export: 16000, weight_g: 3000 }
     ],
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer" },
-    images: ["img/w3-1.jpeg", "img/w3-2.jpeg", "img/w3-3.jpeg"]
+    images: ["img/w3-1.webp", "img/w3-2.webp", "img/w3-3.webp"]
   },
   {
     id: 36,
@@ -525,7 +525,7 @@ const RAIVANA_PRODUCTS = [
       { label: "8.5 inch", price_inr: 9000, price_inr_export: 18000, weight_g: 900 }
     ],
     details: { material: "Seasoned Kadam Wood with Hand-Painted Finish", craft: "Handcarved and Hand-Painted in India", finish: "Glossy lacquer" },
-    images: ["img/w4-1.jpeg", "img/w4-2.jpeg", "img/w4-3.jpeg", "img/w4-4.jpeg"]
+    images: ["img/w4-1.webp", "img/w4-2.webp", "img/w4-3.webp", "img/w4-4.webp"]
   },
   {
     id: 37,
@@ -539,7 +539,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood with Hand-Painted Finish", craft: "Handcarved and Hand-Painted in India", finish: "Glossy lacquer", size: "3 inch" },
     weight_g: 200,
-    images: ["img/w5-1.jpeg", "img/w5-2.jpeg"]
+    images: ["img/w5-1.webp", "img/w5-2.webp"]
   },
   {
     id: 38,
@@ -553,7 +553,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "18 inch" },
     weight_g: 4200,
-    images: ["img/w6-1.jpeg", "img/w6-2.jpeg"]
+    images: ["img/w6-1.webp", "img/w6-2.webp"]
   },
   {
     id: 39,
@@ -567,7 +567,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "6 inch" },
     weight_g: 150,
-    images: ["img/w7-1.jpeg", "img/w7-2.jpeg"]
+    images: ["img/w7-1.webp", "img/w7-2.webp"]
   },
   {
     id: 40,
@@ -581,7 +581,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "6 inch" },
     weight_g: 275,
-    images: ["img/w8-1.jpeg", "img/w8-2.jpeg"]
+    images: ["img/w8-1.webp", "img/w8-2.webp"]
   },
   {
     id: 41,
@@ -595,7 +595,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "6 inch" },
     weight_g: 160,
-    images: ["img/w9-1.jpeg", "img/w9-2.jpeg"]
+    images: ["img/w9-1.webp", "img/w9-2.webp"]
   },
   {
     id: 42,
@@ -609,7 +609,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "7 inch" },
     weight_g: 400,
-    images: ["img/w10-1.jpeg", "img/w10-2.jpeg"]
+    images: ["img/w10-1.webp", "img/w10-2.webp"]
   },
   {
     id: 43,
@@ -623,7 +623,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "6 inch" },
     weight_g: 250,
-    images: ["img/w11-1.jpeg", "img/w11-2.jpeg"]
+    images: ["img/w11-1.webp", "img/w11-2.webp"]
   },
   {
     id: 44,
@@ -637,7 +637,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "12 inch" },
     weight_g: 2400,
-    images: ["img/w12-1.jpeg", "img/w12-2.jpeg"]
+    images: ["img/w12-1.webp", "img/w12-2.webp"]
   },
   {
     id: 45,
@@ -651,7 +651,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "3 inch" },
     weight_g: 250,
-    images: ["img/w13-1.jpeg", "img/w13-2.jpeg"]
+    images: ["img/w13-1.webp", "img/w13-2.webp"]
   },
 
   // ── CERAMICS (NEW) ────────────────────────────────────────────────────────────
@@ -667,7 +667,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 400,
-    images: ["img/p46-1.jpeg", "img/p46-2.jpeg"]
+    images: ["img/p46-1.webp", "img/p46-2.webp"]
   },
   {
     id: 47,
@@ -681,7 +681,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 400,
-    images: ["img/p47-1.jpeg", "img/p47-2.jpeg"]
+    images: ["img/p47-1.webp", "img/p47-2.webp"]
   },
   {
     id: 48,
@@ -695,7 +695,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 400,
-    images: ["img/p48-1.jpeg", "img/p48-2.jpeg"]
+    images: ["img/p48-1.webp", "img/p48-2.webp"]
   },
   {
     id: 49,
@@ -709,7 +709,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 650,
-    images: ["img/p49-1.jpeg", "img/p49-2.jpeg"]
+    images: ["img/p49-1.webp", "img/p49-2.webp"]
   },
   {
     id: 50,
@@ -723,7 +723,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 400,
-    images: ["img/p50-1.jpeg", "img/p50-2.jpeg"]
+    images: ["img/p50-1.webp", "img/p50-2.webp"]
   },
   {
     id: 51,
@@ -737,7 +737,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 400,
-    images: ["img/p51-1.jpeg", "img/p51-2.jpeg"]
+    images: ["img/p51-1.webp", "img/p51-2.webp"]
   },
   {
     id: 52,
@@ -751,7 +751,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 400,
-    images: ["img/p52-1.jpeg", "img/p52-2.jpeg"]
+    images: ["img/p52-1.webp", "img/p52-2.webp"]
   },
   {
     id: 53,
@@ -765,7 +765,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 650,
-    images: ["img/p53-1.jpeg", "img/p53-2.jpeg"]
+    images: ["img/p53-1.webp", "img/p53-2.webp"]
   },
   {
     id: 54,
@@ -779,7 +779,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 650,
-    images: ["img/p54-1.jpeg", "img/p54-2.jpeg"]
+    images: ["img/p54-1.webp", "img/p54-2.webp"]
   },
   {
     id: 55,
@@ -793,7 +793,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 400,
-    images: ["img/p55-1.jpeg", "img/p55-2.jpeg"]
+    images: ["img/p55-1.webp", "img/p55-2.webp"]
   },
   {
     id: 56,
@@ -807,7 +807,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 400,
-    images: ["img/p56-1.jpeg", "img/p56-2.jpeg"]
+    images: ["img/p56-1.webp", "img/p56-2.webp"]
   },
 
   // ── WOODWORK (NEW) ────────────────────────────────────────────────────────────
@@ -823,7 +823,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved and Handpainted in India", finish: "Dual-tone matte and metallic", size: "12 inch" },
     weight_g: 750,
-    images: ["img/w14-1.jpeg", "img/w14-2.jpeg"]
+    images: ["img/w14-1.webp", "img/w14-2.webp"]
   },
   {
     id: 58,
@@ -837,7 +837,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved and Handpainted in India", finish: "Glossy lacquer", size: "6 inch" },
     weight_g: 600,
-    images: ["img/w15-1.jpeg", "img/w15-2.jpeg"]
+    images: ["img/w15-1.webp", "img/w15-2.webp"]
   },
   {
     id: 59,
@@ -851,7 +851,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved and Handpainted in India", finish: "Glossy lacquer", size: "6.5 inch" },
     weight_g: 1000,
-    images: ["img/w16-1.jpeg", "img/w16-2.jpeg"]
+    images: ["img/w16-1.webp", "img/w16-2.webp"]
   },
   {
     id: 60,
@@ -868,7 +868,7 @@ const RAIVANA_PRODUCTS = [
       { label: "6 inch", price_inr: 5000, price_inr_export: 10000, weight_g: 500 }
     ],
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved and Handpainted in India", finish: "Glossy lacquer" },
-    images: ["img/w17-1.jpeg", "img/w17-2.jpeg"]
+    images: ["img/w17-1.webp", "img/w17-2.webp"]
   },
   {
     id: 61,
@@ -882,7 +882,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "8 inch" },
     weight_g: 1000,
-    images: ["img/w18-1.jpeg", "img/w18-2.jpeg"]
+    images: ["img/w18-1.webp", "img/w18-2.webp"]
   },
   {
     id: 62,
@@ -899,7 +899,7 @@ const RAIVANA_PRODUCTS = [
       { label: "12 inch", price_inr: 12000, price_inr_export: 16000, weight_g: 1200 }
     ],
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer" },
-    images: ["img/w19-1.jpeg", "img/w19-2.jpeg"]
+    images: ["img/w19-1.webp", "img/w19-2.webp"]
   },
   {
     id: 63,
@@ -913,7 +913,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "12 inch" },
     weight_g: 1200,
-    images: ["img/w20-1.jpeg", "img/w20-2.jpeg"]
+    images: ["img/w20-1.webp", "img/w20-2.webp"]
   },
   {
     id: 64,
@@ -930,7 +930,7 @@ const RAIVANA_PRODUCTS = [
       { label: "12 inch", price_inr: 12000, price_inr_export: 20000, weight_g: 750 }
     ],
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer" },
-    images: ["img/w21-1.jpeg", "img/w21-2.jpeg"]
+    images: ["img/w21-1.webp", "img/w21-2.webp"]
   },
   {
     id: 65,
@@ -944,7 +944,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "10 inch" },
     weight_g: 1000,
-    images: ["img/w22-1.jpeg", "img/w22-2.jpeg"]
+    images: ["img/w22-1.webp", "img/w22-2.webp"]
   },
   {
     id: 66,
@@ -961,7 +961,7 @@ const RAIVANA_PRODUCTS = [
       { label: "12 inch", price_inr: 12500, price_inr_export: 20000, weight_g: 550 }
     ],
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer" },
-    images: ["img/w23-1.jpeg", "img/w23-2.jpeg"]
+    images: ["img/w23-1.webp", "img/w23-2.webp"]
   },
   {
     id: 67,
@@ -978,7 +978,7 @@ const RAIVANA_PRODUCTS = [
       { label: "12 inch", price_inr: 32000, price_inr_export: null, weight_g: 2800 }
     ],
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer" },
-    images: ["img/w24-1.jpeg", "img/w24-2.jpeg"]
+    images: ["img/w24-1.webp", "img/w24-2.webp"]
   },
   {
     id: 68,
@@ -992,7 +992,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "8 inch" },
     weight_g: 500,
-    images: ["img/w25-1.jpeg", "img/w25-2.jpeg"]
+    images: ["img/w25-1.webp", "img/w25-2.webp"]
   },
   {
     id: 69,
@@ -1006,7 +1006,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Seasoned Kadam Wood", craft: "Handcarved in India", finish: "Natural matte lacquer", size: "9 inch" },
     weight_g: 450,
-    images: ["img/w26-1.jpeg", "img/w26-2.jpeg"]
+    images: ["img/w26-1.webp", "img/w26-2.webp"]
   },
 
   // ── CERAMICS VASES & SPECIAL PIECES ──────────────────────────────────────────
@@ -1024,7 +1024,7 @@ const RAIVANA_PRODUCTS = [
       { label: "20 inch", price_inr: 12000, price_inr_export: 20000, weight_g: 1500 }
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed" },
-    images: ["img/v1-1.jpeg", "img/v1-2.jpeg"]
+    images: ["img/v1-1.webp", "img/v1-2.webp"]
   },
   {
     id: 71,
@@ -1040,7 +1040,7 @@ const RAIVANA_PRODUCTS = [
       { label: "20 inch", price_inr: 12000, price_inr_export: 20000, weight_g: 1500 }
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed" },
-    images: ["img/v2-1.jpeg", "img/v2-2.jpeg"]
+    images: ["img/v2-1.webp", "img/v2-2.webp"]
   },
   {
     id: 72,
@@ -1054,7 +1054,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "20 inch" },
     weight_g: 1800,
-    images: ["img/v3-1.jpeg", "img/v3-2.jpeg"]
+    images: ["img/v3-1.webp", "img/v3-2.webp"]
   },
   {
     id: 73,
@@ -1068,7 +1068,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 500,
-    images: ["img/v4-1.jpeg", "img/v4-2.jpeg"]
+    images: ["img/v4-1.webp", "img/v4-2.webp"]
   },
   {
     id: 74,
@@ -1082,7 +1082,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "20 inch" },
     weight_g: 1800,
-    images: ["img/v5-1.jpeg", "img/v5-2.jpeg"]
+    images: ["img/v5-1.webp", "img/v5-2.webp"]
   },
   {
     id: 75,
@@ -1096,7 +1096,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "20 inch" },
     weight_g: 1800,
-    images: ["img/v6-1.jpeg", "img/v6-2.jpeg"]
+    images: ["img/v6-1.webp", "img/v6-2.webp"]
   },
   {
     id: 76,
@@ -1110,7 +1110,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 500,
-    images: ["img/v7-1.jpeg", "img/v7-2.jpeg"]
+    images: ["img/v7-1.webp", "img/v7-2.webp"]
   },
   {
     id: 77,
@@ -1124,7 +1124,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "6 inch" },
     weight_g: 300,
-    images: ["img/v8-1.jpeg", "img/v8-2.jpeg"]
+    images: ["img/v8-1.webp", "img/v8-2.webp"]
   },
   {
     id: 78,
@@ -1138,7 +1138,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 700,
-    images: ["img/v9-1.jpeg", "img/v9-2.jpeg"]
+    images: ["img/v9-1.webp", "img/v9-2.webp"]
   },
   {
     id: 79,
@@ -1152,7 +1152,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 700,
-    images: ["img/v10-1.jpeg", "img/v10-2.jpeg"]
+    images: ["img/v10-1.webp", "img/v10-2.webp"]
   },
   {
     id: 80,
@@ -1166,7 +1166,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 700,
-    images: ["img/v11-1.jpeg", "img/v11-2.jpeg"]
+    images: ["img/v11-1.webp", "img/v11-2.webp"]
   },
   {
     id: 81,
@@ -1180,7 +1180,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "8 inch" },
     weight_g: 400,
-    images: ["img/v12-1.jpeg", "img/v12-2.jpeg"]
+    images: ["img/v12-1.webp", "img/v12-2.webp"]
   },
   {
     id: 82,
@@ -1194,7 +1194,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "6 inch" },
     weight_g: 300,
-    images: ["img/v13-1.jpeg", "img/v13-2.jpeg"]
+    images: ["img/v13-1.webp", "img/v13-2.webp"]
   },
   {
     id: 83,
@@ -1208,7 +1208,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 500,
-    images: ["img/v14-1.jpeg", "img/v14-2.jpeg"]
+    images: ["img/v14-1.webp", "img/v14-2.webp"]
   },
   {
     id: 84,
@@ -1222,7 +1222,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 500,
-    images: ["img/v15-1.jpeg", "img/v15-2.jpeg"]
+    images: ["img/v15-1.webp", "img/v15-2.webp"]
   },
   {
     id: 85,
@@ -1236,7 +1236,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "8.5 inch" },
     weight_g: 400,
-    images: ["img/v16-1.jpeg", "img/v16-2.jpeg"]
+    images: ["img/v16-1.webp", "img/v16-2.webp"]
   },
   {
     id: 86,
@@ -1250,7 +1250,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "5 inch" },
     weight_g: 200,
-    images: ["img/v17-1.jpeg", "img/v17-2.jpeg"]
+    images: ["img/v17-1.webp", "img/v17-2.webp"]
   },
 
   // ── CERAMICS — SPECIAL PIECES ─────────────────────────────────────────────────
@@ -1266,7 +1266,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 600,
-    images: ["img/v18-1.jpeg", "img/v18-2.jpeg"]
+    images: ["img/v18-1.webp", "img/v18-2.webp"]
   },
   {
     id: 88,
@@ -1280,7 +1280,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 600,
-    images: ["img/v19-1.jpeg", "img/v19-2.jpeg"]
+    images: ["img/v19-1.webp", "img/v19-2.webp"]
   },
   {
     id: 89,
@@ -1294,7 +1294,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed" },
     weight_g: 300,
-    images: ["img/v20-1.jpeg", "img/v20-2.jpeg"]
+    images: ["img/v20-1.webp", "img/v20-2.webp"]
   },
   {
     id: 90,
@@ -1308,7 +1308,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed" },
     weight_g: 300,
-    images: ["img/v21-1.jpeg", "img/v21-2.jpeg"]
+    images: ["img/v21-1.webp", "img/v21-2.webp"]
   },
   {
     id: 91,
@@ -1322,7 +1322,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed" },
     weight_g: 300,
-    images: ["img/v22-1.jpeg", "img/v22-2.jpeg"]
+    images: ["img/v22-1.webp", "img/v22-2.webp"]
   },
   {
     id: 92,
@@ -1336,7 +1336,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 500,
-    images: ["img/v23-1.jpeg", "img/v23-2.jpeg"]
+    images: ["img/v23-1.webp", "img/v23-2.webp"]
   },
   {
     id: 93,
@@ -1350,7 +1350,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 500,
-    images: ["img/v24-1.jpeg", "img/v24-2.jpeg"]
+    images: ["img/v24-1.webp", "img/v24-2.webp"]
   },
   {
     id: 94,
@@ -1364,7 +1364,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 500,
-    images: ["img/v25-1.jpeg", "img/v25-2.jpeg"]
+    images: ["img/v25-1.webp", "img/v25-2.webp"]
   },
   {
     id: 95,
@@ -1381,7 +1381,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
-    images: ["img/v26-1.jpeg", "img/v26-2.jpeg"]
+    images: ["img/v26-1.webp", "img/v26-2.webp"]
   },
   {
     id: 96,
@@ -1398,7 +1398,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
-    images: ["img/v27-1.jpeg", "img/v27-2.jpeg"]
+    images: ["img/v27-1.webp", "img/v27-2.webp"]
   },
   {
     id: 97,
@@ -1415,7 +1415,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
-    images: ["img/v28-1.jpeg", "img/v28-2.jpeg"]
+    images: ["img/v28-1.webp", "img/v28-2.webp"]
   },
   {
     id: 98,
@@ -1432,7 +1432,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
-    images: ["img/v29-1.jpeg", "img/v29-2.jpeg"]
+    images: ["img/v29-1.webp", "img/v29-2.webp"]
   },
   {
     id: 99,
@@ -1449,7 +1449,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
-    images: ["img/v30-1.jpeg", "img/v30-2.jpeg"]
+    images: ["img/v30-1.webp", "img/v30-2.webp"]
   },
   {
     id: 100,
@@ -1463,7 +1463,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 500,
-    images: ["img/v31-1.jpeg", "img/v31-2.jpeg"]
+    images: ["img/v31-1.webp", "img/v31-2.webp"]
   },
   {
     id: 101,
@@ -1477,7 +1477,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 500,
-    images: ["img/v32-1.jpeg", "img/v32-2.jpeg"]
+    images: ["img/v32-1.webp", "img/v32-2.webp"]
   },
   {
     id: 102,
@@ -1491,7 +1491,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "12 inch" },
     weight_g: 500,
-    images: ["img/v33-1.jpeg", "img/v33-2.jpeg"]
+    images: ["img/v33-1.webp", "img/v33-2.webp"]
   },
   {
     id: 103,
@@ -1508,7 +1508,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
-    images: ["img/v34-1.jpeg", "img/v34-2.jpeg"]
+    images: ["img/v34-1.webp", "img/v34-2.webp"]
   },
   {
     id: 104,
@@ -1522,7 +1522,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Premium Brass", height: "8.5 in each", weight: "830g each", finish: "Antique Brass" },
     weight_g: 1660,
-    images: ["img/b104-1.jpeg", "img/b104-2.jpeg", "img/b104-3.jpeg"]
+    images: ["img/b104-1.webp", "img/b104-2.webp", "img/b104-3.webp"]
   },
   {
     id: 105,
@@ -1536,7 +1536,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Premium Brass", size: "5.5 × 2.25 × 4.5 in", weight: "400g", finish: "Antique Brass" },
     weight_g: 400,
-    images: ["img/b105-1.jpeg", "img/b105-2.jpeg", "img/b105-3.jpeg"]
+    images: ["img/b105-1.webp", "img/b105-2.webp", "img/b105-3.webp"]
   },
   {
     id: 106,
@@ -1550,7 +1550,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Premium Brass", size: "5.5 × 2.5 × 5 in", weight: "720g", finish: "Antique Brass" },
     weight_g: 720,
-    images: ["img/b106-1.jpeg", "img/b106-2.jpeg", "img/b106-3.jpeg"]
+    images: ["img/b106-1.webp", "img/b106-2.webp", "img/b106-3.webp"]
   },
   {
     id: 107,
@@ -1564,7 +1564,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Premium Brass", size: "3.25 × 2.5 × 5 in", weight: "330g", finish: "Antique Brass" },
     weight_g: 330,
-    images: ["img/b107-1.jpeg", "img/b107-2.jpeg", "img/b107-3.jpeg"]
+    images: ["img/b107-1.webp", "img/b107-2.webp", "img/b107-3.webp"]
   },
   {
     id: 108,
@@ -1578,7 +1578,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Antique Brown", type: "Wall-mounted jharoka with mirror", size: "24 × 36 in" },
     weight_g: 3000,
-    images: ["img/w108-1.jpeg", "img/w108-2.jpeg"]
+    images: ["img/w108-1.webp", "img/w108-2.webp"]
   },
   {
     id: 109,
@@ -1592,7 +1592,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Distressed Turquoise with Antique Effect", type: "Wall-mounted jharoka with mirror", size: "10 × 14 in" },
     weight_g: 800,
-    images: ["img/w109-1.jpeg", "img/w109-2.jpeg"]
+    images: ["img/w109-1.webp", "img/w109-2.webp"]
   },
   {
     id: 110,
@@ -1606,7 +1606,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Natural Raw Wood", type: "Wall-mounted jharoka frame", size: "35 × 50 cm" },
     weight_g: 1200,
-    images: ["img/w110-1.jpeg", "img/w110-2.jpeg"]
+    images: ["img/w110-1.webp", "img/w110-2.webp"]
   },
   {
     id: 111,
@@ -1620,7 +1620,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Distressed Turquoise", type: "Wall-mounted jharoka frame", size: "35 × 50 cm" },
     weight_g: 1200,
-    images: ["img/w111-1.jpeg", "img/w111-2.jpeg"]
+    images: ["img/w111-1.webp", "img/w111-2.webp"]
   },
   {
     id: 112,
@@ -1634,7 +1634,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Dark Antique Brown", type: "Wall-mounted jharoka frame", size: "35 × 50 cm" },
     weight_g: 1200,
-    images: ["img/w112-1.jpeg", "img/w112-2.jpeg"]
+    images: ["img/w112-1.webp", "img/w112-2.webp"]
   },
   {
     id: 113,
@@ -1648,7 +1648,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Natural Raw Wood", type: "Wall-mounted jharoka with mirror", size: "12 × 8 in" },
     weight_g: 600,
-    images: ["img/w113-1.jpeg", "img/w113-2.jpeg"]
+    images: ["img/w113-1.webp", "img/w113-2.webp"]
   },
   {
     id: 114,
@@ -1662,7 +1662,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Distressed Antique White", type: "Wall-mounted jharoka frame", size: "16 × 30 in" },
     weight_g: 2500,
-    images: ["img/w114-1.jpeg", "img/w114-2.jpeg", "img/w114-3.jpeg"]
+    images: ["img/w114-1.webp", "img/w114-2.webp", "img/w114-3.webp"]
   },
   {
     id: 115,
@@ -1676,7 +1676,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Distressed Ivory White", type: "Wall-mounted jharoka with mirror", size: "16 × 30 in" },
     weight_g: 2500,
-    images: ["img/w115-1.jpeg", "img/w115-2.jpeg"]
+    images: ["img/w115-1.webp", "img/w115-2.webp"]
   }
 ];
 
