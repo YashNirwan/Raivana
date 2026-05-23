@@ -746,7 +746,7 @@ const RAIVANA_PRODUCTS = [
     category: "ceramics",
     subcategory: "Plates",
     description: "Handpainted blue pottery plate featuring a white caparisoned horse with yellow and coral detailing set against a deep cobalt ground. The yellow and white geometric border frames the centre, adding contrast and symmetry to the design. The glossy glaze brings out the bold colours and gives the surface a smooth, durable finish. A striking decor piece for accent walls, consoles, and dining areas.",
-    price_inr: 3500,
+    price_inr: 4200,
     price_inr_export: 6000,
     variants: null,
     details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
@@ -1049,7 +1049,7 @@ const RAIVANA_PRODUCTS = [
     category: "ceramics",
     subcategory: "Vases",
     description: "Handpainted ceramic cylinder featuring cascading yellow and blue flowers with coral buds and lush green foliage against a deep cobalt-blue ground. The dense floral vine pattern wraps around the entire surface, framed by thin white bands at the rim and base. The glossy glaze locks in the vibrant hand-painted details. A versatile piece for use as a planter, umbrella stand, or tall accent vase for corners and entryways.",
-    price_inr: 16000,
+    price_inr: 18000,
     price_inr_export: 25000,
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "20 inch" },
@@ -1393,8 +1393,8 @@ const RAIVANA_PRODUCTS = [
     price_inr: null,
     price_inr_export: null,
     variants: [
-      { label: "10 inch", price_inr: 4000, price_inr_export: 8000, weight_g: 350 },
-      { label: "12 inch", price_inr: 9000, price_inr_export: 18000, weight_g: 500 }
+      { label: "10 inch", price_inr: 2500, price_inr_export: 8000, weight_g: 350 },
+      { label: "12 inch", price_inr: 5500, price_inr_export: 18000, weight_g: 500 }
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
@@ -1410,8 +1410,8 @@ const RAIVANA_PRODUCTS = [
     price_inr: null,
     price_inr_export: null,
     variants: [
-      { label: "10 inch", price_inr: 4000, price_inr_export: 8000, weight_g: 350 },
-      { label: "12 inch", price_inr: 9000, price_inr_export: 18000, weight_g: 500 }
+      { label: "10 inch", price_inr: 2500, price_inr_export: 8000, weight_g: 350 },
+      { label: "12 inch", price_inr: 5500, price_inr_export: 18000, weight_g: 500 }
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
@@ -1427,8 +1427,8 @@ const RAIVANA_PRODUCTS = [
     price_inr: null,
     price_inr_export: null,
     variants: [
-      { label: "10 inch", price_inr: 6000, price_inr_export: 12000, weight_g: 350 },
-      { label: "12 inch", price_inr: 12000, price_inr_export: 24000, weight_g: 500 }
+      { label: "10 inch", price_inr: 3500, price_inr_export: 12000, weight_g: 350 },
+      { label: "12 inch", price_inr: 7000, price_inr_export: 24000, weight_g: 500 }
     ],
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
@@ -1509,6 +1509,34 @@ const RAIVANA_PRODUCTS = [
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
     weight_g: 500,
     images: ["img/v34-1.webp", "img/v34-2.webp"]
+  },
+  {
+    id: 116,
+    name: "Marigold Trail Cylindrical Vase",
+    subtitle: "Golden Floral Jaal · Yellow Cylinder",
+    category: "ceramics",
+    subcategory: "Vases",
+    description: "Handpainted ceramic cylinder vase set against a warm golden-yellow base, with intricate floral vines in cobalt blue, turquoise, and leafy green blooming across the surface in a seamless jaal pattern. Each brushstroke is done by hand, making every vase one-of-a-kind with subtle variations in brushwork that add to its charm. Inspired by Mughal and Rajasthani motifs, the design blends heritage craft with contemporary home styling. The tall cylindrical form makes it a natural standalone statement piece. Use it as a vase for dried flowers, an umbrella stand, or sculptural decor for living rooms, entryways, and shelves. The glossy glaze locks in the vibrant hand-painted details.",
+    price_inr: 18000,
+    price_inr_export: null,
+    variants: null,
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "20 inch", origin: "Rajasthan, India" },
+    weight_g: 1800,
+    images: ["img/v35-1.webp", "img/v35-2.webp"]
+  },
+  {
+    id: 117,
+    name: "Azure Hibiscus Cylindrical Vase",
+    subtitle: "Golden Hibiscus on Turquoise · Tall Cylinder",
+    category: "ceramics",
+    subcategory: "Vases",
+    description: "Handpainted ceramic cylinder vase featuring large golden-yellow hibiscus blooms and delicate white vines set against a vibrant turquoise-blue base. Inspired by traditional blue pottery, the intricate floral jaal work is done entirely by hand using fine brushes and natural pigments. Each vase is uniquely crafted, with subtle variations in brushwork and shading that make it one-of-a-kind. The tall, sleek silhouette works beautifully as a standalone statement piece on consoles, mantels, or entryway tables. Pair with dried pampas or eucalyptus, or leave it empty and let the art speak for itself. The glossy glaze locks in the vibrant hand-painted details and brings the turquoise and yellow tones to life in natural light.",
+    price_inr: 18000,
+    price_inr_export: null,
+    variants: null,
+    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "20 inch", origin: "Rajasthan, India" },
+    weight_g: 1800,
+    images: ["img/v36-1.webp", "img/v36-2.webp"]
   },
   {
     id: 104,
