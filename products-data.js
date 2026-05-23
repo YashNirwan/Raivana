@@ -684,20 +684,6 @@ const RAIVANA_PRODUCTS = [
     images: ["img/p47-1.webp", "img/p47-2.webp"]
   },
   {
-    id: 48,
-    name: "Kamdhenu Blessings Plate",
-    subtitle: "Sacred Cow · Handpainted Ceramic",
-    category: "ceramics",
-    subcategory: "Plates",
-    description: "Handpainted ceramic plate featuring a sacred white cow with orange spots, seated on a golden-yellow archway against a cobalt-blue border. The border is adorned with red lotus flowers and green leaves, with lotus buds rising from a blue water panel below. The glossy glaze seals the bold colours and fine details with a smooth, luminous finish. An auspicious decor piece for pooja spaces, entryways, and wall displays.",
-    price_inr: 2200,
-    price_inr_export: 7000,
-    variants: null,
-    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
-    weight_g: 400,
-    images: ["img/p48-1.webp", "img/p48-2.webp"]
-  },
-  {
     id: 49,
     name: "Govardhan Melody Plate",
     subtitle: "Krishna Playing Flute · Blue Pottery",
