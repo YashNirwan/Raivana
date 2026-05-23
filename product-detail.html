@@ -361,14 +361,14 @@
 
     const thumbsHTML = p.images.map((img, i) => `
       <div class="thumbnail ${i === 0 ? 'active' : ''}" onclick="goToImage(${i})">
-        <img src="${img}" alt="${p.name}" onerror="this.parentElement.style.background='var(--blush)'">
+        <img src="${img}" alt="${p.name} — ${p.subtitle}" onerror="this.parentElement.style.background='var(--blush)'">
       </div>`).join('');
 
     document.getElementById('productDetail').innerHTML = `
       <div class="gallery">
         <div class="carousel-wrap">
           <div class="main-image-wrap" id="mainImageWrap">
-            <img id="mainImg" src="${p.images[0]}" alt="${p.name}" style="object-fit:${p.imagefit||'cover'};object-position:${p.imagepos||'center'}"
+            <img id="mainImg" src="${p.images[0]}" alt="${p.name} — ${p.subtitle}" style="object-fit:${p.imagefit||'cover'};object-position:${p.imagepos||'center'}"
               fetchpriority="high"
               onerror="this.style.display='none';document.getElementById('mainPlaceholder').style.display='flex'">
             <div class="img-placeholder-large" id="mainPlaceholder" style="display:none;">✦</div>

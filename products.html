@@ -315,7 +315,7 @@
       card.innerHTML = `
         <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
           <div class="img-wrapper">
-            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" loading="lazy" style="object-fit:${p.imagefit||'cover'};object-position:${p.imagepos||'center'};background:var(--blush);" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name} — ${p.subtitle}" loading="lazy" style="object-fit:${p.imagefit||'cover'};object-position:${p.imagepos||'center'};background:var(--blush);" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="img-placeholder" style="display:none;">✦</div>
             ${arrowsHTML}
             ${dotsHTML}
@@ -402,7 +402,7 @@
       card.innerHTML = `
         <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
           <div class="img-wrapper">
-            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name}" loading="lazy" style="object-fit:cover;object-position:${p.imagepos||'center'};" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img id="card-img-${p.id}" src="${imgs[0]}" alt="${p.name} — ${p.subtitle}" loading="lazy" style="object-fit:cover;object-position:${p.imagepos||'center'};" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="img-placeholder" style="display:none;">✦</div>
             ${tagHTML}
             ${arrowsHTML}
