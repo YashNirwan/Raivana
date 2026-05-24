@@ -434,7 +434,23 @@
     addToCart(p.name, priceDisplay, p.images[0], null);
   }
 
-  document.addEventListener('DOMContentLoaded', () => { renderProducts(); fetchAndRenderExtra(); });
+  document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+    fetchAndRenderExtra();
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('cat');
+    const sub = params.get('sub');
+    if (cat && cat !== 'all') {
+      const catBtn = document.querySelector(`.filter-btn[onclick*="'${cat}'"]`);
+      if (catBtn) {
+        filterProducts(cat, catBtn);
+        if (sub) {
+          const subBtn = document.querySelector(`.sub-filter-btn[onclick*="'${sub}'"]`);
+          if (subBtn) filterBySub(sub, subBtn, cat);
+        }
+      }
+    }
+  });
 </script>
 
 <script>
