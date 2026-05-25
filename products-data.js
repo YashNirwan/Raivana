@@ -1370,23 +1370,6 @@ const RAIVANA_PRODUCTS = [
     images: ["img/v26-1.webp", "img/v26-2.webp"]
   },
   {
-    id: 96,
-    name: "Mustard Gaj Plate",
-    subtitle: "Ceremonial Elephant · Handpainted Ceramic",
-    category: "ceramics",
-    subcategory: "Plates",
-    description: "Handpainted ceramic plate featuring a white ceremonial elephant walking against a vibrant mustard-yellow ground. The elephant is adorned with a blue howdah and cloth detailed with floral and cross motifs in turquoise, red, and green, with red anklets and fine folk-art outlines. The glossy glaze locks in the bold colors and brushwork, giving the surface a smooth, luminous finish. An auspicious decor piece for walls, entryways, and shelves.",
-    price_inr: null,
-    price_inr_export: null,
-    variants: [
-      { label: "10 inch", price_inr: 2500, price_inr_export: 8000, weight_g: 350 },
-      { label: "12 inch", price_inr: 5500, price_inr_export: 18000, weight_g: 500 }
-    ],
-    details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch / 12 inch" },
-    weight_g: 500,
-    images: ["img/v27-1.webp", "img/v27-2.webp"]
-  },
-  {
     id: 97,
     name: "Saffron Ashwa Plate",
     subtitle: "Folk Horse on Mustard Ground · Handpainted Ceramic",
