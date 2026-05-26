@@ -34,6 +34,9 @@ function addToCart(name, price, img, size) {
   saveCart(cart);
   renderCart();
   openCart();
+  if (typeof fbq === 'function') {
+    fbq('track', 'AddToCart', { content_name: name, currency: 'INR' });
+  }
 }
 
 function renderCart() {
