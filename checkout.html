@@ -453,19 +453,19 @@
       });
       var data = await res.json();
       if (data.shipping_inr !== null && data.shipping_inr !== undefined) {
-        shippingInr = data.shipping_inr;
+        shippingInr = data.shipping_inr || (country === 'India' ? 100 : 0);
         var currency = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
         var symbols = { INR: '₹', USD: '$', GBP: '£', EUR: '€', AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$' };
         var sym = symbols[currency] || (currency + ' ');
         var displayAmt = currency === 'INR' ? shippingInr : getShippingInDisplayCurrency();
         shippingEl.innerText = sym + (currency === 'INR' ? Math.round(displayAmt).toLocaleString('en-IN') : displayAmt.toFixed(2));
       } else {
-        shippingInr = 0;
-        shippingEl.innerText = 'Confirmed on order';
+        shippingInr = country === 'India' ? 100 : 0;
+        shippingEl.innerText = shippingInr ? '₹' + shippingInr : 'Confirmed on order';
       }
     } catch (_) {
-      shippingInr = 0;
-      shippingEl.innerText = 'Confirmed on order';
+      shippingInr = country === 'India' ? 100 : 0;
+      shippingEl.innerText = shippingInr ? '₹' + shippingInr : 'Confirmed on order';
     }
     updateOrderTotal();
   }
@@ -501,6 +501,14 @@
     if (cartItems.length === 0) {
       showMessage('Your bag is empty.');
       return;
+    }
+
+    if (country === 'India' && !shippingInr) {
+      await fetchShippingRate();
+      if (!shippingInr) {
+        showMessage('Could not calculate shipping. Please try again.');
+        return;
+      }
     }
 
     const btn = document.getElementById('pay-button');
@@ -553,7 +561,7 @@
             country: country,
             address: [address1, address2, city, state, pin, country].filter(Boolean).join(', ')
           },
-          shippingCost: 0,
+          shippingCost: shippingInr,
           weight: calculateCartWeight()
         })
       });

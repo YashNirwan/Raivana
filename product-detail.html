@@ -448,6 +448,16 @@
 
         </div>
       </div>`;
+
+  if (typeof fbq === 'function') {
+    fbq('track', 'ViewContent', {
+      content_name: p.name,
+      content_ids: [String(p.id)],
+      content_type: 'product',
+      value: p.variants ? p.variants[0].price_inr : p.price_inr,
+      currency: 'INR'
+    });
+  }
   }
 
   var currentImageIndex = 0;

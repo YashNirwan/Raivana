@@ -105,7 +105,7 @@ async function pushToShiprocket(notes, payment) {
 
     const payload = {
       order_id:               `RVN-${payment.order_id}`,
-      order_date:             new Date().toISOString().slice(0, 16).replace('T', ' '),
+      order_date:             new Date(Date.now() + 19800000).toISOString().slice(0, 16).replace('T', ' '),
       pickup_location:        process.env.SHIPROCKET_PICKUP_LOCATION || 'Primary',
       billing_customer_name:  firstName,
       billing_last_name:      lastName,
