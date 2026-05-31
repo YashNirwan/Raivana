@@ -20,7 +20,7 @@ const COUNTRY_CURRENCY = {
   AU: 'AUD', NZ: 'AUD', CA: 'CAD', SG: 'SGD', MY: 'USD', HK: 'USD',
 };
 
-let currentCurrency = 'USD';
+let currentCurrency = localStorage.getItem('raivana_currency') || 'INR';
 let exchangeRates = { USD: 1 };
 
 // Base prices are in USD
@@ -31,8 +31,9 @@ async function initCurrency() {
     const data = await res.json();
     const country = data.country_code;
     currentCurrency = COUNTRY_CURRENCY[country] || 'USD';
+    localStorage.setItem('raivana_currency', currentCurrency);
   } catch (e) {
-    currentCurrency = 'USD';
+    currentCurrency = localStorage.getItem('raivana_currency') || 'INR';
   }
 
   await fetchRates();
