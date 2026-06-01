@@ -58,7 +58,7 @@ exports.handler = async (event) => {
       shipping_is_billing:     0,
       shipping_customer_name:  customer.name || 'Customer',
       shipping_last_name:      '',
-      shipping_address:        customer.address1 || 'Address',
+      shipping_address:        customer.address1 || '1 Main St',
       shipping_address_2:      customer.address2 || '',
       shipping_city:           customer.city,
       shipping_state:          customer.state || '',
