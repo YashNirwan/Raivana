@@ -336,6 +336,23 @@
   var orderTotal = 0;
   var shippingInr = 0;
 
+  function getItemDisplayPrice(item, isIntl) {
+    var product = (typeof RAIVANA_PRODUCTS !== 'undefined')
+      ? RAIVANA_PRODUCTS.find(function(p) { return p.name === item.name; }) : null;
+    if (product && typeof convertPrice === 'function' && typeof exchangeRates !== 'undefined') {
+      var priceInr = isIntl ? (product.price_inr_export || product.price_inr) : product.price_inr;
+      var priceUsd = priceInr / ((exchangeRates['INR']) || 94.75);
+      return convertPrice(priceUsd);
+    }
+    return item.price;
+  }
+
+  function getCurrencySymbol() {
+    var cur = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
+    var symbols = { INR: '₹', USD: '$', GBP: '£', EUR: '€', AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$' };
+    return symbols[cur] || (cur + ' ');
+  }
+
   function renderSummary() {
     cartItems = getCart();
     const container = document.getElementById('summary-items');
@@ -345,16 +362,19 @@
       return;
     }
 
+    const country = document.getElementById('ship-country') ? document.getElementById('ship-country').value : '';
+    const isIntl = country && country !== 'India';
+
     container.innerHTML = '';
     orderTotal = 0;
 
     cartItems.forEach((item, i) => {
-      const price = parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0;
-      orderTotal += price;
-
       const product = (typeof RAIVANA_PRODUCTS !== 'undefined')
         ? RAIVANA_PRODUCTS.find(p => p.name === item.name) : null;
       const itemUrl = product ? `product-detail.html?id=${product.id}` : null;
+      const displayPrice = getItemDisplayPrice(item, isIntl);
+      const price = parseFloat(displayPrice.replace(/[^0-9.]/g, '')) || 0;
+      orderTotal += price;
 
       const div = document.createElement('div');
       div.className = 'summary-item';
@@ -367,14 +387,14 @@
           ${item.size ? `<div class="summary-item-sub">Size: ${item.size}</div>` : ''}
           <button class="summary-item-remove" onclick="removeFromCheckout(${i})">Remove</button>
         </div>
-        <div class="summary-item-price">${item.price}</div>`;
+        <div class="summary-item-price">${displayPrice}</div>`;
       container.appendChild(div);
     });
 
-    const symbol = cartItems[0]?.price?.match(/^[^\d]*/)?.[0] || '₹';
+    const sym = getCurrencySymbol();
     document.getElementById('summary-totals').style.display = 'block';
-    document.getElementById('subtotal-display').innerText = symbol + orderTotal.toFixed(2);
-    document.getElementById('total-display').innerText = symbol + orderTotal.toFixed(2);
+    document.getElementById('subtotal-display').innerText = sym + orderTotal.toFixed(2);
+    document.getElementById('total-display').innerText = sym + orderTotal.toFixed(2);
     document.getElementById('loading-overlay').classList.add('hidden');
   }
 
@@ -423,9 +443,9 @@
 
   function updateOrderTotal() {
     if (!cartItems.length) return;
-    var symbol = cartItems[0].price.match(/^[^\d]*/)[0] || '₹';
+    var sym = getCurrencySymbol();
     var shipping = getShippingInDisplayCurrency();
-    document.getElementById('total-display').innerText = symbol + (orderTotal + shipping).toFixed(2);
+    document.getElementById('total-display').innerText = sym + (orderTotal + shipping).toFixed(2);
   }
 
   async function fetchShippingRate() {
@@ -525,10 +545,26 @@
     }
   }
 
+  var CHECKOUT_COUNTRY_CURRENCY = {
+    'United States':'USD','Canada':'CAD','United Kingdom':'GBP',
+    'Australia':'AUD','New Zealand':'AUD','Singapore':'SGD',
+    'United Arab Emirates':'AED','Saudi Arabia':'AED','Qatar':'AED','Kuwait':'AED','Bahrain':'AED','Oman':'AED',
+    'Germany':'EUR','France':'EUR','Italy':'EUR','Spain':'EUR','Netherlands':'EUR',
+    'Sweden':'EUR','Norway':'EUR','Denmark':'EUR','Switzerland':'EUR',
+    'Austria':'EUR','Belgium':'EUR','Portugal':'EUR','Ireland':'EUR',
+    'India':'INR',
+  };
+
   function syncDialCode(countryName) {
     const dialSelect = document.getElementById('dial-code');
     const option = Array.from(dialSelect.options).find(o => o.dataset.country === countryName);
     if (option) dialSelect.value = option.value;
+
+    var destCurrency = CHECKOUT_COUNTRY_CURRENCY[countryName] || 'USD';
+    if (typeof setCurrency === 'function') setCurrency(destCurrency);
+    shippingInr = 0;
+    document.getElementById('shipping-display').innerText = 'Enter city & postal code';
+    renderSummary();
   }
 
   async function initiatePayment() {
