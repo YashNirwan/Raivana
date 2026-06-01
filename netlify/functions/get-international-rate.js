@@ -62,7 +62,7 @@ exports.handler = async (event) => {
       shipping_state:          customer.state || '',
       shipping_country:        customer.country,
       shipping_pincode:        customer.pin,
-      shipping_phone:          parseInt((customer.phone || '9999999999').replace(/\D/g, '')) || 9999999999,
+      shipping_phone:          parseInt((customer.phone || '').replace(/\D/g, '')) || 9876543210,
       shipping_email:          customer.email || 'customer@raivana.in',
       order_items:             orderItems,
       payment_method:          'Prepaid',
