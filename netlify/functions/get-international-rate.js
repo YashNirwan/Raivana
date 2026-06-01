@@ -14,8 +14,10 @@ const COUNTRY_CODES = {
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
 
+  console.log('get-international-rate invoked');
   try {
     const { customer, items, weightG, hasCeramics, inrSubtotal } = JSON.parse(event.body);
+    console.log('Params: country=%s city=%s pin=%s weight=%s', customer?.country, customer?.city, customer?.pin, weightG);
 
     if (!customer?.country || !customer?.city || !customer?.pin) {
       return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ shipping_inr: null }) };
@@ -76,6 +78,7 @@ exports.handler = async (event) => {
     console.log('Draft order:', orderData?.order_id ?? JSON.stringify(orderData?.message ?? orderData?.errors));
 
     if (!orderData.order_id) {
+      console.error('Draft order failed. Full response:', JSON.stringify(orderData));
       return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ shipping_inr: null }) };
     }
 
