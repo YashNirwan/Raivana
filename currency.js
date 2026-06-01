@@ -20,20 +20,18 @@ const COUNTRY_CURRENCY = {
   AU: 'AUD', NZ: 'AUD', CA: 'CAD', SG: 'SGD', MY: 'USD', HK: 'USD',
 };
 
-let currentCurrency = localStorage.getItem('raivana_currency') || 'INR';
+let currentCurrency = localStorage.getItem('raivana_currency') || 'USD';
 let exchangeRates = { USD: 1 };
 
 // Base prices are in USD
 async function initCurrency() {
   // Detect from IP — no manual override
-  try {
-    const res = await fetch('https://ipapi.co/json/');
-    const data = await res.json();
-    const country = data.country_code;
+  const country = await detectCountry();
+  if (country) {
     currentCurrency = COUNTRY_CURRENCY[country] || 'USD';
     localStorage.setItem('raivana_currency', currentCurrency);
-  } catch (e) {
-    currentCurrency = localStorage.getItem('raivana_currency') || 'INR';
+  } else {
+    currentCurrency = localStorage.getItem('raivana_currency') || 'USD';
   }
 
   await fetchRates();
@@ -118,6 +116,25 @@ function renderCurrencySelector() {
   const cfg = CURRENCY_CONFIG[currentCurrency];
   // Just show the detected currency as read-only text
   el.innerHTML = `<span style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.55;color:var(--deep);">${cfg.flag} ${cfg.code}</span>`;
+}
+
+async function detectCountry() {
+  // Primary: Cloudflare's own trace endpoint — always available, no rate limits
+  try {
+    const res = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
+    const text = await res.text();
+    const match = text.match(/^loc=([A-Z]{2})/m);
+    if (match && match[1]) return match[1];
+  } catch (e) {}
+
+  // Fallback: ipapi.co
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    if (data.country_code) return data.country_code;
+  } catch (e) {}
+
+  return null;
 }
 
 // Run on load
