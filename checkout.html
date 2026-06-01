@@ -284,7 +284,7 @@
         <div class="form-row">
           <div class="form-group">
             <label>City</label>
-            <input type="text" id="ship-city" placeholder="City" required>
+            <input type="text" id="ship-city" placeholder="City" required onblur="fetchShippingRate();">
           </div>
           <div class="form-group">
             <label>State / Province</label>
@@ -433,49 +433,93 @@
     var pincode = document.getElementById('ship-pin').value.trim();
     if (!country) return;
 
-    // India requires a valid pincode before fetching
-    if (country === 'India' && pincode.replace(/\s/g, '').length < 6) return;
+    if (country === 'India') {
+      if (pincode.replace(/\s/g, '').length < 6) return;
+      await fetchDomesticRate(country, pincode);
+    } else {
+      var city = document.getElementById('ship-city').value.trim();
+      if (!pincode || !city) {
+        document.getElementById('shipping-display').innerText = 'Enter city & postal code';
+        return;
+      }
+      await fetchInternationalRate(country, pincode, city);
+    }
+    updateOrderTotal();
+  }
 
+  async function fetchDomesticRate(country, pincode) {
+    var shippingEl = document.getElementById('shipping-display');
+    shippingEl.innerText = 'Calculating…';
+    var weight = calculateCartWeight();
+    try {
+      var res = await fetch('/.netlify/functions/get-shipping-rate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ weightG: weight.totalG, hasCeramics: weight.hasCeramics, country: country, pincode: pincode })
+      });
+      var data = await res.json();
+      if (data.shipping_inr != null) {
+        shippingInr = data.shipping_inr || 100;
+        shippingEl.innerText = '₹' + Math.round(shippingInr).toLocaleString('en-IN');
+      } else {
+        shippingInr = 100;
+        shippingEl.innerText = '₹100';
+      }
+    } catch (_) {
+      shippingInr = 100;
+      shippingEl.innerText = '₹100';
+    }
+  }
+
+  async function fetchInternationalRate(country, pincode, city) {
     var shippingEl = document.getElementById('shipping-display');
     shippingEl.innerText = 'Calculating…';
 
     var weight = calculateCartWeight();
-    try {
-      var rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : {};
-      var inrRate = rates['INR'] || 94.75;
-      var displayCur = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
-      var declaredValue = displayCur === 'INR'
-        ? Math.round(orderTotal)
-        : Math.round((orderTotal / (rates[displayCur] || 1)) * inrRate);
+    var rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : {};
+    var inrRate = rates['INR'] || 94.75;
+    var displayCur = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
+    var inrSubtotal = displayCur === 'INR'
+      ? Math.round(orderTotal)
+      : Math.round((orderTotal / (rates[displayCur] || 1)) * inrRate);
 
-      var res = await fetch('/.netlify/functions/get-shipping-rate', {
+    try {
+      var res = await fetch('/.netlify/functions/get-international-rate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          weightG: weight.totalG,
+          customer: {
+            name:     document.getElementById('customer-name').value.trim() || 'Customer',
+            email:    document.getElementById('customer-email').value.trim() || 'rate@raivana.in',
+            phone:    document.getElementById('customer-phone').value.trim() || '9999999999',
+            address1: document.getElementById('ship-address1').value.trim() || 'Address',
+            address2: document.getElementById('ship-address2').value.trim(),
+            city:     city,
+            state:    document.getElementById('ship-state').value.trim() || '',
+            pin:      pincode,
+            country:  country,
+          },
+          items:       cartItems.map(i => ({ name: i.name, price: i.price, size: i.size || '' })),
+          weightG:     weight.totalG,
           hasCeramics: weight.hasCeramics,
-          country: country,
-          pincode: pincode,
-          declaredValue: declaredValue
+          inrSubtotal: inrSubtotal,
         })
       });
       var data = await res.json();
-      if (data.shipping_inr !== null && data.shipping_inr !== undefined) {
-        shippingInr = data.shipping_inr || (country === 'India' ? 100 : 0);
-        var currency = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
+      if (data.shipping_inr != null && data.shipping_inr > 0) {
+        shippingInr = data.shipping_inr;
         var symbols = { INR: '₹', USD: '$', GBP: '£', EUR: '€', AED: 'AED ', AUD: 'A$', CAD: 'CA$', SGD: 'S$' };
-        var sym = symbols[currency] || (currency + ' ');
-        var displayAmt = currency === 'INR' ? shippingInr : getShippingInDisplayCurrency();
-        shippingEl.innerText = sym + (currency === 'INR' ? Math.round(displayAmt).toLocaleString('en-IN') : displayAmt.toFixed(2));
+        var sym = symbols[displayCur] || (displayCur + ' ');
+        var displayAmt = displayCur === 'INR' ? shippingInr : getShippingInDisplayCurrency();
+        shippingEl.innerText = sym + (displayCur === 'INR' ? Math.round(displayAmt).toLocaleString('en-IN') : displayAmt.toFixed(2));
       } else {
-        shippingInr = country === 'India' ? 100 : 0;
-        shippingEl.innerText = shippingInr ? '₹' + shippingInr : 'Confirmed on order';
+        shippingInr = 0;
+        shippingEl.innerText = 'Confirmed on order';
       }
     } catch (_) {
-      shippingInr = country === 'India' ? 100 : 0;
-      shippingEl.innerText = shippingInr ? '₹' + shippingInr : 'Confirmed on order';
+      shippingInr = 0;
+      shippingEl.innerText = 'Confirmed on order';
     }
-    updateOrderTotal();
   }
 
   function syncDialCode(countryName) {
