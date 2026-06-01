@@ -1674,6 +1674,48 @@ const RAIVANA_PRODUCTS = [
     details: { material: "Solid Mango Wood", finish: "Distressed Ivory White", type: "Wall-mounted jharoka with mirror", size: "16 × 30 in" },
     weight_g: 2500,
     images: ["img/w115-1.webp", "img/w115-2.webp"]
+  },
+  {
+    id: 116,
+    name: "Blush Pink Peacock Mughal Arch Mirror",
+    subtitle: "Hand-Painted Frame · Solid Mango Wood",
+    category: "woodwork",
+    subcategory: "Wooden Home Decor",
+    description: "Crafted from mango wood, this Mughal arch mirror blends soft pastel tones with traditional design. The frame has a blush pink finish with subtle distressing, and hand-painted peacock motifs sit at the top corners for a delicate, heritage-inspired accent. Mango wood gives the frame natural grain and durability, while the scalloped arch shape adds architectural detail. It works beautifully in bedrooms, entryways, and living rooms, especially in boho, pastel, and Indo-fusion interiors.",
+    price_inr: 12500,
+    price_inr_export: 25000,
+    variants: null,
+    details: { material: "Solid Mango Wood", finish: "Blush Pink with Distressing", size: "18 × 30 inch", craft: "Hand-painted peacock motifs" },
+    weight_g: 3000,
+    images: ["img/f116-1.webp", "img/f116-2.webp"]
+  },
+  {
+    id: 117,
+    name: "Midnight Blue Peacock Mughal Arch Mirror",
+    subtitle: "Hand-Painted Frame · Solid Mango Wood",
+    category: "woodwork",
+    subcategory: "Wooden Home Decor",
+    description: "Crafted from mango wood, this Mughal arch mirror brings heritage elegance with a modern colour palette. The frame is finished in a rich midnight blue with fine gold detailing, and hand-painted peacock motifs sit at the top corners. Mango wood provides a solid, durable base with natural grain character. The scalloped arch design makes it a statement piece for entryways, living rooms, and bedrooms, and it pairs well with textured or neutral walls.",
+    price_inr: 12500,
+    price_inr_export: 25000,
+    variants: null,
+    details: { material: "Solid Mango Wood", finish: "Midnight Blue with Gold Detailing", size: "18 × 30 inch", craft: "Hand-painted peacock motifs" },
+    weight_g: 3000,
+    images: ["img/f117-1.webp", "img/f117-2.webp"]
+  },
+  {
+    id: 118,
+    name: "Warm Taupe Peacock Mughal Arch Mirror",
+    subtitle: "Hand-Painted Frame · Solid Mango Wood",
+    category: "woodwork",
+    subcategory: "Wooden Home Decor",
+    description: "Crafted from mango wood, this Mughal arch mirror blends traditional design with a soft, neutral finish. The frame is in a warm taupe tone with subtle distressing and antique gold detailing around the edges. Hand-painted peacock motifs sit at the top corners, adding a refined heritage accent. It works well in living rooms, bedrooms, and entryways, and fits boho, minimal, and modern-traditional interiors. It looks especially elegant against textured or earthy-toned walls where the gold detailing stands out.",
+    price_inr: 12500,
+    price_inr_export: 25000,
+    variants: null,
+    details: { material: "Solid Mango Wood", finish: "Warm Taupe with Antique Gold", size: "18 × 30 inch", craft: "Hand-painted peacock motifs" },
+    weight_g: 3000,
+    images: ["img/f118-1.webp", "img/f118-2.webp"]
   }
 ];
 
