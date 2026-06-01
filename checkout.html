@@ -541,6 +541,11 @@
         paymentTotal = parseFloat(((rawTotal / inrRate) * usdRate).toFixed(2));
       }
 
+      // INR subtotal for Shiprocket international customs declaration
+      const inrSubtotal = displayCurrency === 'INR'
+        ? Math.round(orderTotal)
+        : Math.round((orderTotal / (rates[displayCurrency] || 1)) * inrRate);
+
       // Create order via Netlify function
       const res = await fetch('/.netlify/functions/create-order', {
         method: 'POST',
@@ -562,6 +567,7 @@
             address: [address1, address2, city, state, pin, country].filter(Boolean).join(', ')
           },
           shippingCost: shippingInr,
+          inrSubtotal: inrSubtotal,
           weight: calculateCartWeight()
         })
       });

@@ -6,7 +6,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { items, currency, customer, shippingCost, weight, amountOverride } = JSON.parse(event.body);
+    const { items, currency, customer, shippingCost, weight, amountOverride, inrSubtotal } = JSON.parse(event.body);
 
     const razorpay = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
@@ -33,8 +33,9 @@ exports.handler = async (event) => {
       notes.ship_state       = customer.state    || '';
       notes.ship_pin         = customer.pin      || '';
       notes.ship_country     = customer.country  || '';
-      if (shippingCost) notes.shipping_cost = String(shippingCost);
-      if (weight?.totalG)  notes.weight_g   = String(weight.totalG);
+      if (shippingCost)  notes.shipping_cost = String(shippingCost);
+      if (weight?.totalG) notes.weight_g    = String(weight.totalG);
+      if (inrSubtotal)   notes.inr_subtotal = String(inrSubtotal);
     }
 
     const order = await razorpay.orders.create({
