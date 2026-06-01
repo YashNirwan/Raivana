@@ -77,7 +77,7 @@ exports.handler = async (event) => {
       reasonOfExport:          2,
       commodity:               'true',
       mies:                    'true',
-      igstPaymentStatus:       'C',
+      igstPaymentStatus:       'N',
       Terms_Of_Invoice:        'CIF',
       is_order_revamp:         1,
       is_document:             0,
