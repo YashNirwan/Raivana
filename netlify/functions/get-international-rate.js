@@ -58,7 +58,7 @@ exports.handler = async (event) => {
       shipping_is_billing:     0,
       shipping_customer_name:  customer.name || 'Customer',
       shipping_last_name:      '',
-      shipping_address:        customer.address1 || '1 Main St',
+      shipping_address:        sanitizeAddress(customer.address1),
       shipping_address_2:      customer.address2 || '',
       shipping_city:           customer.city,
       shipping_state:          customer.state || '',
@@ -128,6 +128,13 @@ exports.handler = async (event) => {
     return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ shipping_inr: null }) };
   }
 };
+
+function sanitizeAddress(addr) {
+  const a = (addr || '').trim();
+  if (!a) return '1 Main St';
+  // Shiprocket requires at least one digit in the address
+  return /\d/.test(a) ? a : '1 ' + a;
+}
 
 function getHsn(category) {
   if (category === 'ceramics') return '69131090';
