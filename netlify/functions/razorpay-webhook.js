@@ -106,7 +106,7 @@ async function pushToShiprocket(notes, payment) {
     const country   = notes.ship_country || 'India';
     const isIntl    = country !== 'India';
 
-    const orderItems = items.map((item, i) => ({
+    const domesticItems = items.map((item, i) => ({
       name:          item.name + (item.size ? ` (${item.size})` : ''),
       sku:           `SKU-${i + 1}`,
       units:         1,
@@ -115,41 +115,71 @@ async function pushToShiprocket(notes, payment) {
       tax:           0,
     }));
 
+    const intlItems = items.map((item, i) => ({
+      name:           item.name + (item.size ? ` (${item.size})` : ''),
+      sku:            `SKU-${i + 1}`,
+      category_name:  'Default Category',
+      tax:            '',
+      hsn:            '',
+      units:          '1',
+      selling_price:  String(parseFloat((item.price || '0').replace(/[^0-9.]/g, '')) || 0),
+      discount:       '',
+    }));
+
     const subTotal    = isIntl
-      ? (parseInt(notes.inr_subtotal) || orderItems.reduce((s, i) => s + i.selling_price, 0))
-      : orderItems.reduce((s, i) => s + i.selling_price, 0);
+      ? (parseInt(notes.inr_subtotal) || domesticItems.reduce((s, i) => s + i.selling_price, 0))
+      : domesticItems.reduce((s, i) => s + i.selling_price, 0);
     const orderDate   = new Date(Date.now() + 19800000).toISOString().slice(0, 16).replace('T', ' ');
-    const pickup      = process.env.SHIPROCKET_PICKUP_LOCATION || 'Primary';
     const orderId     = `RVN-${payment.order_id}`;
 
     let endpoint, payload;
 
     if (isIntl) {
-      const countryCode = COUNTRY_CODES[country] || 'US';
+      const pickupLocation = await getPickupLocation(token);
       payload = {
-        order_id:              orderId,
-        order_date:            orderDate,
-        pickup_location:       pickup,
-        billing_customer_name: firstName,
-        billing_last_name:     lastName,
-        billing_address:       notes.ship_address1 || notes.shipping_address || '',
-        billing_address_2:     notes.ship_address2 || '',
-        billing_city:          notes.ship_city     || '',
-        billing_pincode:       notes.ship_pin      || '',
-        billing_country:       country,
-        billing_country_code:  countryCode,
-        billing_email:         notes.customer_email || '',
-        billing_phone:         (notes.customer_phone || '').replace(/\D/g, '').slice(-15),
-        order_items:           orderItems,
-        payment_method:        'Prepaid',
-        sub_total:             subTotal,
-        shipment_purpose:      'Commercial',
-        currency:              'INR',
-        inco_term:             'CIF',
-        length:                30,
-        breadth:               20,
-        height:                20,
-        weight:                weightKg,
+        order_id:                orderId,
+        isd_code:                '',
+        billing_isd_code:        '+91',
+        order_date:              orderDate,
+        billing_customer_name:   pickupLocation?.pickup_location || 'Raivana',
+        billing_last_name:       '',
+        billing_address:         pickupLocation?.address || 'New Delhi',
+        billing_address_2:       pickupLocation?.address_2 || '',
+        billing_city:            pickupLocation?.city || 'New Delhi',
+        billing_state:           pickupLocation?.state || 'Delhi',
+        billing_country:         'India',
+        billing_pincode:         String(pickupLocation?.pin_code || '110077'),
+        billing_phone:           String(pickupLocation?.phone || '9999999999').replace(/\D/g, ''),
+        billing_email:           'info@raivana.in',
+        shipping_is_billing:     0,
+        shipping_customer_name:  firstName,
+        shipping_last_name:      lastName,
+        shipping_address:        notes.ship_address1 || notes.shipping_address || '',
+        shipping_address_2:      notes.ship_address2 || '',
+        shipping_city:           notes.ship_city     || '',
+        shipping_state:          notes.ship_state    || '',
+        shipping_country:        country,
+        shipping_pincode:        notes.ship_pin      || '',
+        shipping_phone:          parseInt((notes.customer_phone || '9999999999').replace(/\D/g, '')) || 9999999999,
+        shipping_email:          notes.customer_email || '',
+        order_items:             intlItems,
+        payment_method:          'Prepaid',
+        sub_total:               subTotal,
+        weight:                  weightKg,
+        length:                  30,
+        breadth:                 20,
+        height:                  20,
+        pickup_location_id:      pickupLocation?.id,
+        purpose_of_shipment:     0,
+        currency:                'INR',
+        reasonOfExport:          2,
+        commodity:               'true',
+        mies:                    'true',
+        igstPaymentStatus:       'C',
+        Terms_Of_Invoice:        'CIF',
+        is_order_revamp:         1,
+        is_document:             0,
+        delivery_challan:        false,
       };
       endpoint = 'https://apiv2.shiprocket.in/v1/external/international/orders/create/adhoc';
     } else {
@@ -168,7 +198,7 @@ async function pushToShiprocket(notes, payment) {
         billing_email:          notes.customer_email || '',
         billing_phone:          (notes.customer_phone || '').replace(/\D/g, '').slice(-10),
         shipping_is_billing:    true,
-        order_items:            orderItems,
+        order_items:            domesticItems,
         payment_method:         'Prepaid',
         sub_total:              subTotal,
         length:                 20,
@@ -193,6 +223,20 @@ async function pushToShiprocket(notes, payment) {
     }
   } catch (err) {
     console.error('Shiprocket push error:', err.message);
+  }
+}
+
+async function getPickupLocation(token) {
+  try {
+    const res = await fetch('https://apiv2.shiprocket.in/v1/external/settings/company/pickup', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    const locations = data?.data?.shipping_address || [];
+    const name = process.env.SHIPROCKET_PICKUP_LOCATION || 'Home';
+    return locations.find(l => l.pickup_location === name) || locations[0] || null;
+  } catch (_) {
+    return null;
   }
 }
 

@@ -1,16 +1,3 @@
-const COUNTRY_CODES = {
-  'India': 'IN', 'Nepal': 'NP', 'Bangladesh': 'BD', 'Sri Lanka': 'LK', 'Pakistan': 'PK',
-  'Singapore': 'SG', 'Malaysia': 'MY', 'Thailand': 'TH', 'Indonesia': 'ID', 'Philippines': 'PH', 'Vietnam': 'VN',
-  'United Arab Emirates': 'AE', 'Saudi Arabia': 'SA', 'Qatar': 'QA', 'Kuwait': 'KW', 'Bahrain': 'BH', 'Oman': 'OM',
-  'Japan': 'JP', 'South Korea': 'KR', 'China': 'CN', 'Hong Kong': 'HK', 'Taiwan': 'TW',
-  'United Kingdom': 'GB', 'Germany': 'DE', 'France': 'FR', 'Italy': 'IT', 'Spain': 'ES',
-  'Netherlands': 'NL', 'Sweden': 'SE', 'Norway': 'NO', 'Denmark': 'DK', 'Switzerland': 'CH',
-  'Austria': 'AT', 'Belgium': 'BE', 'Portugal': 'PT', 'Ireland': 'IE',
-  'United States': 'US', 'Canada': 'CA', 'Australia': 'AU', 'New Zealand': 'NZ',
-  'South Africa': 'ZA', 'Nigeria': 'NG', 'Kenya': 'KE', 'Egypt': 'EG',
-  'Brazil': 'BR', 'Mexico': 'MX', 'Argentina': 'AR',
-};
-
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
 
@@ -23,59 +10,88 @@ exports.handler = async (event) => {
       return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ shipping_inr: null }) };
     }
 
-    const countryCode = COUNTRY_CODES[customer.country] || 'US';
     const packagingG = 200 + (hasCeramics ? 300 : 0);
     const weightKg = Math.max((weightG + packagingG) / 1000, 0.5);
     const subTotal = inrSubtotal || 1000;
 
     const token = await getShiprocketToken();
 
+    // Fetch pickup location to get its numeric ID and seller address
+    const pickup = await getPickupLocation(token);
+    console.log('Pickup location:', pickup?.id, pickup?.pickup_location);
+
     const orderItems = (items || []).length > 0
       ? items.map((item, i) => ({
-          name: item.name + (item.size ? ` (${item.size})` : ''),
-          sku: `SKU-${i + 1}`,
-          units: 1,
-          selling_price: Math.round(subTotal / items.length),
-          discount: 0,
-          tax: 0,
+          name:           item.name + (item.size ? ` (${item.size})` : ''),
+          sku:            `SKU-${i + 1}`,
+          category_name:  'Default Category',
+          tax:            '',
+          hsn:            '',
+          units:          '1',
+          selling_price:  String(Math.round(subTotal / items.length)),
+          discount:       '',
         }))
-      : [{ name: 'Raivana Product', sku: 'SKU-1', units: 1, selling_price: subTotal, discount: 0, tax: 0 }];
+      : [{ name: 'Raivana Product', sku: 'SKU-1', category_name: 'Default Category', tax: '', hsn: '', units: '1', selling_price: String(subTotal), discount: '' }];
 
-    const nameParts = (customer.name || 'Customer').split(' ');
     const draftOrderId = `RVN-RATE-${Date.now()}`;
+    const orderDate = new Date(Date.now() + 19800000).toISOString().slice(0, 16).replace('T', ' ');
+
+    const payload = {
+      order_id:                draftOrderId,
+      isd_code:                '',
+      billing_isd_code:        '+91',
+      order_date:              orderDate,
+      // Billing = seller (Raivana India)
+      billing_customer_name:   pickup?.pickup_location || 'Raivana',
+      billing_last_name:       '',
+      billing_address:         pickup?.address || 'New Delhi',
+      billing_address_2:       pickup?.address_2 || '',
+      billing_city:            pickup?.city || 'New Delhi',
+      billing_state:           pickup?.state || 'Delhi',
+      billing_country:         'India',
+      billing_pincode:         String(pickup?.pin_code || '110077'),
+      billing_phone:           String(pickup?.phone || '9999999999').replace(/\D/g, ''),
+      billing_email:           'info@raivana.in',
+      // Shipping = customer (destination)
+      shipping_is_billing:     0,
+      shipping_customer_name:  customer.name || 'Customer',
+      shipping_last_name:      '',
+      shipping_address:        customer.address1 || 'Address',
+      shipping_address_2:      customer.address2 || '',
+      shipping_city:           customer.city,
+      shipping_state:          customer.state || '',
+      shipping_country:        customer.country,
+      shipping_pincode:        customer.pin,
+      shipping_phone:          parseInt((customer.phone || '9999999999').replace(/\D/g, '')) || 9999999999,
+      shipping_email:          customer.email || 'customer@raivana.in',
+      order_items:             orderItems,
+      payment_method:          'Prepaid',
+      sub_total:               subTotal,
+      weight:                  weightKg,
+      length:                  30,
+      breadth:                 20,
+      height:                  20,
+      pickup_location_id:      pickup?.id,
+      purpose_of_shipment:     0,
+      currency:                'INR',
+      reasonOfExport:          2,
+      commodity:               'true',
+      mies:                    'true',
+      igstPaymentStatus:       'C',
+      Terms_Of_Invoice:        'CIF',
+      is_order_revamp:         1,
+      is_document:             0,
+      delivery_challan:        false,
+    };
 
     const createRes = await fetch('https://apiv2.shiprocket.in/v1/external/international/orders/create/adhoc', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({
-        order_id:              draftOrderId,
-        order_date:            new Date(Date.now() + 19800000).toISOString().slice(0, 16).replace('T', ' '),
-        pickup_location:       process.env.SHIPROCKET_PICKUP_LOCATION || 'Primary',
-        billing_customer_name: nameParts[0] || 'Customer',
-        billing_last_name:     nameParts.slice(1).join(' ') || '.',
-        billing_address:       customer.address1 || 'Address',
-        billing_address_2:     customer.address2 || '',
-        billing_city:          customer.city,
-        billing_pincode:       customer.pin,
-        billing_country:       customer.country,
-        billing_country_code:  countryCode,
-        billing_email:         customer.email || 'rate@raivana.in',
-        billing_phone:         (customer.phone || '9999999999').replace(/\D/g, '').slice(-15) || '9999999999',
-        order_items:           orderItems,
-        payment_method:        'Prepaid',
-        sub_total:             subTotal,
-        shipment_purpose:      'Commercial',
-        currency:              'INR',
-        inco_term:             'CIF',
-        length:                30,
-        breadth:               20,
-        height:                20,
-        weight:                weightKg,
-      }),
+      body: JSON.stringify(payload),
     });
 
     const orderData = await createRes.json();
-    console.log('Draft order:', orderData?.order_id ?? JSON.stringify(orderData?.message ?? orderData?.errors));
+    console.log('Draft order result:', orderData?.order_id ?? JSON.stringify(orderData?.message ?? orderData?.errors));
 
     if (!orderData.order_id) {
       console.error('Draft order failed. Full response:', JSON.stringify(orderData));
@@ -97,7 +113,7 @@ exports.handler = async (event) => {
         return charge < minCharge ? c : min;
       }, couriers[0]);
       const rate = Math.round(cheapest.freight_charge ?? cheapest.rate ?? 0);
-      console.log('Cheapest:', cheapest.courier_name, rate);
+      console.log('Cheapest courier:', cheapest.courier_name, rate);
       return {
         statusCode: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -112,6 +128,20 @@ exports.handler = async (event) => {
     return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ shipping_inr: null }) };
   }
 };
+
+async function getPickupLocation(token) {
+  try {
+    const res = await fetch('https://apiv2.shiprocket.in/v1/external/settings/company/pickup', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    const locations = data?.data?.shipping_address || [];
+    const name = process.env.SHIPROCKET_PICKUP_LOCATION || 'Home';
+    return locations.find(l => l.pickup_location === name) || locations[0] || null;
+  } catch (_) {
+    return null;
+  }
+}
 
 async function getShiprocketToken() {
   const res = await fetch('https://apiv2.shiprocket.in/v1/external/auth/login', {
