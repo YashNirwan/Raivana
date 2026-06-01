@@ -1252,7 +1252,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch" },
     weight_g: 600,
-    images: ["img/v18-2.webp", "img/v18-1.webp"]
+    images: ["img/v18-first.webp", "img/v18-2.webp", "img/v18-1.webp"]
   },
   {
     id: 89,
@@ -1803,7 +1803,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Firoza Blue Distressed", size: "3 × 5 feet", craft: "Hand-carved sunray and floral detailing" },
     weight_g: 7000,
-    images: ["img/nc127-1.webp", "img/nc127-2.webp", "img/nc128-1.webp"]
+    images: ["img/nc127-1.webp", "img/nc127-2.webp"]
   },
   {
     id: 128,
@@ -1817,7 +1817,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Teal with Gold Detailing", size: "3 × 6 feet", craft: "Hand-carved floral scrollwork" },
     weight_g: 10000,
-    images: ["img/nc128-2.webp", "img/nc129-1.webp"]
+    images: ["img/nc128-1.webp", "img/nc128-2.webp"]
   },
   {
     id: 129,
@@ -1831,7 +1831,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Deep Teal with Gold Leaf", size: "3 × 5 feet", craft: "Hand-carved gold-leaf vine detailing" },
     weight_g: 7000,
-    images: ["img/nc129-2.webp", "img/nc130-1.webp"]
+    images: ["img/nc129-1.webp", "img/nc129-2.webp"]
   },
   {
     id: 130,
@@ -1845,7 +1845,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Blush Pink with Gold Highlights", size: "3 × 5 feet", craft: "Hand-carved floral vines with gold" },
     weight_g: 7000,
-    images: ["img/nc130-2.webp", "img/nc131-1.webp"]
+    images: ["img/nc130-1.webp", "img/nc130-2.webp", "img/nc130-3.webp"]
   },
   {
     id: 131,
@@ -1859,7 +1859,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Muted Sage with Pink Florals", size: "3 × 5 feet", craft: "Hand-carved floral vine border" },
     weight_g: 7000,
-    images: ["img/nc131-2.webp", "img/nc132-1.webp"]
+    images: ["img/nc131-1.webp", "img/nc131-2.webp"]
   },
   {
     id: 132,
@@ -1873,7 +1873,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Powder Blue with Gold Accents", size: "3 × 5 feet", craft: "Hand-carved ivory vine medallions" },
     weight_g: 7000,
-    images: ["img/nc132-2.webp", "img/nc133-1.webp"]
+    images: ["img/nc132-1.webp", "img/nc132-2.webp"]
   },
   {
     id: 133,
@@ -1887,7 +1887,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Golden Yellow", size: "3 × 5 feet", craft: "Hand-carved floral vine arch" },
     weight_g: 7000,
-    images: ["img/nc133-2.webp", "img/nc134-1.webp"]
+    images: ["img/nc133-1.webp", "img/nc133-2.webp"]
   },
   {
     id: 134,
@@ -1901,7 +1901,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Mint with Antique Gold", size: "3 × 5 feet", craft: "Hand-carved florals and vines" },
     weight_g: 7000,
-    images: ["img/nc134-2.webp", "img/nc135-1.webp"]
+    images: ["img/nc134-1.webp", "img/nc134-2.webp"]
   },
   {
     id: 135,
@@ -1915,7 +1915,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Butter Yellow with Pink Outline", size: "3 × 5 feet", craft: "Hand-carved floral vine arch" },
     weight_g: 7000,
-    images: ["img/nc135-2.webp", "img/nc136-1.webp"]
+    images: ["img/nc135-1.webp", "img/nc135-2.webp"]
   },
   {
     id: 136,
@@ -1929,7 +1929,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Crisp White", size: "4 × 5 feet", craft: "Hand-carved twin arch with lotus motifs" },
     weight_g: 10000,
-    images: ["img/nc136-2.webp", "img/nc137-1.webp"]
+    images: ["img/nc136-1.webp", "img/nc136-2.webp"]
   },
   {
     id: 137,
@@ -1943,7 +1943,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Aged Turquoise Verdigris", size: "3 × 4 feet", craft: "Deep relief carved vines and medallions" },
     weight_g: 5000,
-    images: ["img/nc137-2.webp", "img/nc138-1.webp"]
+    images: ["img/nc137-1.webp", "img/nc137-2.webp"]
   },
   {
     id: 138,
@@ -1957,7 +1957,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Bottle Green with Ivory Border", size: "2 × 3 feet", craft: "Hand-painted peacock and lotus motifs" },
     weight_g: 3000,
-    images: ["img/nc138-2.webp", "img/nc139-1.webp"]
+    images: ["img/nc138-1.webp", "img/nc138-2.webp"]
   },
   {
     id: 139,
@@ -1971,7 +1971,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Ivory with Red Lotus", size: "2 × 3 feet", craft: "Hand-painted lotus and vine border" },
     weight_g: 3000,
-    images: ["img/nc139-2.webp", "img/nc140-1.webp"]
+    images: ["img/nc139-1.webp", "img/nc139-2.webp"]
   },
   {
     id: 140,
@@ -1985,7 +1985,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Sindoor Red with Gold", size: "2 × 3 feet", craft: "Hand-painted paisley and floral motifs" },
     weight_g: 3000,
-    images: ["img/nc140-2.webp", "img/nc141-1.webp"]
+    images: ["img/nc140-1.webp", "img/nc140-2.webp"]
   },
   {
     id: 141,
@@ -1999,7 +1999,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Ivory White", size: "4 × 5 feet", craft: "Hand-carved triple arch with floral scrollwork" },
     weight_g: 10000,
-    images: ["img/nc141-2.webp", "img/nc142-1.webp"]
+    images: ["img/nc141-1.webp", "img/nc141-2.webp"]
   },
 
   // Kadam Wood Animals
@@ -2018,7 +2018,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Kadam Wood", craft: "Hand-carved kali jali cutwork", finish: "Natural matte" },
     weight_g: 400,
-    images: ["img/nc142-2.webp", "img/nc143-1.webp"]
+    images: ["img/nc142-1.webp", "img/nc142-2.webp"]
   },
   {
     id: 143,
@@ -2036,7 +2036,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Kadam Wood", craft: "Hand-carved kali jali cutwork", finish: "Natural matte" },
     weight_g: 400,
-    images: ["img/nc143-2.webp", "img/nc144-1.webp"]
+    images: ["img/nc143-1.webp", "img/nc143-2.webp"]
   },
   {
     id: 144,
@@ -2050,7 +2050,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Kadam Wood", craft: "Hand-carved kali jali cutwork", finish: "Natural matte", size: "10 inch" },
     weight_g: 600,
-    images: ["img/nc144-2.webp", "img/nc145-1.webp"]
+    images: ["img/nc144-1.webp", "img/nc144-2.webp"]
   },
   {
     id: 145,
@@ -2067,7 +2067,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Kadam Wood", craft: "Hand-carved kali jali and scale work", finish: "Natural matte" },
     weight_g: 350,
-    images: ["img/nc145-2.webp", "img/nc146-1.webp"]
+    images: ["img/nc145-1.webp", "img/nc145-2.webp"]
   },
   {
     id: 146,
@@ -2081,7 +2081,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Kadam Wood", craft: "Hand-carved with dotted relief", finish: "Natural matte", size: "5 inch" },
     weight_g: 200,
-    images: ["img/nc146-2.webp", "img/nc147-1.webp"]
+    images: ["img/nc146-1.webp", "img/nc146-2.webp"]
   },
   {
     id: 147,
@@ -2100,7 +2100,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Kadam Wood", craft: "Hand-carved kali jali cutwork", finish: "Natural matte" },
     weight_g: 200,
-    images: ["img/nc147-2.webp", "img/nc148-1.webp"]
+    images: ["img/nc147-1.webp", "img/nc147-2.webp"]
   },
 
   // Ceramics — Vases
@@ -2116,7 +2116,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch", origin: "Rajasthan, India" },
     weight_g: 1200,
-    images: ["img/nc148-2.webp", "img/nc149-1.webp"]
+    images: ["img/nc148-1.webp"]
   },
   {
     id: 149,
@@ -2130,7 +2130,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch", origin: "Rajasthan, India" },
     weight_g: 1200,
-    images: ["img/nc155-1.webp"]
+    images: ["img/nc149-1.webp"]
   },
   {
     id: 150,
@@ -2144,7 +2144,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch", origin: "Rajasthan, India" },
     weight_g: 1200,
-    images: ["img/nc155-1.webp"]
+    images: ["img/nc150-1.webp"]
   },
   {
     id: 151,
@@ -2158,7 +2158,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch", origin: "Rajasthan, India" },
     weight_g: 1200,
-    images: ["img/nc155-1.webp"]
+    images: ["img/nc151-1.webp"]
   },
   {
     id: 152,
@@ -2172,7 +2172,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch", origin: "Rajasthan, India" },
     weight_g: 1200,
-    images: ["img/nc155-1.webp"]
+    images: ["img/nc152-1.webp"]
   },
 
   // Ceramics — Figurines
@@ -2188,7 +2188,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch", origin: "Rajasthan, India" },
     weight_g: 500,
-    images: ["img/nc155-1.webp"]
+    images: ["img/nc153-1.webp", "img/nc153-2.webp"]
   },
   {
     id: 154,
@@ -2202,7 +2202,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Ceramic", technique: "100% Handmade, Handpainted in India", finish: "Glazed", size: "10 inch", origin: "Rajasthan, India" },
     weight_g: 500,
-    images: ["img/nc155-1.webp"]
+    images: ["img/nc154-1.webp", "img/nc154-2.webp"]
   },
 
   // Brass
@@ -2221,7 +2221,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Brass", craft: "Lost-wax casting, handcrafted in India", finish: "Natural brass" },
     weight_g: 350,
-    images: ["img/nc155-1.webp"]
+    images: ["img/nc155-1.webp", "img/nc155-2.webp"]
   },
   {
     id: 156,
@@ -2235,7 +2235,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Firozi Turquoise", size: "3 × 5 feet", craft: "Deep relief carved floral and lattice patterns" },
     weight_g: 7000,
-    images: []
+    images: ["img/nc156-1.webp", "img/nc156-2.webp"]
   }
 ];
 
