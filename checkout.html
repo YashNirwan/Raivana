@@ -284,7 +284,7 @@
         <div class="form-row">
           <div class="form-group">
             <label>City</label>
-            <input type="text" id="ship-city" placeholder="City" required onblur="fetchShippingRate();">
+            <input type="text" id="ship-city" placeholder="City" required>
           </div>
           <div class="form-group">
             <label>State / Province</label>
@@ -457,11 +457,11 @@
       if (pincode.replace(/\s/g, '').length < 6) return;
       await fetchDomesticRate(country, pincode);
     } else {
-      var city = document.getElementById('ship-city').value.trim();
-      if (!pincode || !city) {
-        document.getElementById('shipping-display').innerText = 'Enter city & postal code';
+      if (!pincode) {
+        document.getElementById('shipping-display').innerText = 'Enter postal code';
         return;
       }
+      var city = document.getElementById('ship-city').value.trim() || 'City';
       await fetchInternationalRate(country, pincode, city);
     }
     updateOrderTotal();
@@ -491,11 +491,16 @@
     }
   }
 
+  var PAY_BTN_DEFAULT_HTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Pay Now';
+
   async function fetchInternationalRate(country, pincode, city) {
     var shippingEl = document.getElementById('shipping-display');
     var payBtn = document.getElementById('pay-button');
-    shippingEl.innerText = 'Calculating shipping… (10–15 sec)';
-    if (payBtn) payBtn.disabled = true;
+    shippingEl.innerText = 'Calculating…';
+    if (payBtn) {
+      payBtn.disabled = true;
+      payBtn.innerHTML = '<div class="spinner" style="width:16px;height:16px;border-width:2px;"></div> Getting shipping rate…';
+    }
 
     var weight = calculateCartWeight();
     var rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : {};
@@ -545,7 +550,10 @@
       shippingInr = 0;
       shippingEl.innerText = 'Confirmed on order';
     } finally {
-      if (payBtn) payBtn.disabled = false;
+      if (payBtn) {
+        payBtn.disabled = false;
+        payBtn.innerHTML = PAY_BTN_DEFAULT_HTML;
+      }
     }
   }
 
