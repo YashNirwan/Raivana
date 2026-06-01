@@ -493,7 +493,9 @@
 
   async function fetchInternationalRate(country, pincode, city) {
     var shippingEl = document.getElementById('shipping-display');
-    shippingEl.innerText = 'Calculating…';
+    var payBtn = document.getElementById('pay-button');
+    shippingEl.innerText = 'Calculating shipping… (10–15 sec)';
+    if (payBtn) payBtn.disabled = true;
 
     var weight = calculateCartWeight();
     var rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : {};
@@ -542,6 +544,8 @@
     } catch (_) {
       shippingInr = 0;
       shippingEl.innerText = 'Confirmed on order';
+    } finally {
+      if (payBtn) payBtn.disabled = false;
     }
   }
 
@@ -594,10 +598,15 @@
       return;
     }
 
-    if (country === 'India' && !shippingInr) {
-      await fetchShippingRate();
-      if (!shippingInr) {
-        showMessage('Could not calculate shipping. Please try again.');
+    if (!shippingInr) {
+      if (country === 'India') {
+        await fetchShippingRate();
+        if (!shippingInr) {
+          showMessage('Could not calculate shipping. Please try again.');
+          return;
+        }
+      } else {
+        showMessage('Please enter your city and postal code to calculate shipping first.');
         return;
       }
     }

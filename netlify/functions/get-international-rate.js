@@ -1,3 +1,5 @@
+let _token = null, _tokenExpiry = 0, _pickup = null;
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
 
@@ -134,6 +136,7 @@ function getHsn(category) {
 }
 
 async function getPickupLocation(token) {
+  if (_pickup) return _pickup;
   try {
     const res = await fetch('https://apiv2.shiprocket.in/v1/external/settings/company/pickup', {
       headers: { Authorization: `Bearer ${token}` },
@@ -141,13 +144,15 @@ async function getPickupLocation(token) {
     const data = await res.json();
     const locations = data?.data?.shipping_address || [];
     const name = process.env.SHIPROCKET_PICKUP_LOCATION || 'Home';
-    return locations.find(l => l.pickup_location === name) || locations[0] || null;
+    _pickup = locations.find(l => l.pickup_location === name) || locations[0] || null;
+    return _pickup;
   } catch (_) {
     return null;
   }
 }
 
 async function getShiprocketToken() {
+  if (_token && Date.now() < _tokenExpiry) return _token;
   const res = await fetch('https://apiv2.shiprocket.in/v1/external/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -155,5 +160,7 @@ async function getShiprocketToken() {
   });
   const data = await res.json();
   if (!data.token) throw new Error('Shiprocket auth failed');
-  return data.token;
+  _token = data.token;
+  _tokenExpiry = Date.now() + 22 * 60 * 60 * 1000; // cache 22 hrs
+  return _token;
 }
