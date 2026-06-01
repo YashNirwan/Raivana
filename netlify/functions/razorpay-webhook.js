@@ -120,7 +120,7 @@ async function pushToShiprocket(notes, payment) {
       sku:            `SKU-${i + 1}`,
       category_name:  'Default Category',
       tax:            '0',
-      hsn:            '',
+      hsn:            getHsn(item.category),
       units:          '1',
       selling_price:  String(parseFloat((item.price || '0').replace(/[^0-9.]/g, '')) || 0),
       discount:       '',
@@ -224,6 +224,12 @@ async function pushToShiprocket(notes, payment) {
   } catch (err) {
     console.error('Shiprocket push error:', err.message);
   }
+}
+
+function getHsn(category) {
+  if (category === 'ceramics') return '6913';
+  if (category === 'woodwork') return '4420';
+  return '8306';
 }
 
 async function getPickupLocation(token) {

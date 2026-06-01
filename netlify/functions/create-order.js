@@ -19,7 +19,7 @@ exports.handler = async (event) => {
       : calculateTotal(items, currency, shippingCost || 0);
 
     const notes = {
-      items: JSON.stringify(items.map(i => ({ name: i.name, price: i.price, size: i.size || '' })))
+      items: JSON.stringify(items.map(i => ({ name: i.name, price: i.price, size: i.size || '', category: i.category || 'brass' })))
     };
 
     if (customer) {

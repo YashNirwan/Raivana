@@ -499,7 +499,10 @@
             pin:      pincode,
             country:  country,
           },
-          items:       cartItems.map(i => ({ name: i.name, price: i.price, size: i.size || '' })),
+          items:       cartItems.map(i => {
+            var p = (typeof RAIVANA_PRODUCTS !== 'undefined') ? RAIVANA_PRODUCTS.find(function(p){ return p.name === i.name; }) : null;
+            return { name: i.name, price: i.price, size: i.size || '', category: p ? p.category : 'brass' };
+          }),
           weightG:     weight.totalG,
           hasCeramics: weight.hasCeramics,
           inrSubtotal: inrSubtotal,
@@ -603,7 +606,10 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: cartItems,
+          items: cartItems.map(function(i) {
+            var p = (typeof RAIVANA_PRODUCTS !== 'undefined') ? RAIVANA_PRODUCTS.find(function(p){ return p.name === i.name; }) : null;
+            return Object.assign({}, i, { category: p ? p.category : 'brass' });
+          }),
           currency: paymentCurrency,
           amountOverride: paymentTotal,
           customer: {
