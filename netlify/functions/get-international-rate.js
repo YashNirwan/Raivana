@@ -31,7 +31,7 @@ exports.handler = async (event) => {
           selling_price:  String(Math.round(subTotal / items.length)),
           discount:       '',
         }))
-      : [{ name: 'Raivana Product', sku: 'SKU-1', category_name: 'Default Category', tax: '0', hsn: '8306', units: '1', selling_price: String(subTotal), discount: '' }];
+      : [{ name: 'Raivana Product', sku: 'SKU-1', category_name: 'Default Category', tax: '0', hsn: '83062900', units: '1', selling_price: String(subTotal), discount: '' }];
 
     const draftOrderId = `RVN-RATE-${Date.now()}`;
     const orderDate = new Date(Date.now() + 19800000).toISOString().slice(0, 16).replace('T', ' ');
@@ -130,9 +130,9 @@ exports.handler = async (event) => {
 };
 
 function getHsn(category) {
-  if (category === 'ceramics') return '6913';
-  if (category === 'woodwork') return '4420';
-  return '8306'; // brass / default
+  if (category === 'ceramics') return '69131090';
+  if (category === 'woodwork') return '44209090';
+  return '83062900'; // brass / default
 }
 
 async function getPickupLocation(token) {

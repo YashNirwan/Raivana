@@ -227,9 +227,9 @@ async function pushToShiprocket(notes, payment) {
 }
 
 function getHsn(category) {
-  if (category === 'ceramics') return '6913';
-  if (category === 'woodwork') return '4420';
-  return '8306';
+  if (category === 'ceramics') return '69131090';
+  if (category === 'woodwork') return '44209090';
+  return '83062900';
 }
 
 async function getPickupLocation(token) {
