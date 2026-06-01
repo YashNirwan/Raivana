@@ -13,18 +13,19 @@ const COUNTRY_CODES = {
   'Brazil': 'BR', 'Mexico': 'MX', 'Argentina': 'AR',
 };
 
-// Fallback rates in INR per 500g slab, used if Shiprocket API doesn't return couriers
-const FALLBACK_RATE_PER_SLAB = {
-  'NP': 800,  'BD': 800,  'LK': 800,  'PK': 800,
-  'SG': 1200, 'MY': 1200, 'TH': 1400, 'ID': 1400, 'PH': 1400, 'VN': 1400,
-  'AE': 1500, 'SA': 1600, 'QA': 1500, 'KW': 1500, 'BH': 1500, 'OM': 1500,
-  'JP': 2000, 'KR': 2000, 'CN': 1800, 'HK': 1800, 'TW': 1800,
-  'GB': 2500, 'DE': 2500, 'FR': 2500, 'IT': 2500, 'ES': 2500,
-  'NL': 2500, 'SE': 2500, 'NO': 2500, 'DK': 2500, 'CH': 2500,
-  'AT': 2500, 'BE': 2500, 'PT': 2500, 'IE': 2500,
-  'US': 3000, 'CA': 3000, 'AU': 2800, 'NZ': 2800,
-  'ZA': 2500, 'NG': 2500, 'KE': 2500, 'EG': 2200,
-  'BR': 3000, 'MX': 3000, 'AR': 3000,
+// Fallback rates in INR: [base for first 500g, additional per extra 500g]
+// Used only if Shiprocket API returns no couriers.
+const FALLBACK_RATES = {
+  'NP': [700,  300], 'BD': [700,  300], 'LK': [700,  300], 'PK': [700,  300],
+  'SG': [900,  400], 'MY': [900,  400], 'TH': [1100, 450], 'ID': [1100, 450], 'PH': [1100, 450], 'VN': [1100, 450],
+  'AE': [1200, 450], 'SA': [1300, 500], 'QA': [1200, 450], 'KW': [1200, 450], 'BH': [1200, 450], 'OM': [1200, 450],
+  'JP': [1600, 600], 'KR': [1600, 600], 'CN': [1400, 550], 'HK': [1400, 550], 'TW': [1400, 550],
+  'GB': [2000, 700], 'DE': [2000, 700], 'FR': [2000, 700], 'IT': [2000, 700], 'ES': [2000, 700],
+  'NL': [2000, 700], 'SE': [2000, 700], 'NO': [2000, 700], 'DK': [2000, 700], 'CH': [2000, 700],
+  'AT': [2000, 700], 'BE': [2000, 700], 'PT': [2000, 700], 'IE': [2000, 700],
+  'US': [2200, 800], 'CA': [2200, 800], 'AU': [2000, 750], 'NZ': [2000, 750],
+  'ZA': [2000, 700], 'NG': [2000, 700], 'KE': [2000, 700], 'EG': [1800, 650],
+  'BR': [2200, 800], 'MX': [2200, 800], 'AR': [2200, 800],
 };
 
 exports.handler = async (event) => {
@@ -33,7 +34,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { weightG, hasCeramics, country, pincode } = JSON.parse(event.body);
+    const { weightG, hasCeramics, country, pincode, declaredValue } = JSON.parse(event.body);
 
     const packagingG = 200 + (hasCeramics ? 300 : 0);
     const totalWeightKg = Math.max((weightG + packagingG) / 1000, 0.5);
@@ -43,7 +44,7 @@ exports.handler = async (event) => {
 
     const shippingInr = country === 'India'
       ? await getDomesticRate(token, pincode, totalWeightKg)
-      : await getInternationalRate(token, countryCode, totalWeightKg);
+      : await getInternationalRate(token, countryCode, totalWeightKg, declaredValue);
 
     return {
       statusCode: 200,
@@ -104,24 +105,30 @@ async function getDomesticRate(token, deliveryPincode, weightKg) {
   return Math.round(cheapest.freight_charge);
 }
 
-async function getInternationalRate(token, countryCode, weightKg) {
+async function getInternationalRate(token, countryCode, weightKg, declaredValue) {
   if (!countryCode) return fallbackRate(null, weightKg);
   try {
-    const url = `https://apiv2.shiprocket.in/v1/external/courier/serviceability/international?pickup_postcode=${PICKUP_PINCODE}&delivery_country=${countryCode}&weight=${weightKg}&cod=0&declared_value=50`;
+    const dv = Math.max(declaredValue || 500, 500);
+    const url = `https://apiv2.shiprocket.in/v1/external/courier/serviceability/international?pickup_postcode=${PICKUP_PINCODE}&delivery_country=${countryCode}&weight=${weightKg}&cod=0&declared_value=${dv}`;
     const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
     const data = await res.json();
+    console.log('Shiprocket intl response for', countryCode, JSON.stringify(data?.data?.available_courier_companies?.length ?? data?.message ?? data?.status));
     const couriers = data?.data?.available_courier_companies;
     if (couriers && couriers.length > 0) {
       const cheapest = couriers.reduce((min, c) =>
         c.freight_charge < min.freight_charge ? c : min, couriers[0]);
+      console.log('Shiprocket intl cheapest courier:', cheapest.courier_name, cheapest.freight_charge);
       return Math.round(cheapest.freight_charge);
     }
-  } catch (_) { /* fall through */ }
+  } catch (e) {
+    console.log('Shiprocket intl API error:', e.message);
+  }
+  console.log('Using fallback rate for', countryCode, weightKg, 'kg');
   return fallbackRate(countryCode, weightKg);
 }
 
 function fallbackRate(countryCode, weightKg) {
-  const ratePerSlab = FALLBACK_RATE_PER_SLAB[countryCode] || 2500;
-  const slabs = Math.ceil(weightKg / 0.5);
-  return ratePerSlab * slabs;
+  const r = FALLBACK_RATES[countryCode] || [2000, 700];
+  const additionalSlabs = Math.ceil(Math.max(weightKg - 0.5, 0) / 0.5);
+  return r[0] + additionalSlabs * r[1];
 }

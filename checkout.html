@@ -441,6 +441,13 @@
 
     var weight = calculateCartWeight();
     try {
+      var rates = (typeof exchangeRates !== 'undefined') ? exchangeRates : {};
+      var inrRate = rates['INR'] || 94.75;
+      var displayCur = (typeof currentCurrency !== 'undefined') ? currentCurrency : 'INR';
+      var declaredValue = displayCur === 'INR'
+        ? Math.round(orderTotal)
+        : Math.round((orderTotal / (rates[displayCur] || 1)) * inrRate);
+
       var res = await fetch('/.netlify/functions/get-shipping-rate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -448,7 +455,8 @@
           weightG: weight.totalG,
           hasCeramics: weight.hasCeramics,
           country: country,
-          pincode: pincode
+          pincode: pincode,
+          declaredValue: declaredValue
         })
       });
       var data = await res.json();
