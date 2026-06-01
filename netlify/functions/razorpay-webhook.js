@@ -151,7 +151,7 @@ async function pushToShiprocket(notes, payment) {
         height:                20,
         weight:                weightKg,
       };
-      endpoint = 'https://apiv2.shiprocket.in/v1/external/international/orders/create';
+      endpoint = 'https://apiv2.shiprocket.in/v1/external/international/orders/create/adhoc';
     } else {
       payload = {
         order_id:               orderId,

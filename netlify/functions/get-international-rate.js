@@ -44,7 +44,7 @@ exports.handler = async (event) => {
     const nameParts = (customer.name || 'Customer').split(' ');
     const draftOrderId = `RVN-RATE-${Date.now()}`;
 
-    const createRes = await fetch('https://apiv2.shiprocket.in/v1/external/international/orders/create', {
+    const createRes = await fetch('https://apiv2.shiprocket.in/v1/external/international/orders/create/adhoc', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       body: JSON.stringify({
