@@ -275,7 +275,8 @@
         </div>
         <div class="form-group" style="position:relative;">
           <label>Address Line 1</label>
-          <input type="text" id="ship-address1" placeholder="Flat / House no., Building, Street, Area" required autocomplete="off" oninput="handleAddressInput()" onblur="setTimeout(closeAddressSuggestions,200)">
+          <input type="text" id="ship-address1" placeholder="Flat / House no., Building, Street, Area" required autocomplete="off" oninput="handleAddressInput(); clearAddressError();" onblur="setTimeout(closeAddressSuggestions,200); validateAddress1();">
+          <div id="address1-error" style="display:none;color:var(--terracotta);font-size:0.72rem;margin-top:0.4rem;letter-spacing:0.03em;">Please include a house or building number (e.g. "42 Bayoak Drive").</div>
         </div>
         <div class="form-group">
           <label>Address Line 2 <span style="opacity:0.5;">(optional)</span></label>
@@ -764,6 +765,21 @@
     if (addrParts) msg += `%0AShip to: ${addrParts}`;
     msg += '%0A%0APlease share payment details. Thank you!';
     window.open('https://wa.me/919599225549?text=' + msg, '_blank');
+  }
+
+  function validateAddress1() {
+    var country = document.getElementById('ship-country').value;
+    if (country === 'India') return;
+    var val = document.getElementById('ship-address1').value.trim();
+    if (val && !/\d/.test(val)) {
+      document.getElementById('address1-error').style.display = 'block';
+      document.getElementById('ship-address1').style.borderColor = 'var(--terracotta)';
+    }
+  }
+
+  function clearAddressError() {
+    document.getElementById('address1-error').style.display = 'none';
+    document.getElementById('ship-address1').style.borderColor = '';
   }
 
   function showMessage(msg) {
