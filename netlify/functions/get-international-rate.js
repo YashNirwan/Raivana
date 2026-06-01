@@ -104,7 +104,8 @@ exports.handler = async (event) => {
     );
     const svcData = await svcRes.json();
     const couriers = svcData?.data?.available_courier_companies;
-    console.log('Couriers available:', couriers?.length ?? 0, '| msg:', svcData?.message);
+    console.log('Couriers available:', couriers?.length ?? 0);
+    if (couriers?.length > 0) console.log('First courier sample:', JSON.stringify(couriers[0]));
 
     if (couriers && couriers.length > 0) {
       const cheapest = couriers.reduce((min, c) => {
