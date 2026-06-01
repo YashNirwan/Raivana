@@ -802,7 +802,7 @@
       <div class="section-label">Collections</div>
       <h2 class="products-h2">Curated from<br>master workshops</h2>
     </div>
-    <a href="#" style="text-decoration:none; color:var(--deep); font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.55; display:flex; align-items:center; gap:0.5rem;">View All →</a>
+    <a href="products.html" style="text-decoration:none; color:var(--deep); font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.55; display:flex; align-items:center; gap:0.5rem;">View All →</a>
   </div>
   <div class="products-grid">
     <a href="product-detail.html?id=15" style="text-decoration:none;color:inherit;display:block;">
@@ -867,6 +867,45 @@
         <div class="product-name">Mayur Vriksha Plate</div>
         <div class="product-origin">Jaipur, Rajasthan · Jaipur Blue Pottery</div>
         <div class="product-price" id="home-price-31">₹3,000</div>
+      </div>
+    </div>
+    </a>
+    <a href="product-detail.html?id=116" style="text-decoration:none;color:inherit;display:block;">
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(160deg,#e8b4b8 0%,#c47a8a 100%);overflow:hidden;padding:0;">
+        <img src="img/f116-1.webp" alt="Blush Pink Peacock Mughal Arch Mirror" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'">
+      </div>
+      <div class="product-info">
+        <div class="product-category">Woodwork · Handcrafted</div>
+        <div class="product-name">Blush Pink Peacock Mughal Arch Mirror</div>
+        <div class="product-origin">Jaipur, Rajasthan · Mango Wood Frame</div>
+        <div class="product-price" id="home-price-116">₹12,500</div>
+      </div>
+    </div>
+    </a>
+    <a href="product-detail.html?id=117" style="text-decoration:none;color:inherit;display:block;">
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(160deg,#1a2a4a 0%,#0d1a3d 100%);overflow:hidden;padding:0;">
+        <img src="img/f117-1.webp" alt="Midnight Blue Peacock Mughal Arch Mirror" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'">
+      </div>
+      <div class="product-info">
+        <div class="product-category">Woodwork · Handcrafted</div>
+        <div class="product-name">Midnight Blue Peacock Mughal Arch Mirror</div>
+        <div class="product-origin">Jaipur, Rajasthan · Mango Wood Frame</div>
+        <div class="product-price" id="home-price-117">₹12,500</div>
+      </div>
+    </div>
+    </a>
+    <a href="product-detail.html?id=118" style="text-decoration:none;color:inherit;display:block;">
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(160deg,#8b7355 0%,#5c4a35 100%);overflow:hidden;padding:0;">
+        <img src="img/f118-1.webp" alt="Warm Taupe Peacock Mughal Arch Mirror" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'">
+      </div>
+      <div class="product-info">
+        <div class="product-category">Woodwork · Handcrafted</div>
+        <div class="product-name">Warm Taupe Peacock Mughal Arch Mirror</div>
+        <div class="product-origin">Jaipur, Rajasthan · Mango Wood Frame</div>
+        <div class="product-price" id="home-price-118">₹12,500</div>
       </div>
     </div>
     </a>
@@ -1076,7 +1115,7 @@
   // Update ceramic product prices on homepage once currency is detected
   function updateHomePrices() {
     if (typeof RAIVANA_PRODUCTS === 'undefined' || typeof getProductPrice === 'undefined') return;
-    var ids = [5, 15, 29, 30, 31];
+    var ids = [5, 15, 29, 30, 31, 116, 117, 118];
     ids.forEach(function(id) {
       var el = document.getElementById('home-price-' + id);
       if (!el) return;
