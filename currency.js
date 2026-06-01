@@ -119,9 +119,9 @@ function renderCurrencySelector() {
 }
 
 async function detectCountry() {
-  // Primary: Cloudflare's own trace endpoint — always available, no rate limits
+  // Primary: Cloudflare trace on this domain — same-origin, no CORS, always available
   try {
-    const res = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
+    const res = await fetch('/cdn-cgi/trace');
     const text = await res.text();
     const match = text.match(/^loc=([A-Z]{2})/m);
     if (match && match[1]) return match[1];
