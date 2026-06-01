@@ -40,11 +40,9 @@ exports.handler = async (event) => {
     const totalWeightKg = Math.max((weightG + packagingG) / 1000, 0.5);
     const countryCode = COUNTRY_CODES[country] || null;
 
-    const token = await getShiprocketToken();
-
     const shippingInr = country === 'India'
-      ? await getDomesticRate(token, pincode, totalWeightKg)
-      : await getInternationalRate(token, countryCode, totalWeightKg, declaredValue);
+      ? await getDomesticRate(await getShiprocketToken(), pincode, totalWeightKg)
+      : getInternationalRate(countryCode, totalWeightKg);
 
     return {
       statusCode: 200,
@@ -105,26 +103,9 @@ async function getDomesticRate(token, deliveryPincode, weightKg) {
   return Math.round(cheapest.freight_charge);
 }
 
-async function getInternationalRate(token, countryCode, weightKg, declaredValue) {
-  if (!countryCode) return fallbackRate(null, weightKg);
-  try {
-    const dv = Math.max(declaredValue || 500, 500);
-    const url = `https://apiv2.shiprocket.in/v1/external/courier/serviceability/international?pickup_postcode=${PICKUP_PINCODE}&delivery_country=${countryCode}&weight=${weightKg}&cod=0&declared_value=${dv}`;
-    const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-    const text = await res.text();
-    console.log('Shiprocket intl raw response:', text.substring(0, 400));
-    const data = JSON.parse(text);
-    const couriers = data?.data?.available_courier_companies;
-    if (couriers && couriers.length > 0) {
-      const cheapest = couriers.reduce((min, c) =>
-        c.freight_charge < min.freight_charge ? c : min, couriers[0]);
-      console.log('Shiprocket intl cheapest courier:', cheapest.courier_name, cheapest.freight_charge);
-      return Math.round(cheapest.freight_charge);
-    }
-  } catch (e) {
-    console.log('Shiprocket intl API error:', e.message);
-  }
-  console.log('Using fallback rate for', countryCode, weightKg, 'kg');
+// Shiprocket's international serviceability API requires an order_id (post-creation only),
+// so live rates aren't available at checkout. Use calibrated regional estimates instead.
+function getInternationalRate(countryCode, weightKg) {
   return fallbackRate(countryCode, weightKg);
 }
 
