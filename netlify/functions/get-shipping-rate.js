@@ -111,8 +111,9 @@ async function getInternationalRate(token, countryCode, weightKg, declaredValue)
     const dv = Math.max(declaredValue || 500, 500);
     const url = `https://apiv2.shiprocket.in/v1/external/courier/serviceability/international?pickup_postcode=${PICKUP_PINCODE}&delivery_country=${countryCode}&weight=${weightKg}&cod=0&declared_value=${dv}`;
     const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-    const data = await res.json();
-    console.log('Shiprocket intl response for', countryCode, JSON.stringify(data?.data?.available_courier_companies?.length ?? data?.message ?? data?.status));
+    const text = await res.text();
+    console.log('Shiprocket intl raw response:', text.substring(0, 400));
+    const data = JSON.parse(text);
     const couriers = data?.data?.available_courier_companies;
     if (couriers && couriers.length > 0) {
       const cheapest = couriers.reduce((min, c) =>
