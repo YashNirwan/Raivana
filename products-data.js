@@ -1480,7 +1480,7 @@ const RAIVANA_PRODUCTS = [
     images: ["img/v34-1.webp", "img/v34-2.webp"]
   },
   {
-    id: 116,
+    id: 119,
     name: "Marigold Trail Cylindrical Vase",
     subtitle: "Golden Floral Jaal · Yellow Cylinder",
     category: "ceramics",
@@ -1494,7 +1494,7 @@ const RAIVANA_PRODUCTS = [
     images: ["img/v35-1.webp", "img/v35-2.webp"]
   },
   {
-    id: 117,
+    id: 120,
     name: "Azure Hibiscus Cylindrical Vase",
     subtitle: "Golden Hibiscus on Turquoise · Tall Cylinder",
     category: "ceramics",
