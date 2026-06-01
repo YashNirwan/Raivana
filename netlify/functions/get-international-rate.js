@@ -108,12 +108,9 @@ exports.handler = async (event) => {
     if (couriers?.length > 0) console.log('First courier sample:', JSON.stringify(couriers[0]));
 
     if (couriers && couriers.length > 0) {
-      const cheapest = couriers.reduce((min, c) => {
-        const charge = c.freight_charge ?? c.rate ?? 999999;
-        const minCharge = min.freight_charge ?? min.rate ?? 999999;
-        return charge < minCharge ? c : min;
-      }, couriers[0]);
-      const rate = Math.round(cheapest.freight_charge ?? cheapest.rate ?? 0);
+      const getCharge = c => (typeof c.rate === 'object' ? c.rate?.rate : c.rate) ?? c.freight_charge ?? 999999;
+      const cheapest = couriers.reduce((min, c) => getCharge(c) < getCharge(min) ? c : min, couriers[0]);
+      const rate = Math.round(getCharge(cheapest));
       console.log('Cheapest courier:', cheapest.courier_name, rate);
       return {
         statusCode: 200,
