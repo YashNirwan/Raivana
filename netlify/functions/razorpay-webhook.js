@@ -119,7 +119,7 @@ async function pushToShiprocket(notes, payment) {
       name:           item.name + (item.size ? ` (${item.size})` : ''),
       sku:            `SKU-${i + 1}`,
       category_name:  'Default Category',
-      tax:            '',
+      tax:            '0',
       hsn:            '',
       units:          '1',
       selling_price:  String(parseFloat((item.price || '0').replace(/[^0-9.]/g, '')) || 0),
