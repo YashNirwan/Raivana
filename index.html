@@ -459,6 +459,55 @@
   }
 
 
+  /* COLLECTION EXPLORER */
+  .collection-explorer { padding: 7rem 0 0; }
+  .collection-explorer-header { text-align: center; padding: 0 6rem 3.5rem; }
+  .ce-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300; line-height: 1.1; margin-top: 0.5rem; }
+  .ce-h2 em { font-style: italic; color: var(--terracotta); }
+  .ce-tabs { display: flex; justify-content: center; border-top: 1px solid rgba(28,16,8,0.1); border-bottom: 1px solid rgba(28,16,8,0.1); }
+  .ce-tab { flex: 0 0 auto; padding: 1.2rem 3.5rem; font-family: 'Jost', sans-serif; font-size: 0.63rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(28,16,8,0.38); background: none; border: none; border-right: 1px solid rgba(28,16,8,0.1); cursor: pointer; position: relative; transition: color 0.2s; }
+  .ce-tab:first-child { border-left: 1px solid rgba(28,16,8,0.1); }
+  .ce-tab::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--terracotta); transform: scaleX(0); transition: transform 0.3s ease; }
+  .ce-tab.active { color: var(--terracotta); }
+  .ce-tab.active::after { transform: scaleX(1); }
+  .ce-tab:hover:not(.active) { color: var(--deep); }
+  .ce-panel { display: none; grid-template-columns: 38% 62%; }
+  .ce-panel.active { display: grid; }
+  .ce-links { padding: 4rem 5rem 4rem 7rem; display: flex; flex-direction: column; justify-content: center; background: var(--cream); min-height: 520px; }
+  .ce-cat-label { font-size: 0.58rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.8rem; }
+  .ce-cat-label::before { content: ''; width: 1.5rem; height: 1px; background: var(--terracotta); }
+  .ce-link { display: flex; align-items: center; justify-content: space-between; font-family: 'Cormorant Garamond', serif; font-size: 1.65rem; font-weight: 300; color: var(--deep); text-decoration: none; padding: 0.9rem 0; border-bottom: 1px solid rgba(28,16,8,0.07); transition: color 0.2s, padding-left 0.2s; letter-spacing: 0.01em; }
+  .ce-link:first-of-type { border-top: 1px solid rgba(28,16,8,0.07); }
+  .ce-link:hover { color: var(--terracotta); padding-left: 0.5rem; }
+  .ce-link-arrow { font-size: 1rem; opacity: 0; transform: translateX(-4px); transition: opacity 0.2s, transform 0.2s; }
+  .ce-link:hover .ce-link-arrow { opacity: 1; transform: translateX(0); }
+  .ce-view-all { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 2.2rem; font-family: 'Jost', sans-serif; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(28,16,8,0.5); text-decoration: none; transition: color 0.2s; }
+  .ce-view-all::after { content: '→'; }
+  .ce-view-all:hover { color: var(--terracotta); }
+  .ce-images { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+  .ce-img-wrap { overflow: hidden; height: 520px; }
+  .ce-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+  .ce-img-wrap:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) {
+    .collection-explorer { padding-top: 5rem; }
+    .collection-explorer-header { padding: 0 2rem 2.5rem; }
+    .ce-tabs { flex-wrap: wrap; }
+    .ce-tab { padding: 0.9rem 1.8rem; flex: 1 1 auto; text-align: center; }
+    .ce-panel.active { grid-template-columns: 1fr; }
+    .ce-links { padding: 2.5rem 2rem; min-height: auto; }
+    .ce-images { height: 260px; }
+    .ce-img-wrap { height: 260px; }
+  }
+  @media (max-width: 480px) {
+    .collection-explorer { padding-top: 4rem; }
+    .collection-explorer-header { padding: 0 1.5rem 2rem; }
+    .ce-tab { padding: 0.75rem 1rem; font-size: 0.58rem; letter-spacing: 0.18em; flex: 1 1 45%; }
+    .ce-links { padding: 2rem 1.5rem; }
+    .ce-link { font-size: 1.35rem; }
+    .ce-images { height: 200px; }
+    .ce-img-wrap { height: 200px; }
+  }
+
   /* CURRENCY SELECTOR */
   #currency-selector { position: relative; }
   .currency-current {
@@ -796,15 +845,81 @@
 <div class="divider"><div class="divider-line"></div><div class="divider-motif">✦</div><div class="divider-line"></div></div>
 
 <!-- 6. COLLECTIONS -->
-<section class="products" id="collections">
-  <div class="products-header">
-    <div>
-      <div class="section-label">Collections</div>
-      <h2 class="products-h2">Curated from<br>master workshops</h2>
-    </div>
-    <a href="products.html" style="text-decoration:none; color:var(--deep); font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.55; display:flex; align-items:center; gap:0.5rem;">View All →</a>
+<section class="collection-explorer" id="collections">
+  <div class="collection-explorer-header">
+    <div class="section-label" style="justify-content:center;">Collections</div>
+    <h2 class="ce-h2">Curated from <em>master workshops</em></h2>
   </div>
-  <div class="products-grid">
+
+  <div class="ce-tabs">
+    <button class="ce-tab active" onclick="ceSwitch('brass',this)">Brass</button>
+    <button class="ce-tab" onclick="ceSwitch('ceramics',this)">Ceramics</button>
+    <button class="ce-tab" onclick="ceSwitch('woodwork',this)">Woodwork</button>
+    <button class="ce-tab" onclick="ceSwitch('new',this)">New Collection</button>
+  </div>
+
+  <div class="ce-panels">
+
+    <div class="ce-panel active" id="ce-brass">
+      <div class="ce-links">
+        <div class="ce-cat-label">Brass Metalwork</div>
+        <a href="products.html?cat=brass" class="ce-link">Idols &amp; Figurines <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=brass" class="ce-link">Sacred Animals <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=brass" class="ce-link">Vessels &amp; Bowls <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=brass" class="ce-link">Decorative Objects <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=brass" class="ce-view-all">View all Brass</a>
+      </div>
+      <div class="ce-images">
+        <div class="ce-img-wrap"><img src="img/p5-1.webp" alt="Brass Lakshmi Narayan" loading="lazy"></div>
+        <div class="ce-img-wrap"><img src="img/p15-1.webp" alt="Brass Nandi" loading="lazy"></div>
+      </div>
+    </div>
+
+    <div class="ce-panel" id="ce-ceramics">
+      <div class="ce-links">
+        <div class="ce-cat-label">Jaipur Blue Pottery</div>
+        <a href="products.html?cat=ceramics" class="ce-link">Blue Pottery Plates <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=ceramics" class="ce-link">Vases &amp; Vessels <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=ceramics" class="ce-link">Figurines &amp; Accents <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=ceramics" class="ce-view-all">View all Ceramics</a>
+      </div>
+      <div class="ce-images">
+        <div class="ce-img-wrap"><img src="img/p29-1.webp" alt="Blue Lotus Print Plate" loading="lazy"></div>
+        <div class="ce-img-wrap"><img src="img/p30-1.webp" alt="Rajkumari Shringaar Vase" loading="lazy"></div>
+      </div>
+    </div>
+
+    <div class="ce-panel" id="ce-woodwork">
+      <div class="ce-links">
+        <div class="ce-cat-label">Handcarved Woodwork</div>
+        <a href="products.html?cat=woodwork" class="ce-link">Mango Wood Mirrors <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=woodwork" class="ce-link">Kadam Wood Sculptures <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=woodwork" class="ce-link">Mirror Gallery <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=woodwork" class="ce-view-all">View all Woodwork</a>
+      </div>
+      <div class="ce-images">
+        <div class="ce-img-wrap"><img src="img/f116-1.webp" alt="Peacock Mughal Arch Mirror" loading="lazy"></div>
+        <div class="ce-img-wrap"><img src="img/nc130-1.webp" alt="Bagh-e-Noor Mirror" loading="lazy"></div>
+      </div>
+    </div>
+
+    <div class="ce-panel" id="ce-new">
+      <div class="ce-links">
+        <div class="ce-cat-label">New Arrivals</div>
+        <a href="products.html?cat=woodwork" class="ce-link">Mirror Collection <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=ceramics" class="ce-link">Ceramic Muses <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=woodwork" class="ce-link">Kadam Wood Animals <span class="ce-link-arrow">→</span></a>
+        <a href="products.html?cat=brass" class="ce-link">Kamdhenu Sculpture <span class="ce-link-arrow">→</span></a>
+        <a href="products.html" class="ce-view-all">View all New Arrivals</a>
+      </div>
+      <div class="ce-images">
+        <div class="ce-img-wrap"><img src="img/nc153-1.webp" alt="Azure Whisker Cat" loading="lazy"></div>
+        <div class="ce-img-wrap"><img src="img/nc156-1.webp" alt="Firozi Jharoka Mirror" loading="lazy"></div>
+      </div>
+    </div>
+
+  </div>
+  <div style="display:none">
     <a href="product-detail.html?id=15" style="text-decoration:none;color:inherit;display:block;">
     <div class="product-card">
       <div class="product-img" style="background:linear-gradient(160deg,#C9A84C 0%,#8B6914 50%,#3D2D08 100%);overflow:hidden;padding:0;">
@@ -1078,6 +1193,12 @@
     document.getElementById('panel-' + category).classList.add('active');
     btn.classList.add('active');
   }
+  function ceSwitch(id, btn) {
+    document.querySelectorAll('.ce-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.ce-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('ce-' + id).classList.add('active');
+  }
 </script>
 <!-- CART DRAWER -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
@@ -1111,27 +1232,6 @@
 <script src="products-data.js"></script>
 <script src="currency.js"></script>
 <script src="cart.js"></script>
-<script>
-  // Update ceramic product prices on homepage once currency is detected
-  function updateHomePrices() {
-    if (typeof RAIVANA_PRODUCTS === 'undefined' || typeof getProductPrice === 'undefined') return;
-    var ids = [5, 15, 29, 30, 153, 116, 117, 118];
-    ids.forEach(function(id) {
-      var el = document.getElementById('home-price-' + id);
-      if (!el) return;
-      var p = RAIVANA_PRODUCTS.find(function(x) { return x.id === id; });
-      if (!p) return;
-      var price = getProductPrice(p, 0, currentCurrency, exchangeRates);
-      el.innerText = (p.variants ? 'From ' : '') + price;
-    });
-  }
-  // Also hook into applyPrices so it fires when currency changes
-  var _origApply = typeof applyPrices === 'function' ? applyPrices : null;
-  function applyPrices() { if (_origApply) _origApply(); updateHomePrices(); }
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(updateHomePrices, 1500); // fallback after currency loads
-  });
-</script>
 <script>
   document.querySelectorAll('img').forEach(function(img) {
     if (!img.closest('nav')) img.setAttribute('loading', 'lazy');
