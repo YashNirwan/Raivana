@@ -188,7 +188,6 @@
     <button class="filter-btn" onclick="filterProducts('brass',this)">Brass</button>
     <button class="filter-btn" onclick="filterProducts('ceramics',this)">Ceramics</button>
     <button class="filter-btn" onclick="filterProducts('woodwork',this)">Woodwork</button>
-    <button class="filter-btn" onclick="filterProducts('new',this)">New Collection</button>
   </div>
   <div class="sub-filter-wrap" id="subFilterWrap"></div>
 </div>
@@ -287,12 +286,6 @@
       wrap.classList.remove('visible');
       wrap.innerHTML = '';
       document.querySelectorAll('.product-card').forEach(card => card.classList.remove('hidden'));
-    } else if (cat === 'new') {
-      wrap.classList.remove('visible');
-      wrap.innerHTML = '';
-      document.querySelectorAll('.product-card').forEach(card => {
-        card.classList.toggle('hidden', card.dataset.newcol !== '1');
-      });
     } else {
       const subs = SUBCATS[cat] || [];
       wrap.innerHTML = `<button class="sub-filter-btn active" onclick="filterBySub('all',this,'${cat}')">${CAT_LABELS[cat]||cat}</button>`
@@ -335,8 +328,7 @@
       card.className = 'product-card';
       card.dataset.cat = p.category;
       card.dataset.subcat = p.subcategory || '';
-      card.dataset.newcol = p.id >= 116 ? '1' : '0';
-      card.dataset.imgIndex = '0';
+card.dataset.imgIndex = '0';
       card.dataset.imgs = JSON.stringify(imgs);
       card.innerHTML = `
         <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
@@ -423,8 +415,7 @@
       card.className = 'product-card';
       card.dataset.cat = p.category;
       card.dataset.subcat = p.subcategory || '';
-      card.dataset.newcol = p.id >= 116 ? '1' : '0';
-      card.dataset.imgIndex = '0';
+card.dataset.imgIndex = '0';
       card.dataset.imgs = JSON.stringify(imgs);
       card.innerHTML = `
         <a href="product-detail.html?id=${p.id}" style="text-decoration:none;color:inherit;">
