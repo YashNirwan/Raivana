@@ -260,11 +260,24 @@
     document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
   }
   const SUBCATS = {
-    brass:    ['Brass God Idols', 'Brass Animals', 'Brass Decor'],
-    ceramics: ['Vases', 'Plates', 'Miniatures & Decor'],
-    woodwork: ['Animal Sculptures', 'God Idols', 'Buddha Collection', 'Wooden Home Decor']
+    brass: [
+      { val: 'Brass God Idols',  label: 'Idols & Figurines' },
+      { val: 'Brass Animals',    label: 'Sacred Animals' },
+      { val: 'Brass Decor',      label: 'Decorative Objects' },
+    ],
+    ceramics: [
+      { val: 'Plates',           label: 'Blue Pottery Plates' },
+      { val: 'Vases',            label: 'Vases & Vessels' },
+      { val: 'Miniatures & Decor', label: 'Figurines & Accents' },
+    ],
+    woodwork: [
+      { val: 'Wooden Home Decor',  label: 'Mango Wood Mirrors' },
+      { val: 'Animal Sculptures',  label: 'Kadam Wood Sculptures' },
+      { val: 'God Idols',          label: 'Wooden Idols' },
+      { val: 'Buddha Collection',  label: 'Buddha Collection' },
+    ],
   };
-  const CAT_LABELS = { brass: 'Brass Collection', ceramics: 'Blue Pottery', woodwork: 'Wooden Handicrafts' };
+  const CAT_LABELS = { brass: 'All Brass', ceramics: 'All Ceramics', woodwork: 'All Woodwork' };
 
   function filterProducts(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -282,8 +295,8 @@
       });
     } else {
       const subs = SUBCATS[cat] || [];
-      wrap.innerHTML = `<button class="sub-filter-btn active" onclick="filterBySub('all',this,'${cat}')">All ${CAT_LABELS[cat]||cat}</button>`
-        + subs.map(s => `<button class="sub-filter-btn" onclick="filterBySub('${s}',this,'${cat}')">${s}</button>`).join('');
+      wrap.innerHTML = `<button class="sub-filter-btn active" onclick="filterBySub('all',this,'${cat}')">${CAT_LABELS[cat]||cat}</button>`
+        + subs.map(s => `<button class="sub-filter-btn" onclick="filterBySub('${s.val}',this,'${cat}')">${s.label}</button>`).join('');
       wrap.classList.add('visible');
       document.querySelectorAll('.product-card').forEach(card => {
         card.classList.toggle('hidden', card.dataset.cat !== cat);
