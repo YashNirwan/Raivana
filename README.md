@@ -156,7 +156,7 @@ Connected to Netlify via GitHub. Every push to `main` triggers an automatic depl
 
 ## About
 
-Built by **Yash Nirwan** for Raivana, a Rajasthani handicraft export business. The project spans brand identity, full-stack web development, payment integration, international shipping, and e-commerce — built end to end without a pre-built platform.
+Built by **Yash Nirwan** for **Trishna Nirwan's** Raivana — a Rajasthani handicraft export business. The project spans brand identity, full-stack web development, payment integration, international shipping, and e-commerce — built end to end without a pre-built platform.
 
 ---
 
