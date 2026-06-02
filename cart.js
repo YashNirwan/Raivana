@@ -44,6 +44,7 @@ function renderCart() {
   const container = document.getElementById('cart-items-container');
   const emptyMsg = document.getElementById('cart-empty-msg');
   const countEl = document.getElementById('cart-count');
+  const countElMobile = document.getElementById('cart-count-mobile');
   const subtotalEl = document.getElementById('cart-subtotal-price');
 
   if (!container) return;
@@ -55,6 +56,7 @@ function renderCart() {
     if (emptyMsg) emptyMsg.style.display = 'block';
     if (subtotalEl) subtotalEl.innerText = '$0.00';
     if (countEl) countEl.innerText = '0';
+    if (countElMobile) countElMobile.innerText = '0';
     return;
   }
 
@@ -79,6 +81,7 @@ function renderCart() {
 
   if (subtotalEl) subtotalEl.innerText = (cart[0]?.price?.match(/^[^\d]*/)?.[0] || '$') + total.toFixed(2);
   if (countEl) countEl.innerText = cart.length;
+  if (countElMobile) countElMobile.innerText = cart.length;
 
   // Re-apply currency conversion if available
   if (typeof applyPrices === 'function') applyPrices();

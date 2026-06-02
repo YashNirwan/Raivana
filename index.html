@@ -376,6 +376,7 @@
     display: none; flex-direction: column; gap: 5px; background: none;
     border: none; cursor: pointer; padding: 4px; z-index: 200;
   }
+  .nav-mobile-cart { display: none; align-items: center; background: none; border: none; cursor: pointer; padding: 4px; color: var(--deep); }
   .nav-hamburger span {
     display: block; width: 24px; height: 1.5px; background: var(--deep);
     transition: all 0.3s ease;
@@ -404,10 +405,13 @@
   }
 
   @media (max-width: 480px) {
-    .nav-top { padding: 1rem 1.5rem; }
+    .nav-top { padding: 1rem 1.5rem; position: relative; }
     .nav-links { display: none !important; }
-    .nav-hamburger { display: flex; }
+    .nav-hamburger { display: flex; order: -1; }
+    .nav-logo { position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; }
+    .nav-logo > span { display: none !important; }
     .nav-logo img { height: 70px !important; width: 70px !important; }
+    .nav-mobile-cart { display: flex !important; }
 
 
     /* HERO */
@@ -660,6 +664,10 @@
     <button id="hamburger" class="nav-hamburger" onclick="toggleMenu()" aria-label="Open navigation">
       <span></span><span></span><span></span>
     </button>
+    <button class="nav-mobile-cart" onclick="openCart()" aria-label="Open cart">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span id="cart-count-mobile" style="background:var(--terracotta);color:var(--sand);border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:0.55rem;font-family:'Jost',sans-serif;">0</span>
+    </button>
   </div>
 
   <div class="nav-cats">
@@ -695,8 +703,8 @@
         <a href="products.html?cat=ceramics" class="mega-view-all">View all Ceramics</a>
       </div>
       <div class="mega-images">
-        <div class="mega-img"><img src="img/p29-1.webp" alt="Blue Lotus Print Plate" loading="lazy" style="object-fit:contain;background:#e8e0d0;"></div>
-        <div class="mega-img"><img src="img/p30-1.webp" alt="Rajkumari Shringaar Vase" loading="lazy"></div>
+        <div class="mega-img"><img src="img/nc150-1.webp" alt="Sapphire Plumage Vase" loading="lazy"></div>
+        <div class="mega-img"><img src="img/nc148-2.webp" alt="Vrinda Muse Vase" loading="lazy"></div>
       </div>
     </div>
 
@@ -1226,14 +1234,14 @@
     <h2 class="social-h2">@raivana.in</h2>
   </div>
   <div class="social-grid">
-    <a class="social-item" href="https://www.instagram.com/reel/DYIJlOqB3SX/" target="_blank" rel="noopener">
-      <img src="https://behold.pictures/5IxYsse6ghRnNgAUXIJ7xghg9qC3/O5JTHbq5lCvgnNjSuBb5/18352916656213388/medium.jpg" alt="Blue pottery craftsmanship" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <a class="social-item" id="ig-post-0" href="https://instagram.com/raivana.in" target="_blank" rel="noopener">
+      <img id="ig-img-0" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 0.4s;">
     </a>
-    <a class="social-item" href="https://www.instagram.com/reel/DYFZMwYhjAm/" target="_blank" rel="noopener">
-      <img src="https://behold.pictures/5IxYsse6ghRnNgAUXIJ7xghg9qC3/O5JTHbq5lCvgnNjSuBb5/18078470042638949/medium.jpg" alt="Welcome to Raivana" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <a class="social-item" id="ig-post-1" href="https://instagram.com/raivana.in" target="_blank" rel="noopener">
+      <img id="ig-img-1" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 0.4s;">
     </a>
-    <a class="social-item" href="https://www.instagram.com/p/DXo4YDEkbRL/" target="_blank" rel="noopener">
-      <img src="https://behold.pictures/5IxYsse6ghRnNgAUXIJ7xghg9qC3/O5JTHbq5lCvgnNjSuBb5/18100228289079059/medium.jpg" alt="A small beginning — Raivana" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <a class="social-item" id="ig-post-2" href="https://instagram.com/raivana.in" target="_blank" rel="noopener">
+      <img id="ig-img-2" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 0.4s;">
     </a>
     <a class="social-item social-item-follow" href="https://instagram.com/raivana.in" target="_blank" rel="noopener" style="background:var(--deep);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-decoration:none;">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(242,234,216,0.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="rgba(242,234,216,0.7)" stroke="none"/></svg>
@@ -1401,5 +1409,25 @@
   document.querySelectorAll('img').forEach(function(img) {
     if (!img.closest('nav')) img.setAttribute('loading', 'lazy');
   });
+</script>
+<script>
+  fetch('https://feeds.behold.so/O5JTHbq5lCvgnNjSuBb5')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var posts = data.posts || [];
+      posts.slice(0, 3).forEach(function(post, i) {
+        var a = document.getElementById('ig-post-' + i);
+        var img = document.getElementById('ig-img-' + i);
+        if (!a || !img) return;
+        a.href = post.permalink || 'https://instagram.com/raivana.in';
+        var src = post.mediaType === 'VIDEO' ? post.thumbnailUrl : post.mediaUrl;
+        if (src) {
+          img.onload = function() { img.style.opacity = '1'; };
+          img.src = src;
+          img.alt = (post.caption || '').slice(0, 60);
+        }
+      });
+    })
+    .catch(function() {});
 </script>
 </html>
