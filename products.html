@@ -10,6 +10,9 @@
 <meta name="description" content="Browse handmade brass god idols, Jaipur blue pottery plates & vases, handcarved wooden sculptures and Rajasthani home decor. Ships worldwide from India.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://raivana.in/products.html">
+<link rel="preload" href="products-data.js" as="script">
+<link rel="preload" href="currency.js" as="script">
+<link rel="preload" href="cart.js" as="script">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Raivana">
 <meta property="og:title" content="Buy Brass Idols, Blue Pottery & Wooden Decor Online | Raivana">
@@ -71,6 +74,8 @@
   .sub-filter-btn.active, .sub-filter-btn:hover { background: var(--terracotta); color: var(--sand); border-color: var(--terracotta); }
   @keyframes subFadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
   .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 3rem; padding: 2rem 4rem 6rem; max-width: 1400px; margin: 0 auto; }
+  .product-skeleton { height: 420px; background: linear-gradient(90deg, var(--blush) 25%, #e8d0b8 50%, var(--blush) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 2px; }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
   .product-card { display: flex; flex-direction: column; cursor: pointer; transition: transform 0.3s; }
   .product-card:hover { transform: translateY(-5px); }
   .product-card.hidden { display: none; }
@@ -198,7 +203,14 @@
   <div class="sub-filter-wrap" id="subFilterWrap"></div>
 </div>
 
-<section class="product-grid" id="productGrid" style="margin-top:2.5rem;"></section>
+<section class="product-grid" id="productGrid" style="margin-top:2.5rem;">
+  <div class="product-skeleton"></div>
+  <div class="product-skeleton"></div>
+  <div class="product-skeleton"></div>
+  <div class="product-skeleton"></div>
+  <div class="product-skeleton"></div>
+  <div class="product-skeleton"></div>
+</section>
 
 <!-- CART DRAWER -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
