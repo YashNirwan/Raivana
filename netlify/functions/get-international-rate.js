@@ -1,5 +1,19 @@
 const PICKUP_PINCODE = '110077';
 
+const COUNTRY_CODES = {
+  'United States': 'US', 'Canada': 'CA', 'United Kingdom': 'GB',
+  'Australia': 'AU', 'New Zealand': 'NZ', 'Singapore': 'SG',
+  'United Arab Emirates': 'AE', 'Saudi Arabia': 'SA', 'Qatar': 'QA',
+  'Kuwait': 'KW', 'Bahrain': 'BH', 'Oman': 'OM',
+  'Germany': 'DE', 'France': 'FR', 'Italy': 'IT', 'Spain': 'ES',
+  'Netherlands': 'NL', 'Sweden': 'SE', 'Norway': 'NO', 'Denmark': 'DK',
+  'Switzerland': 'CH', 'Austria': 'AT', 'Belgium': 'BE', 'Portugal': 'PT',
+  'Ireland': 'IE', 'Malaysia': 'MY', 'Hong Kong': 'HK',
+  'Japan': 'JP', 'South Korea': 'KR', 'Thailand': 'TH',
+  'South Africa': 'ZA', 'Brazil': 'BR', 'Mexico': 'MX',
+  'Nepal': 'NP', 'Sri Lanka': 'LK', 'Bangladesh': 'BD',
+};
+
 let _token = null, _tokenExpiry = 0;
 
 exports.handler = async (event) => {
@@ -16,10 +30,12 @@ exports.handler = async (event) => {
 
     const packagingG = 200 + (hasCeramics ? 300 : 0);
     const weightKg = Math.max((weightG + packagingG) / 1000, 0.5);
+    const countryCode = COUNTRY_CODES[customer.country] || customer.country;
+    console.log('Country code:', customer.country, '->', countryCode);
 
     const token = await getShiprocketToken();
 
-    const url = `https://apiv2.shiprocket.in/v1/external/international/courier/serviceability?pickup_postcode=${PICKUP_PINCODE}&delivery_country=${encodeURIComponent(customer.country)}&weight=${weightKg}&cod=0`;
+    const url = `https://apiv2.shiprocket.in/v1/external/international/courier/serviceability?pickup_postcode=${PICKUP_PINCODE}&delivery_country=${encodeURIComponent(countryCode)}&weight=${weightKg}&cod=0`;
     const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
     const data = await res.json();
 
