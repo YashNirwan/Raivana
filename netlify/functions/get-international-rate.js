@@ -114,6 +114,8 @@ exports.handler = async (event) => {
       const cheapest = couriers.reduce((min, c) => getCharge(c) < getCharge(min) ? c : min, couriers[0]);
       const rate = Math.round(getCharge(cheapest));
       console.log('Cheapest courier:', cheapest.courier_name, rate);
+      // Delete the draft order so it doesn't clutter Shiprocket dashboard
+      deleteDraftOrder(token, orderData.order_id);
       return {
         statusCode: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -121,6 +123,7 @@ exports.handler = async (event) => {
       };
     }
 
+    deleteDraftOrder(token, orderData.order_id);
     return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ shipping_inr: null }) };
 
   } catch (err) {
@@ -128,6 +131,17 @@ exports.handler = async (event) => {
     return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ shipping_inr: null }) };
   }
 };
+
+function deleteDraftOrder(token, orderId) {
+  if (!orderId) return;
+  // Fire-and-forget — don't await, don't block the rate response
+  fetch(`https://apiv2.shiprocket.in/v1/external/orders/${orderId}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+    .then(r => console.log('Draft order delete status:', orderId, r.status))
+    .catch(e => console.log('Draft order delete failed (non-critical):', e.message));
+}
 
 function sanitizeAddress(addr) {
   const a = (addr || '').trim();
