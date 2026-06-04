@@ -112,10 +112,11 @@ exports.handler = async (event) => {
     if (couriers && couriers.length > 0) {
       const getCharge = c => (typeof c.rate === 'object' ? c.rate?.rate : c.rate) ?? c.freight_charge ?? 999999;
       const cheapest = couriers.reduce((min, c) => getCharge(c) < getCharge(min) ? c : min, couriers[0]);
-      const rate = Math.round(getCharge(cheapest));
-      console.log('Cheapest courier:', cheapest.courier_name, rate);
-      // Delete the draft order so it doesn't clutter Shiprocket dashboard
-      deleteDraftOrder(token, orderData.order_id);
+      const baseRate = Math.round(getCharge(cheapest));
+      const coverage = cheapest.coverage_charges || 0;
+      const rate = baseRate + coverage;
+      console.log('Cheapest courier:', cheapest.courier_name, 'base:', baseRate, 'coverage:', coverage, 'total:', rate);
+      await deleteDraftOrder(token, orderData.order_id);
       return {
         statusCode: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -123,7 +124,7 @@ exports.handler = async (event) => {
       };
     }
 
-    deleteDraftOrder(token, orderData.order_id);
+    await deleteDraftOrder(token, orderData.order_id);
     return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ shipping_inr: null }) };
 
   } catch (err) {
@@ -132,15 +133,17 @@ exports.handler = async (event) => {
   }
 };
 
-function deleteDraftOrder(token, orderId) {
+async function deleteDraftOrder(token, orderId) {
   if (!orderId) return;
-  // Fire-and-forget — don't await, don't block the rate response
-  fetch(`https://apiv2.shiprocket.in/v1/external/orders/${orderId}`, {
-    method: 'DELETE',
-    headers: { Authorization: `Bearer ${token}` },
-  })
-    .then(r => console.log('Draft order delete status:', orderId, r.status))
-    .catch(e => console.log('Draft order delete failed (non-critical):', e.message));
+  try {
+    const r = await fetch(`https://apiv2.shiprocket.in/v1/external/orders/${orderId}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log('Draft order delete status:', orderId, r.status);
+  } catch (e) {
+    console.log('Draft order delete failed (non-critical):', e.message);
+  }
 }
 
 function sanitizeAddress(addr) {
