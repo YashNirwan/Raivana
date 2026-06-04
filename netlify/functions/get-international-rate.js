@@ -136,13 +136,15 @@ exports.handler = async (event) => {
 async function deleteDraftOrder(token, orderId) {
   if (!orderId) return;
   try {
-    const r = await fetch(`https://apiv2.shiprocket.in/v1/external/orders/${orderId}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+    const r = await fetch('https://apiv2.shiprocket.in/v1/external/orders/cancel', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ ids: [orderId] }),
     });
-    console.log('Draft order delete status:', orderId, r.status);
+    const data = await r.json();
+    console.log('Draft order cancel status:', orderId, r.status, data?.message || '');
   } catch (e) {
-    console.log('Draft order delete failed (non-critical):', e.message);
+    console.log('Draft order cancel failed (non-critical):', e.message);
   }
 }
 
