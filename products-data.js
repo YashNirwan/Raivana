@@ -2561,10 +2561,10 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 180,
-    name: "Fuchsia Bloom Console Table",
+    name: "Fuchsia Bloom Chest",
     subtitle: "Camel Bone & Mother of Pearl Inlay · Fuchsia Pink",
     category: "woodwork",
-    subcategory: "Consoles",
+    subcategory: "Dressers & Chests",
     description: "A bold console where a centuries-old Rajasthani technique meets modern colour. On a solid mango wood and MDF frame, hundreds of tiny hand-cut pieces of authentic camel bone and pure mother of pearl are inlaid into a vibrant fuchsia base to form a floral vine and geometric border pattern, with no paint or print. Two functional drawers with crystal knobs hold keys, mail or bedroom essentials. At 3.4 ft long it suits entryways, bedrooms and living spaces, and each piece is naturally one of a kind.",
     price_inr: 72000,
     price_inr_export: 100000,
