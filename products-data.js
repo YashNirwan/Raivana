@@ -2281,7 +2281,7 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 160,
-    name: "Blue Patina Armoire",
+    name: "Blue Patina Cabinet",
     subtitle: "Distressed Turquoise · Brass Strap Accents",
     category: "woodwork",
     subcategory: "Cabinets",
@@ -2295,7 +2295,7 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 161,
-    name: "Ivory Arches Armoire",
+    name: "Ivory Arches Cabinet",
     subtitle: "Mughal Cusped Arch Carving · Whitewash",
     category: "woodwork",
     subcategory: "Cabinets",
@@ -2323,7 +2323,7 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 163,
-    name: "Indigo Elephant Armoire",
+    name: "Indigo Elephant Cabinet",
     subtitle: "Deep Relief Elephant & Peacock · Indigo",
     category: "woodwork",
     subcategory: "Cabinets",
@@ -2351,7 +2351,7 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 165,
-    name: "Fortress Armoire",
+    name: "Fortress Cabinet",
     subtitle: "Deep Medallion Carving · Brass Straps · Jodhpur Blue",
     category: "woodwork",
     subcategory: "Cabinets",
@@ -2365,7 +2365,7 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 166,
-    name: "Sun-Washed Armoire",
+    name: "Sun-Washed Cabinet",
     subtitle: "Carved Elephant & Tree of Life · Natural Bleach",
     category: "woodwork",
     subcategory: "Cabinets",
@@ -2477,7 +2477,7 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 174,
-    name: "Sandstone Armoire",
+    name: "Sandstone Cabinet",
     subtitle: "Four-Door Mughal Arch & Vase · Whitewash",
     category: "woodwork",
     subcategory: "Cabinets",
@@ -2519,7 +2519,7 @@ const RAIVANA_PRODUCTS = [
   },
   {
     id: 177,
-    name: "Rosewater Armoire",
+    name: "Rosewater Cabinet",
     subtitle: "Mughal Mehrab Arch · Jaipur Blush",
     category: "woodwork",
     subcategory: "Cabinets",
