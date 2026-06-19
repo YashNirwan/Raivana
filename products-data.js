@@ -1645,7 +1645,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid Mango Wood", finish: "Distressed Antique White", type: "Wall-mounted jharoka frame", size: "16 × 30 in" },
     weight_g: 2500,
-    images: ["img/w114-1.webp", "img/w114-2.webp", "img/w114-3.webp"]
+    images: ["img/w114-2.webp", "img/w114-1.webp", "img/w114-3.webp"]
   },
   {
     id: 115,
@@ -1915,7 +1915,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Mango Wood", finish: "Butter Yellow with Pink Outline", size: "3 × 5 feet", craft: "Hand-carved floral vine arch" },
     weight_g: 7000,
-    images: ["img/nc135-1.webp", "img/nc135-2.webp"]
+    images: ["img/nc135-2.webp", "img/nc135-1.webp"]
   },
   {
     id: 136,
@@ -3047,7 +3047,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid seasoned mango wood, handcarved", size: "5 × 9 in / 12.7 × 22.8 cm approx", use: "Hang solo as a photo frame or cluster for a gallery wall" },
     weight_g: 1500,
-    images: ["img/nc214-1.webp", "img/nc214-2.webp"]
+    images: ["img/nc214-2.webp", "img/nc214-1.webp"]
   },
   {
     id: 215,
@@ -3173,7 +3173,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid reclaimed wood, handcarved", finish: "Natural walnut / aged wood, no paint", use: "Hang solo or cluster as a gallery wall; each piece is unique" },
     weight_g: 2000,
-    images: ["img/nc223-1.webp", "img/nc223-2.webp"]
+    images: ["img/nc223-2.webp", "img/nc223-1.webp"]
   },
   {
     id: 224,
