@@ -110,6 +110,12 @@
   .variant-btn:hover { border-color: var(--deep); }
   .variant-btn.active { background: var(--deep); color: var(--sand); border-color: var(--deep); }
 
+  .color-swatch-wrap { margin-bottom: 1rem; }
+  .color-swatch-row { display: flex; gap: 0.55rem; flex-wrap: wrap; margin-top: 0.6rem; }
+  .color-swatch { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; box-shadow: 0 0 0 1px rgba(28,16,8,0.15); transition: transform 0.15s, box-shadow 0.15s; flex-shrink: 0; }
+  .color-swatch:hover { transform: scale(1.15); }
+  .color-swatch.active { box-shadow: 0 0 0 2px var(--sand), 0 0 0 4px var(--deep); }
+
   .add-to-cart-btn { width: 100%; padding: 1.2rem; background: var(--deep); border: 1px solid var(--deep); color: var(--sand); font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .add-to-cart-btn:hover { background: var(--terracotta); border-color: var(--terracotta); }
 
@@ -254,6 +260,7 @@
   }
 
   var selectedVariantIndex = 0;
+  var selectedColorLabel = null;
   var currentProduct = null;
 
   function selectVariant(index, btn) {
@@ -261,6 +268,14 @@
     document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     updateDetailPrice();
+  }
+
+  function selectColor(label, el) {
+    selectedColorLabel = label;
+    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    const nameEl = document.getElementById('selected-color-name');
+    if (nameEl) nameEl.textContent = label;
   }
 
   function updateDetailPrice() {
@@ -276,7 +291,7 @@
     const variant = currentProduct.variants ? currentProduct.variants[selectedVariantIndex] : null;
     const inr = variant ? variant.price_inr : currentProduct.price_inr;
     const priceDisplay = typeof getProductPrice === 'function' ? getProductPrice(currentProduct, selectedVariantIndex, currentCurrency, exchangeRates) : formatPrice(currentProduct.variants ? currentProduct.variants[selectedVariantIndex].price_inr : currentProduct.price_inr, currentCurrency, exchangeRates);
-    const variantLabel = variant ? variant.label : null;
+    const variantLabel = variant ? variant.label : (selectedColorLabel || null);
     addToCart(currentProduct.name, priceDisplay, currentProduct.images[0], variantLabel);
   }
 
@@ -348,6 +363,19 @@
         </div>
       </div>` : '';
 
+    if (p.color_variants) { selectedColorLabel = p.color_variants[0].label; }
+    const colorVariantsHTML = p.color_variants ? `
+      <div class="color-swatch-wrap">
+        <span class="variant-label">Colour — <span id="selected-color-name">${p.color_variants[0].label}</span></span>
+        <div class="color-swatch-row">
+          ${p.color_variants.map((c, i) => `
+            <div class="color-swatch ${i === 0 ? 'active' : ''}"
+                 style="background:${c.color};"
+                 title="${c.label}"
+                 onclick="selectColor('${c.label}', this)"></div>`).join('')}
+        </div>
+      </div>` : '';
+
     const isCeramics = p.category === 'ceramics';
     const detailsHTML = (p.details && Object.keys(p.details).length > 0) ? `
       <div class="details-block">
@@ -407,6 +435,7 @@
         <div class="product-price-display" id="detail-price">${priceDisplay}</div>
         <p class="product-desc">${p.description}</p>
         ${variantsHTML}
+        ${colorVariantsHTML}
         <button class="add-to-cart-btn" onclick="addCurrentToCart()">Add to Bag</button>
         <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin:0.9rem 0 0.4rem;font-size:0.75rem;color:rgba(28,16,8,0.52);letter-spacing:0.04em;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>

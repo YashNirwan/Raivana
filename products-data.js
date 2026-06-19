@@ -3045,6 +3045,15 @@ const RAIVANA_PRODUCTS = [
     price_inr: 2200,
     price_inr_export: 3500,
     variants: null,
+    color_variants: [
+      { label: "Blush Pink",    color: "#F2B8B8" },
+      { label: "Hot Pink",      color: "#D94F8C" },
+      { label: "Sky Blue",      color: "#6BBAD4" },
+      { label: "Teal",          color: "#4AADA8" },
+      { label: "Ivory White",   color: "#EDE8DE" },
+      { label: "Saffron",       color: "#E8C04A" },
+      { label: "Lavender",      color: "#C4A8CC" }
+    ],
     details: { material: "Solid seasoned mango wood, handcarved", size: "5 × 9 in / 12.7 × 22.8 cm approx", use: "Hang solo as a photo frame or cluster for a gallery wall" },
     weight_g: 1500,
     images: ["img/nc214-2.webp", "img/nc214-1.webp"]
