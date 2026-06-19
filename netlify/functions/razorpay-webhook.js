@@ -1,6 +1,7 @@
 const crypto  = require('crypto');
 const Razorpay = require('razorpay');
 const { Resend } = require('resend');
+const { getStore } = require('@netlify/blobs');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -29,6 +30,13 @@ exports.handler = async (event) => {
 
   try {
     const payment = payload.payload.payment.entity;
+
+    const store = getStore({ name: 'processed-payments', consistency: 'strong' });
+    if (await store.get(payment.id)) {
+      console.log('Duplicate webhook ignored:', payment.id);
+      return { statusCode: 200, body: 'OK' };
+    }
+    await store.set(payment.id, '1', { ttl: 60 * 60 * 24 * 30 });
 
     // Fetch the order to get our stored notes (name, email, address, items)
     const razorpay = new Razorpay({
