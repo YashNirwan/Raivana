@@ -342,8 +342,8 @@
       ? RAIVANA_PRODUCTS.find(function(p) { return p.name === item.name; }) : null;
     if (product && typeof convertPrice === 'function' && typeof exchangeRates !== 'undefined') {
       var priceInr = null;
-      if (product.variants && item.variant) {
-        var v = product.variants.find(function(v) { return v.label === item.variant; });
+      if (product.variants && item.size) {
+        var v = product.variants.find(function(v) { return v.label === item.size; });
         if (v) priceInr = isIntl ? (v.price_inr_export || v.price_inr) : v.price_inr;
       }
       if (priceInr === null || priceInr === undefined) {
