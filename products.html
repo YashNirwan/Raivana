@@ -308,6 +308,7 @@
       wrap.classList.remove('visible');
       wrap.innerHTML = '';
       document.querySelectorAll('.product-card').forEach(card => card.classList.remove('hidden'));
+      history.replaceState(null, '', 'products.html');
     } else {
       const subs = SUBCATS[cat] || [];
       wrap.innerHTML = `<button class="sub-filter-btn active" onclick="filterBySub('all',this,'${cat}')">${CAT_LABELS[cat]||cat}</button>`
@@ -316,6 +317,7 @@
       document.querySelectorAll('.product-card').forEach(card => {
         card.classList.toggle('hidden', card.dataset.cat !== cat);
       });
+      history.replaceState(null, '', `products.html?cat=${encodeURIComponent(cat)}`);
     }
   }
 
@@ -326,6 +328,10 @@
       if (card.dataset.cat !== cat) { card.classList.add('hidden'); return; }
       card.classList.toggle('hidden', sub !== 'all' && card.dataset.subcat !== sub);
     });
+    const params = sub === 'all'
+      ? `cat=${encodeURIComponent(cat)}`
+      : `cat=${encodeURIComponent(cat)}&sub=${encodeURIComponent(sub)}`;
+    history.replaceState(null, '', `products.html?${params}`);
   }
   // Render all product cards dynamically
   function renderProducts() {
