@@ -3056,7 +3056,7 @@ const RAIVANA_PRODUCTS = [
     ],
     details: { material: "Solid seasoned mango wood, handcarved", size: "5 × 9 in / 12.7 × 22.8 cm approx", use: "Hang solo as a photo frame or cluster for a gallery wall" },
     weight_g: 1500,
-    images: ["img/nc214-2.webp", "img/nc214-1.webp"]
+    images: ["img/nc214-1.webp", "img/nc214-2.webp"]
   },
   {
     id: 215,
@@ -3182,7 +3182,7 @@ const RAIVANA_PRODUCTS = [
     variants: null,
     details: { material: "Solid reclaimed wood, handcarved", finish: "Natural walnut / aged wood, no paint", use: "Hang solo or cluster as a gallery wall; each piece is unique" },
     weight_g: 2000,
-    images: ["img/nc223-2.webp", "img/nc223-1.webp"]
+    images: ["img/nc223-1.webp", "img/nc223-2.webp"]
   },
   {
     id: 224,
