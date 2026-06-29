@@ -1825,7 +1825,7 @@ const RAIVANA_PRODUCTS = [
     subtitle: "Deep Teal with Gold-Leaf Vines · Mango Wood",
     category: "woodwork",
     subcategory: "Wooden Home Decor",
-    description: "A deep teal frame with a cusped arch and carved pillars. Delicate gold-leaf vines and brass-finished flower medallions are hand-carved across the top, bottom, and arch border. The distressed teal finish with gold highlights gives it a rich, antique haveli feel. Handmade in mango wood by skilled artisans. Every vine and bloom is hand-carved, so the gold detailing sits uniquely on each frame.",
+    description: "A deep teal frame with a cusped arch and carved pillars. Delicate gold-leaf vines and flower medallions are hand-carved across the top, bottom, and arch border. The distressed teal finish with gold highlights gives it a rich, antique haveli feel. Handmade in mango wood by skilled artisans. Every vine and bloom is hand-carved, so the gold detailing sits uniquely on each frame.",
     price_inr: 35000,
     price_inr_export: 45000,
     variants: null,
@@ -2373,7 +2373,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 45000,
     price_inr_export: 75000,
     variants: null,
-    details: { color: "Natural Bleach / Ivory / Sun-Washed Mango Wood", material: "100% Solid Mango Wood, hand-carved", craft: "Full-surface relief carving of elephant, tree of life, lotus and floral vines", hardware: "Antique brass ring pulls and knob latches", storage: "3 drawers, 3 doors with adjustable shelves, plinth base", size: "36 × 60 × 18 in / 91 × 152 × 46 cm" },
+    details: { color: "Natural Bleach / Ivory / Sun-Washed Mango Wood", material: "100% Solid Mango Wood, hand-carved", craft: "Full-surface relief carving of elephant, tree of life, lotus and floral vines", hardware: "Ring pulls and knob latches", storage: "3 drawers, 3 doors with adjustable shelves, plinth base", size: "36 × 60 × 18 in / 91 × 152 × 46 cm" },
     weight_g: 58000,
     images: ["img/nc166-1.webp", "img/nc166-2.webp", "img/nc166-3.webp"]
   },
@@ -2443,7 +2443,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 85000,
     price_inr_export: 118000,
     variants: null,
-    details: { color: "Bleached Natural / Driftwood / Sun-Washed", material: "Solid Seasoned Teak Wood", craft: "Shallow-to-mid relief carving of botanical vine, Mughal arches and floral borders", hardware: "Brass loop handles, hidden latch, carved centre pillars", storage: "4 doors, 1-2 adjustable shelves, solid plinth base", size: "35.4 × 48 × 18 in / 90 × 122 × 46 cm" },
+    details: { color: "Bleached Natural / Driftwood / Sun-Washed", material: "Solid Seasoned Teak Wood", craft: "Shallow-to-mid relief carving of botanical vine, Mughal arches and floral borders", hardware: "Loop handles, hidden latch, carved centre pillars", storage: "4 doors, 1-2 adjustable shelves, solid plinth base", size: "35.4 × 48 × 18 in / 90 × 122 × 46 cm" },
     weight_g: 64000,
     images: ["img/nc171-1.webp", "img/nc171-2.webp", "img/nc171-3.webp", "img/nc171-4.webp"]
   },
@@ -2499,7 +2499,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 39500,
     price_inr_export: 60000,
     variants: null,
-    details: { color: "Natural Pink Wash / Jaipur Blush over teak", material: "100% Solid Teakwood, termite resistant", craft: "Open jali fretwork of bougainvillea vine, Mughal arch and scalloped apron", hardware: "Brass loop handles, hidden latch", storage: "2 doors with full jali panels, scalloped plinth base", size: "32 × 48 × 16 in / 81 × 122 × 41 cm" },
+    details: { color: "Natural Pink Wash / Jaipur Blush over teak", material: "100% Solid Teakwood, termite resistant", craft: "Open jali fretwork of bougainvillea vine, Mughal arch and scalloped apron", hardware: "Loop handles, hidden latch", storage: "2 doors with full jali panels, scalloped plinth base", size: "32 × 48 × 16 in / 81 × 122 × 41 cm" },
     weight_g: 45000,
     images: ["img/nc175-1.webp", "img/nc175-2.webp", "img/nc175-3.webp"]
   },
@@ -2527,7 +2527,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 38500,
     price_inr_export: 62000,
     variants: null,
-    details: { color: "Jaipur Blush / Dusty Rose, distressed matte", material: "100% Solid Mango Wood, hand-carved", craft: "Low relief carving of Mughal mehrab arch and vine floral border", hardware: "Brass cup pull, hidden latch, plinth base", storage: "2 doors, 1 shelf, solid plinth base", size: "48 × 42 × 18 in / 122 × 107 × 46 cm" },
+    details: { color: "Jaipur Blush / Dusty Rose, distressed matte", material: "100% Solid Mango Wood, hand-carved", craft: "Low relief carving of Mughal mehrab arch and vine floral border", hardware: "Iron cup pull, hidden latch, plinth base", storage: "2 doors, 1 shelf, solid plinth base", size: "48 × 42 × 18 in / 122 × 107 × 46 cm" },
     weight_g: 48000,
     images: ["img/nc177-1.webp", "img/nc177-2.webp", "img/nc177-3.webp"]
   },
@@ -2877,7 +2877,7 @@ const RAIVANA_PRODUCTS = [
     price_inr: 110000,
     price_inr_export: 185000,
     variants: null,
-    details: { material: "Solid mango wood with MDF frame", craft: "Hand-inlaid camel bone and pure mother of pearl floral bouquets with dotted borders", color: "Deep black base", storage: "3 doors with round mother of pearl knobs", size: "60 × 33.6 × 16.8 in / 5 ft W" },
+    details: { material: "Solid mango wood with MDF frame", craft: "Hand-inlaid camel bone and pure mother of pearl floral bouquets with dotted borders", color: "Deep black base", storage: "3 doors with round mother of pearl knobs", size: "60 × 33.6 × 16.8 in" },
     weight_g: 70000,
     images: ["img/nc202-1.webp", "img/nc202-2.webp", "img/nc202-3.webp"]
   },
