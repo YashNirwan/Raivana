@@ -377,6 +377,7 @@
       </div>` : '';
 
     const isCeramics = p.category === 'ceramics';
+    const isBrass = p.category === 'brass';
     const detailsHTML = (p.details && Object.keys(p.details).length > 0) ? `
       <div class="details-block">
         <div class="details-title">Details</div>
@@ -385,17 +386,17 @@
           ${p.details.weight ? `<li>Weight: ${p.details.weight}</li>` : ''}
           ${p.details.height ? `<li>Height: ${p.details.height}</li>` : ''}
           ${p.details.length ? `<li>Length: ${p.details.length}</li>` : ''}
-          ${p.details.material ? `<li>Material: ${p.details.material}</li>` : (!isCeramics ? '<li>Material: Pure brass, handcrafted</li>' : '')}
+          ${p.details.material ? `<li>Material: ${p.details.material}</li>` : (isBrass ? '<li>Material: Pure brass, handcrafted</li>' : '')}
           ${p.details.craft ? `<li>Craft: ${p.details.craft}</li>` : ''}
           ${p.details.technique ? `<li>Technique: ${p.details.technique}</li>` : ''}
-          ${p.details.finish ? `<li>Finish: ${p.details.finish}</li>` : (!isCeramics ? '<li>Finish: Antique / natural brass</li>' : '')}
+          ${p.details.finish ? `<li>Finish: ${p.details.finish}</li>` : (isBrass ? '<li>Finish: Antique / natural brass</li>' : '')}
           <li>Origin: Jaipur, Rajasthan, India</li>
         </ul>
       </div>` : `
       <div class="details-block">
         <div class="details-title">Details</div>
         <ul class="details-list">
-          ${isCeramics ? '<li>Material: Quartz-based ceramic</li><li>Technique: Hand-molded &amp; hand-painted</li><li>Finish: Glossy glaze</li>' : '<li>Material: Pure brass, handcrafted</li><li>Finish: Antique / natural brass</li>'}
+          ${isCeramics ? '<li>Material: Quartz-based ceramic</li><li>Technique: Hand-molded &amp; hand-painted</li><li>Finish: Glossy glaze</li>' : (isBrass ? '<li>Material: Pure brass, handcrafted</li><li>Finish: Antique / natural brass</li>' : '')}
           <li>Origin: Jaipur, Rajasthan, India</li>
           <li>Each piece is unique — slight variations are natural</li>
         </ul>
