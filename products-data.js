@@ -3254,6 +3254,62 @@ const RAIVANA_PRODUCTS = [
     weight_g: 2000,
     images: ["img/nc228-1.webp"]
   },
+  {
+    id: 229,
+    name: "Noor Rani Plate",
+    subtitle: "Mughal Noblewoman in Cobalt · Blue Pottery",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Grace held in a single flower. This Blue Pottery plate portrays a Mughal noblewoman in profile — draped in an embroidered odhni, adorned with layered jewels, holding a delicate bloom. Her calm gaze and fine detail make her feel alive on the wall. Framed by a hand-drawn floral wreath, giving her the name Noor Rani. The deep cobalt on an ivory base catches sunlight beautifully. 100% Handmade in Jaipur. GI-Tag authentic Blue Pottery, made from quartz-based dough — not clay. Every line painted by hand with natural cobalt oxide, then fired and finished with a soft, lead-free glaze. No decals. No two pieces are identical. A heritage statement piece for living rooms, entry walls, boutique hotels or as a centrepiece in a 3-plate gallery. Pairs beautifully with sandstone, terracotta, wood, or white walls.",
+    price_inr: 22500,
+    price_inr_export: 45000,
+    variants: null,
+    details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in Jaipur", finish: "Glazed, lead-free", size: "12 inch diameter" },
+    weight_g: 700,
+    images: ["img/nc229-1.webp"]
+  },
+  {
+    id: 230,
+    name: "Gulzar Plate",
+    subtitle: "Mughal Prince in Cobalt · Blue Pottery",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "Poise, power, and a single flower. This Blue Pottery plate portrays a Mughal nobleman in profile — adorned with jewels and a jeweled sarpech, holding a blossom with quiet grace. A moment of royalty, painted by hand in the iconic cobalt blue of Jaipur. Framed by a hand-drawn floral wreath — hence Gulzar. The deep blue on ivory creates a striking contrast that comes alive in golden sunlight. 100% Handmade in Jaipur, Rajasthan. GI-Tag authentic Blue Pottery, made from traditional quartz-based dough. Every detail painted with a squirrel-hair brush and cobalt oxide, then fired and finished with a natural glaze. No two pieces are exactly alike. A statement wall piece for studies, entryways, luxury residences, or as a collectible for admirers of Mughal art.",
+    price_inr: 22500,
+    price_inr_export: 45000,
+    variants: null,
+    details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in Jaipur", finish: "Glazed, lead-free", size: "12 inch diameter" },
+    weight_g: 700,
+    images: ["img/nc230-1.webp"]
+  },
+  {
+    id: 231,
+    name: "Meera Plate",
+    subtitle: "Meera Bai with Veena · Blue Pottery",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "She sang, and the world listened. This Blue Pottery plate captures Meera Bai — the mystic poet-saint of Rajasthan — lost in her bhajan with a veena in hand. Rendered in the classic Mughal miniature style, every fold of her odhni and note of her music is painted by hand in deep cobalt blue. Framed by a hand-drawn floral mandala, she sits in stillness and surrender. 100% Handmade in Jaipur. No molds, no decals. Artisans use traditional quartz-dough, shape it on the wheel, and paint each line with a fine brush using natural cobalt oxide, finished with a soft lead-free glaze. GI-Tag authentic. Ideal for prayer corners, music rooms, boutique hotels, or as a collectible for lovers of Indian art.",
+    price_inr: 25000,
+    price_inr_export: 50000,
+    variants: null,
+    details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in Jaipur", finish: "Glazed, lead-free", size: "12 inch diameter" },
+    weight_g: 700,
+    images: ["img/nc231-1.webp"]
+  },
+  {
+    id: 232,
+    name: "Aaina Plate",
+    subtitle: "Mughal Noblewoman at Vanity · Blue Pottery",
+    category: "ceramics",
+    subcategory: "Plates",
+    description: "A glance, a brush of surma, a moment of her own. This Blue Pottery plate captures a Mughal noblewoman at her vanity — holding an ornate hand mirror, with a surma bottle beside her. Painted entirely by hand in Jaipur's signature cobalt blue, it feels intimate, timeless, and deeply feminine. Encircled by delicate floral vines, she is framed like a miniature from a royal album. 100% Handmade. GI-Tag Authentic. Each plate crafted from traditional quartz-dough, handpainted with natural cobalt oxide, and finished with a soft lead-free glaze. The slight variations in brushwork are proof of the artisan's hand. Ideal for bedrooms, dressing areas, boutique hotels, or as part of a heritage wall gallery.",
+    price_inr: 22500,
+    price_inr_export: 45000,
+    variants: null,
+    details: { material: "Blue Pottery Ceramic", technique: "100% Handmade, Handpainted in Jaipur", finish: "Glazed, lead-free", size: "12 inch diameter" },
+    weight_g: 700,
+    images: ["img/nc232-1.webp"]
+  },
 ];
 
 // ── PRICING UTILS ─────────────────────────────────────────────────────────────
