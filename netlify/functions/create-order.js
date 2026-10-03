@@ -1,4 +1,57 @@
 const Razorpay = require('razorpay');
+const https = require('https');
+const { RAIVANA_PRODUCTS } = require('../../products-data.js');
+const EXTRA_PRODUCTS = require('../../products-extra.json');
+
+// The browser sends the amount to charge. Before creating the Razorpay order, price
+// the bag from the catalogue the same way checkout.html does and refuse an amount
+// that doesn't match, so a pricing bug or an edited request can't undercharge.
+const TOLERANCE = 0.04;          // rate drift between the browser's cached rates and ours
+const TOLERANCE_NO_RATES = 0.10; // if the live rates can't be fetched
+const FALLBACK_RATES = { USD: 1, GBP: 0.79, EUR: 0.92, INR: 94.75, AED: 3.67, AUD: 1.53, CAD: 1.36, SGD: 1.34 };
+
+function itemPriceInr(item, isIntl) {
+  const all = RAIVANA_PRODUCTS.concat(Array.isArray(EXTRA_PRODUCTS) ? EXTRA_PRODUCTS : []);
+  const product = all.find(p => p.name === item.name);
+  if (!product) return null;
+  let inr = null;
+  if (product.variants && item.size) {
+    const v = product.variants.find(v => v.label === item.size);
+    if (v) inr = isIntl ? (v.price_inr_export || v.price_inr) : v.price_inr;
+  }
+  if (inr === null || inr === undefined) inr = isIntl ? (product.price_inr_export || product.price_inr) : product.price_inr;
+  return typeof inr === 'number' && inr > 0 ? inr : null;
+}
+
+function fetchRates() {
+  return new Promise(resolve => {
+    const req = https.get('https://api.exchangerate-api.com/v4/latest/USD', { timeout: 3000 }, res => {
+      let body = '';
+      res.on('data', c => body += c);
+      res.on('end', () => { try { resolve(JSON.parse(body).rates || null); } catch (e) { resolve(null); } });
+    });
+    req.on('timeout', () => { req.destroy(); resolve(null); });
+    req.on('error', () => resolve(null));
+  });
+}
+
+// Expected total in the payment currency, or { error } if the bag can't be priced.
+async function expectedTotal(items, currency, customer, shippingCostInr) {
+  const isIntl = !!(customer && customer.country && customer.country !== 'India');
+  let inr = 0;
+  for (const item of items) {
+    const price = itemPriceInr(item, isIntl);
+    if (price === null) return { error: `"${item.name}" can't be priced. Please remove it from your bag and contact us.` };
+    inr += price;
+  }
+  inr += Number(shippingCostInr) || 0;
+  const cur = currency.toUpperCase();
+  if (cur === 'INR') return { amount: inr, tolerance: TOLERANCE };
+  const live = await fetchRates();
+  const rates = live && live.INR && live[cur] ? live : FALLBACK_RATES;
+  if (!rates[cur]) return { error: `Unsupported currency ${cur}.` };
+  return { amount: (inr / rates.INR) * rates[cur], tolerance: rates === live ? TOLERANCE : TOLERANCE_NO_RATES };
+}
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -13,10 +66,20 @@ exports.handler = async (event) => {
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
 
+    if (!Array.isArray(items) || !items.length || !currency) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Your bag is empty.' }) };
+    }
+    const expected = await expectedTotal(items, currency, customer, shippingCost);
+    if (expected.error) return { statusCode: 409, body: JSON.stringify({ error: expected.error }) };
+    const requested = (amountOverride !== undefined && amountOverride !== null) ? Number(amountOverride) : expected.amount;
+    const slack = expected.amount * expected.tolerance + 1;
+    if (!(Math.abs(requested - expected.amount) <= slack)) {
+      console.error('create-order: amount mismatch', JSON.stringify({ currency, requested, expected: expected.amount, country: customer && customer.country, items: items.map(i => [i.name, i.size || '']) }));
+      return { statusCode: 409, body: JSON.stringify({ error: "We couldn't confirm your order total. Please refresh the page and try again." }) };
+    }
+
     const zeroDecimalCurrencies = ['JPY', 'KRW'];
-    const amount = (amountOverride !== undefined && amountOverride !== null)
-      ? (zeroDecimalCurrencies.includes(currency.toUpperCase()) ? Math.round(amountOverride) : Math.round(amountOverride * 100))
-      : calculateTotal(items, currency, shippingCost || 0);
+    const amount = zeroDecimalCurrencies.includes(currency.toUpperCase()) ? Math.round(requested) : Math.round(requested * 100);
 
     const notes = {
       items: JSON.stringify(items.map(i => ({ name: i.name, price: i.price, size: i.size || '', category: i.category || 'brass' })))
@@ -56,12 +119,3 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: JSON.stringify({ error: errorMsg }) };
   }
 };
-
-function calculateTotal(items, currency, shippingCost) {
-  const productTotal = items.reduce((sum, item) => {
-    return sum + (parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0);
-  }, 0);
-  const total = productTotal + (shippingCost || 0);
-  if (['JPY', 'KRW'].includes(currency.toUpperCase())) return Math.round(total);
-  return Math.round(total * 100);
-}

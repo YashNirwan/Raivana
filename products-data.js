@@ -3369,3 +3369,7 @@ function getProductWeight(product, variantIndex) {
   }
   return product.weight_g || 500;
 }
+
+// Netlify functions load the catalogue too, to check what an order is charged.
+// Browsers skip this: there is no `module` there.
+if (typeof module !== 'undefined' && module.exports) module.exports = { RAIVANA_PRODUCTS, getBasePrice, getExportPrice };

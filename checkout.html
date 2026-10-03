@@ -592,6 +592,15 @@ footer.ft ul a:hover{color:var(--deep);text-decoration:underline;text-underline-
     return parseFloat(((shippingInr / inrRate) * targetRate).toFixed(2));
   }
 
+  // currency.js calls this once exchange rates have loaded (and again 500ms later).
+  // Without it the summary kept the totals it drew before rates existed, when INR
+  // fell back to a rate of 1: a ₹22,500 plate showed, and was charged, as ₹237.
+  window.onCurrencyReady = function () {
+    if (!getCart().length) return;
+    renderSummary();
+    updateOrderTotal();
+  };
+
   function updateOrderTotal() {
     if (!cartItems.length) return;
     var sym = getCurrencySymbol();
@@ -768,6 +777,11 @@ footer.ft ul a:hover{color:var(--deep);text-decoration:underline;text-underline-
         showMessage('Please enter your city and postal code to calculate shipping first.');
         return;
       }
+    }
+
+    if (typeof exchangeRates === 'undefined' || !exchangeRates['INR']) {
+      showMessage('Prices are still loading. Please try again in a moment.');
+      return;
     }
 
     const btn = document.getElementById('pay-button');
