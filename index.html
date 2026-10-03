@@ -137,10 +137,17 @@
   }
   .mega-view-all::after { content: '→'; }
   .mega-view-all:hover { color: var(--terracotta); }
-  .mega-images { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
-  .mega-img { overflow: hidden; height: 240px; background: var(--cream, #faf6ee); }
-  .mega-img img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.6s ease; }
+  /* Each photo at a fixed height and its own width, side by side beside the
+     links. A 240px-tall box half the panel wide with object-fit: contain left
+     every photo small in the middle of a wide empty band. */
+  .mega-images { display: flex; gap: 2rem; align-items: flex-start; padding: 1.6rem 3rem; overflow: hidden; }
+  .mega-img { display: flex; flex-direction: column; gap: 0.65rem; flex: none; color: var(--deep); text-decoration: none; }
+  .mega-img-frame { display: block; height: clamp(170px, 17vw, 240px); overflow: hidden; background: var(--cream, #faf6ee); }
+  .mega-img-frame img { height: 100%; width: auto; display: block; transition: transform 0.6s ease; }
   .mega-img:hover img { transform: scale(1.05); }
+  .mega-img-cap { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; line-height: 1.25; max-width: 15rem; transition: color 0.2s; }
+  .mega-img:hover .mega-img-cap { color: var(--terracotta); }
+  @media (max-width: 1100px) { .mega-images { padding: 1.4rem 2rem; gap: 1.5rem; } }
   @media (max-width: 900px) { .nav-cats { display: none; } }
 
   /* DECO BORDER */
@@ -627,6 +634,22 @@
     /* The image caption ran under the 500+ badge and was cut off. */
     .hero-product-text { right: calc(42% + 1rem) !important; bottom: 1.2rem !important; left: 1.2rem !important; }
   }
+
+  /* Between tablet and wide desktop the nav ran out of room: the wordmark
+     touched SHOP ALL up to ~1180px, and below ~1040px the Bag was pushed
+     off-screen. Smaller emblem and tighter spacing only in that range. */
+  @media (min-width: 901px) and (max-width: 1240px) {
+    .nav-top { padding-left: 2rem !important; padding-right: 2rem !important; }
+    .nav-logo img { height: 84px !important; width: 84px !important; }
+    .nav-links { gap: 1.1rem !important; }
+    .nav-links a { letter-spacing: 0.13em !important; }
+  }
+
+  /* 901-1060px: not enough room for emblem + wordmark + six links. Emblem
+     only, as the tablet and phone headers already show. */
+  @media (min-width: 901px) and (max-width: 1060px) {
+    .nav-logo > span { display: none !important; }
+  }
 </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFCMV6P07V"></script>
@@ -706,8 +729,8 @@
         <a href="products.html?cat=brass" class="mega-view-all">View all Brass</a>
       </div>
       <div class="mega-images">
-        <div class="mega-img"><img src="img/p5-1.webp" alt="Brass Lakshmi Narayan" loading="lazy"></div>
-        <div class="mega-img"><img src="img/p15-1.webp" alt="Brass Nandi" loading="lazy"></div>
+        <a class="mega-img" href="product-detail.html?id=5"><span class="mega-img-frame"><img src="img/p5-1.webp" alt="" width="1400" height="1045" loading="lazy"></span><span class="mega-img-cap">Brass Lakshmi Narayan</span></a>
+        <a class="mega-img" href="product-detail.html?id=15"><span class="mega-img-frame"><img src="img/p15-1.webp" alt="" width="1400" height="1045" loading="lazy"></span><span class="mega-img-cap">Brass Nandi</span></a>
       </div>
     </div>
 
@@ -720,8 +743,8 @@
         <a href="products.html?cat=ceramics" class="mega-view-all">View all Ceramics</a>
       </div>
       <div class="mega-images">
-        <div class="mega-img"><img src="img/nc150-1.webp" alt="Sapphire Plumage Vase" loading="lazy"></div>
-        <div class="mega-img"><img src="img/nc148-2.webp" alt="Vrinda Muse Vase" loading="lazy"></div>
+        <a class="mega-img" href="product-detail.html?id=150"><span class="mega-img-frame"><img src="img/nc150-1.webp" alt="" width="607" height="814" loading="lazy"></span><span class="mega-img-cap">Sapphire Plumage Vase</span></a>
+        <a class="mega-img" href="product-detail.html?id=148"><span class="mega-img-frame"><img src="img/nc148-2.webp" alt="" width="592" height="793" loading="lazy"></span><span class="mega-img-cap">Vrinda Muse Vase</span></a>
       </div>
     </div>
 
@@ -737,8 +760,8 @@
         <a href="products.html?cat=woodwork" class="mega-view-all">View all Woodwork</a>
       </div>
       <div class="mega-images">
-        <div class="mega-img"><img src="img/nc157-1.webp" alt="Marigold Courtyard Armoire" loading="lazy" style="object-position:center;"></div>
-        <div class="mega-img"><img src="img/nc158-1.webp" alt="Desert Caravan Armoire" loading="lazy" style="object-position:center;"></div>
+        <a class="mega-img" href="product-detail.html?id=157"><span class="mega-img-frame"><img src="img/nc157-1.webp" alt="" width="502" height="627" loading="lazy"></span><span class="mega-img-cap">Marigold Courtyard Armoire</span></a>
+        <a class="mega-img" href="product-detail.html?id=158"><span class="mega-img-frame"><img src="img/nc158-1.webp" alt="" width="601" height="751" loading="lazy"></span><span class="mega-img-cap">Desert Caravan Armoire</span></a>
       </div>
     </div>
 
@@ -752,8 +775,8 @@
         <a href="products.html" class="mega-view-all">View all New Arrivals</a>
       </div>
       <div class="mega-images">
-        <div class="mega-img"><img src="img/nc153-1.webp" alt="Azure Whisker Cat" loading="lazy" style="object-fit:contain;background:#f0ece4;"></div>
-        <div class="mega-img"><img src="img/nc156-1.webp" alt="Firozi Jharoka Mirror" loading="lazy"></div>
+        <a class="mega-img" href="product-detail.html?id=153"><span class="mega-img-frame"><img src="img/nc153-1.webp" alt="" width="668" height="668" loading="lazy"></span><span class="mega-img-cap">Azure Whisker Cat</span></a>
+        <a class="mega-img" href="product-detail.html?id=156"><span class="mega-img-frame"><img src="img/nc156-1.webp" alt="" width="502" height="673" loading="lazy"></span><span class="mega-img-cap">Firozi Jharoka Mirror</span></a>
       </div>
     </div>
 
