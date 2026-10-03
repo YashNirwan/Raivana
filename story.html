@@ -710,6 +710,60 @@ body .process-img-grid img:first-child{grid-row:auto}
 .story-hero-img{object-position:70% 40%}
 @media (max-width:900px){body .process-img-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   body .process-img-grid img:first-child{grid-column:1/3!important;aspect-ratio:4/3!important}}
+
+/* ── Story page, condensed (Oct 2026) ── */
+body .story-hero{min-height:min(62vh,580px)!important}
+.sv h2{font:400 clamp(30px,2.8vw,40px)/1.12 'Cormorant Garamond',serif;color:inherit}
+.sv p{font-size:16px;line-height:1.75;color:#57473A}
+.sv-head{max-width:640px;margin-bottom:32px}.sv-head p{margin-top:14px}
+.sv>section{padding:88px var(--g)}
+.sv-letter{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,6vw,96px);align-items:start;max-width:1240px;margin:0 auto}
+.sv-letter-img{position:sticky;top:24px}.sv-letter-img img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.sv-letter-text h2{margin-bottom:24px}
+.sv-letter-text p{margin-top:16px;max-width:60ch}
+.sv details summary{margin-top:18px;cursor:pointer;font-size:14px;text-decoration:underline;text-underline-offset:4px;list-style:none;color:var(--deep)}
+.sv details summary::-webkit-details-marker{display:none}
+.sv details[open] summary{display:none}
+.sv-sign{font:italic 400 20px/1.4 'Cormorant Garamond',serif!important;color:var(--ink)!important;margin-top:28px!important}
+.sv-numbers{position:relative;padding:0!important;color:var(--cream);overflow:hidden}
+.sv-numbers img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sv-numbers::after{content:"";position:absolute;inset:0;background:rgba(28,16,8,.62)}
+.sv-numbers-in{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:72px var(--g);max-width:1240px;margin:0 auto}
+.sv-numbers b{display:block;font:400 clamp(40px,4vw,56px)/1 'Cormorant Garamond',serif;color:#F2C46B}
+.sv-numbers span{display:block;margin-top:10px;font-size:14px;color:rgba(250,246,238,.85)}
+.sv-craft{background:var(--sand)}
+.sv-photos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.sv-photos img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.sv-craft .tabs{position:relative;display:flex;gap:32px;margin-top:48px;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none}
+.sv-craft .tabs button{position:relative;flex:none;background:none;border:0;padding:0 0 14px;font:400 13px/1 'Jost',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);cursor:pointer}
+.sv-craft .tabs button[aria-selected=true]{color:var(--deep)}
+.sv-craft .tabs button[aria-selected=true]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--terracotta)}
+.sv .steps{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.sv .num{font:italic 400 26px/1 'Cormorant Garamond',serif;color:var(--ink)}
+.sv .steps h3,.sv-promise h3{font:400 21px/1.25 'Cormorant Garamond',serif;margin-top:8px}
+.sv .steps p,.sv-promise li p{font-size:14px;margin-top:6px}
+.sv-makers{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,96px);align-items:center;max-width:1240px;margin:0 auto}
+.sv-makers-imgs{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sv-makers-imgs img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top}
+.sv-makers-imgs img:last-child{margin-top:48px}
+.sv-makers p{margin-top:16px}
+.sv-makers blockquote{margin:24px 0 0;padding-left:20px;border-left:1px solid var(--gold);font:italic 400 22px/1.45 'Cormorant Garamond',serif;color:var(--deep)}
+.sv-promise{border-top:1px solid var(--rule);max-width:1240px;margin:0 auto}
+.sv-promise ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.sv-promise li{border-top:1px solid var(--rule);padding-top:18px}
+.sv-end{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0!important;background:var(--deep);color:var(--cream)}
+.sv-end>div{padding:72px clamp(28px,5vw,80px)}.sv-end>div+div{border-left:1px solid rgba(250,246,238,.14)}
+.sv-end p{color:rgba(250,246,238,.78);margin-top:14px;max-width:46ch}
+.sv-btn-light{background:var(--cream)!important;color:var(--deep)!important;margin-top:24px}.sv-btn-light:hover{background:var(--sand)!important}
+body:has(.sv) footer.ft{margin-top:0}
+@media (max-width:900px){
+  .sv>section{padding:64px var(--g)}
+  .sv-letter,.sv-makers,.sv-end{grid-template-columns:1fr}.sv-letter-img{position:static}.sv-letter-img img{aspect-ratio:16/10}
+  .sv-numbers-in{grid-template-columns:1fr 1fr;padding:48px var(--g)}
+  .sv-photos{grid-template-columns:repeat(2,minmax(0,1fr))}.sv-photos img:first-child{grid-column:1/3;aspect-ratio:4/3}
+  .sv .steps,.sv-promise ol{grid-template-columns:1fr 1fr;gap:24px}
+  .sv-end>div+div{border-left:0;border-top:1px solid rgba(250,246,238,.14)}
+}
+@media (max-width:480px){.sv .steps,.sv-promise ol{grid-template-columns:1fr}}
 </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFCMV6P07V"></script>
@@ -817,199 +871,95 @@ body .process-img-grid img:first-child{grid-row:auto}
   <img class="story-hero-img" src="img/story-hero-haveli.webp" alt="Sunlight through a carved jharokha onto blue pottery vases in a haveli niche" width="1536" height="864">
   <div class="story-hero-overlay"></div>
   <div class="story-hero-content">
-    <div class="story-hero-eyebrow">Our Story</div>
-    <h1 class="story-hero-h1">
-      Where heritage is not<br>
-      preserved in time, but<br>
-      <em>carried forward.</em>
-    </h1>
+    <h1 class="story-hero-h1">Where heritage is not preserved in time, but <em>carried forward.</em></h1>
     <p class="story-hero-sub">Born in Rajasthan. Built for the world.</p>
   </div>
-  <div class="scroll-hint">Scroll</div>
 </section>
 
-<!-- CHAPTER 1 — A RETURN -->
-<section class="chapter chapter-1">
-  <div class="chapter-1-inner">
-    <div class="chapter-prose fade-in">
-      <div class="chapter-label">The Beginning</div>
-      <h2>Raivana began<br>with a <em>return</em></h2>
-      <div class="chapter-rule"></div>
-      <p>Not just to a place—but to a feeling.</p>
-      <p>I was born in Rajasthan, where beauty wasn't reserved for grand palaces or museums. It lived quietly in everyday life. In the carved wooden doors of old homes. In the hand-painted walls that had faded with time but never lost their charm. In furniture crafted by artisans whose hands carried skills passed down through generations.</p>
-      <p>Growing up, I never realized how special it was. It was simply home.</p>
-      <p>As I grew older and travelled, I noticed something had changed. Homes were becoming more alike. Mass-produced pieces replaced handcrafted ones. Spaces became functional, but they slowly lost the warmth, character, and stories that once made them feel alive.</p>
-      <p>The craftsmanship I had grown up around was disappearing—not because it lacked beauty, but because people had forgotten to look for it.</p>
-      <p>That stayed with me.</p>
-      <p>I kept thinking about the artisans who still carve every detail by hand, who spend days creating something that machines can copy in minutes but never truly recreate. Their work carries patience, heritage, and soul. It deserves more than being tucked away in forgotten workshops.</p>
-      <p>Raivana was born from the desire to bring those stories back into our homes.</p>
-      <p>Every piece we create is inspired by Rajasthan's rich artistic heritage and made by skilled artisans who continue to honour traditional craftsmanship. We don't believe furniture is just something you own. We believe it becomes part of your life—holding conversations, celebrations, quiet mornings, and memories that stay long after trends have passed.</p>
-      <p>Raivana is our way of preserving what we grew up loving while giving it a place in modern homes.</p>
-      <p>Because some traditions aren't meant to be left behind.</p>
-      <p>They're meant to be lived with.</p>
-      <p class="pull-quote">Trishna — Founder</p>
-    </div>
-    <div class="fade-in" style="position:relative;">
-      <img class="chapter-img" src="img/story-02-carved-wooden-elephant-against-jaipur-bl.webp" alt="Carved wooden elephant against Jaipur blue door">
-      <div style="position:absolute; bottom:-1.5rem; left:-1.5rem; background:var(--saffron); padding:1.2rem 1.5rem; box-shadow:4px 4px 20px rgba(28,16,8,0.12);">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--deep);">Jaipur</div>
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(28,16,8,0.6);">Where every detail holds a story</div>
-      </div>
-    </div>
+<main class="sv">
+<section class="sv-letter" id="letter">
+  <div class="sv-letter-img"><img src="img/story-02-carved-wooden-elephant-against-jaipur-bl.webp" alt="Carved wooden elephant against a Jaipur blue door" loading="lazy"></div>
+  <div class="sv-letter-text">
+    <h2>Raivana began with a return</h2>
+    <p>Not just to a place—but to a feeling.</p><p>I was born in Rajasthan, where beauty wasn't reserved for grand palaces or museums. It lived quietly in everyday life. In the carved wooden doors of old homes. In the hand-painted walls that had faded with time but never lost their charm. In furniture crafted by artisans whose hands carried skills passed down through generations.</p><p>Growing up, I never realized how special it was. It was simply home.</p>
+    <details><summary>Continue reading</summary><p>As I grew older and travelled, I noticed something had changed. Homes were becoming more alike. Mass-produced pieces replaced handcrafted ones. Spaces became functional, but they slowly lost the warmth, character, and stories that once made them feel alive.</p><p>The craftsmanship I had grown up around was disappearing—not because it lacked beauty, but because people had forgotten to look for it.</p><p>That stayed with me.</p><p>I kept thinking about the artisans who still carve every detail by hand, who spend days creating something that machines can copy in minutes but never truly recreate. Their work carries patience, heritage, and soul. It deserves more than being tucked away in forgotten workshops.</p><p>Raivana was born from the desire to bring those stories back into our homes.</p><p>Every piece we create is inspired by Rajasthan's rich artistic heritage and made by skilled artisans who continue to honour traditional craftsmanship. We don't believe furniture is just something you own. We believe it becomes part of your life—holding conversations, celebrations, quiet mornings, and memories that stay long after trends have passed.</p><p>Raivana is our way of preserving what we grew up loving while giving it a place in modern homes.</p><p>Because some traditions aren't meant to be left behind.</p><p>They're meant to be lived with.</p></details>
+    <p class="sv-sign">Trishna — Founder</p>
   </div>
 </section>
 
-<!-- IMAGE BREAK 1 -->
-<div class="image-break">
-  <img src="img/story-break-tiles.webp" alt="Hand-painted blue pottery tiles with peacocks and lotus in a sunlit courtyard" width="1536" height="768">
-  <div class="image-break-caption">Blue Pottery · Jaipur, Rajasthan</div>
-</div>
-
-<!-- CHAPTER 2 — ROOTED IN RAJASTHAN -->
-<section class="chapter chapter-3">
-  <div class="chapter-3-inner">
-    <div class="chapter-3-images fade-in">
-      <img src="img/story-04-hand-painted-terracotta-plates.webp" alt="Hand-painted terracotta plates" style="grid-column:1/3;width:100%;aspect-ratio:16/9;object-fit:cover;">
-      <img src="img/story-05-raw-clay-forms.webp" alt="Raw clay forms" style="width:100%;aspect-ratio:1/1;object-fit:cover;margin-top:1rem;">
-      <img src="img/story-06-unfired-ceramic-cups.webp" alt="Unfired ceramic cups" style="width:100%;aspect-ratio:1/1;object-fit:cover;margin-top:1rem;">
-    </div>
-    <div class="chapter-prose fade-in">
-      <div class="chapter-label">Rooted in Rajasthan</div>
-      <h2>Every piece begins<br>in a <em>home workshop</em></h2>
-      <div class="chapter-rule"></div>
-      <p>Every Raivana piece is handcrafted in and around Jaipur, where traditional woodworking continues to thrive in small family-run workshops. These are places where every stage of the process is done by hand—from carving and shaping to finishing and polishing—using techniques refined over generations.</p>
-      <p>Rather than producing in large manufacturing units, we choose to work with independent artisans who dedicate their time to creating pieces with precision and care. This allows every design to retain the subtle details and character that only handcrafted work can offer.</p>
-      <p>Our role is simple: to bridge timeless craftsmanship with contemporary living. We collaborate closely with our artisans, sourcing quality materials, refining designs, and ensuring every piece meets the highest standards without compromising the integrity of the craft.</p>
-      <p class="pull-quote">We believe that good design is built to last—not only in quality, but in meaning.</p>
-    </div>
+<section class="sv-numbers" aria-label="Raivana in numbers">
+  <img src="img/story-break-tiles.webp" alt="" loading="lazy">
+  <div class="sv-numbers-in">
+    <div><b>500+</b><span>Artisan families working with us</span></div>
+    <div><b>15+</b><span>Years of craft heritage per artisan</span></div>
+    <div><b>6+</b><span>Countries we ship to</span></div>
+    <div><b>0</b><span>Machine-made pieces. Ever.</span></div>
   </div>
 </section>
 
-<!-- CHAPTER 3 — PROCESS / THE MAKING -->
-<section class="chapter-process">
-  <div class="chapter-process-header fade-in">
-    <div class="chapter-label">The Craft</div>
-    <h2>From raw earth<br>to <em>finished art</em></h2>
-    <div style="width:48px;height:1px;background:var(--gold);margin:2rem 0;opacity:0.5;"></div>
-    <p>In a world that moves quickly, handmade objects ask you to slow down. No two pieces are ever exactly the same. Slight variations in pattern, texture, or finish are not imperfections — they are proof of the human hand behind them.</p>
+<section class="sv-craft" id="craft">
+  <div class="sv-head">
+    <h2>From raw earth to finished art</h2>
+    <p>Every Raivana piece is handcrafted in and around Jaipur, in small family-run workshops where every stage is done by hand. No two pieces are ever exactly the same — slight variations in pattern, texture, or finish are proof of the human hand behind them.</p>
   </div>
-  <div class="process-img-grid fade-in">
-    <img src="img/story-07-owner.webp" alt="Owner" style="width:100%;height:100%;object-fit:cover;">
-    <img src="img/story-08-elephant.webp" alt="Elephant sculpture" style="width:100%;height:100%;object-fit:cover;">
-    <img src="img/story-09-bottle.webp" alt="Handcrafted bottle" style="width:100%;height:100%;object-fit:cover;">
-    <img src="img/story-10-artisan-with-carved-elephant.webp" alt="Artisan with carved elephant" style="width:100%;height:100%;object-fit:cover;object-position:top;">
-    <img src="img/story-11-create.webp" alt="Artisan creating" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+  <div class="sv-photos">
+    <img src="img/story-07-owner.webp" alt="Painting a plate by hand" loading="lazy">
+    <img src="img/story-08-elephant.webp" alt="Carved wooden elephant" loading="lazy">
+    <img src="img/story-09-bottle.webp" alt="Hand-painted bottle" loading="lazy">
+    <img src="img/story-10-artisan-with-carved-elephant.webp" alt="Artisan with a carved elephant" loading="lazy">
+    <img src="img/story-11-create.webp" alt="Shaping a vessel on the wheel" loading="lazy">
   </div>
-</section>
-
-<!-- CHAPTER 4 — THE ARTISAN -->
-<section class="chapter chapter-handmade" style="background:var(--blush);">
-  <div class="chapter-handmade-inner">
-    <div class="chapter-handmade-imgs fade-in">
-      <img src="img/story-12-man-painting-cups-with-total-focus.webp" alt="Man painting cups with total focus" style="width:100%;aspect-ratio:2/3;object-fit:cover;object-position:top;">
-      <img src="img/story-13-woman-in-orange-saree-painting.webp" alt="Woman in orange saree painting" style="width:100%;aspect-ratio:2/3;object-fit:cover;object-position:top;margin-top:2rem;">
-    </div>
-    <div class="chapter-prose fade-in">
-      <div class="chapter-label">The Beauty of Handmade</div>
-      <h2>Every brushstroke<br>carries <em>intention</em></h2>
-      <div class="chapter-rule"></div>
-      <p>The artisans we work with have spent decades mastering a single craft. They sit close — closer than you'd expect — leaning into each brushstroke with the kind of focus that comes only from years of practice.</p>
-      <p>Each curve, each detail, each deliberate mark carries time, effort, and memory.</p>
-      <p class="pull-quote">Perfection lies in what is uniquely its own. This is what makes it meaningful.</p>
-      <p>When you hold a Raivana piece, you are holding the result of someone's absolute best — given freely, shaped by hands that have done this ten thousand times and still approach it as if it is the first.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- CHAPTER 6 — LOOKING AHEAD -->
-<section class="chapter-ahead">
-  <div class="chapter-ahead-inner">
-    <div class="chapter-prose fade-in">
-      <div class="chapter-label">Looking Ahead</div>
-      <h2>Thoughtfully<br>curated. <em>Always.</em></h2>
-      <div class="chapter-rule"></div>
-      <p>Raivana is not about abundance. It is about selection. Every piece you see has been carefully chosen — not only for its craftsmanship, but for how it fits into modern spaces without losing its heritage.</p>
-      <p>As Raivana grows, the intention remains the same — to bring Rajasthan's craftsmanship to homes that appreciate detail, authenticity, and quiet beauty.</p>
-      <p>One piece at a time. Timeless by nature, not by trend.</p>
-      <p style="margin-top:2rem; font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; color:var(--terracotta);">— Raivana</p>
-    </div>
-    <div class="chapter-aside fade-in">
-      <div class="aside-stat">
-        <div class="aside-stat-num">500+</div>
-        <div class="aside-stat-label">Artisan families working with us</div>
-      </div>
-      <div class="aside-stat">
-        <div class="aside-stat-num">15+</div>
-        <div class="aside-stat-label">Years of craft heritage per artisan</div>
-      </div>
-      <div class="aside-stat">
-        <div class="aside-stat-num">6+</div>
-        <div class="aside-stat-label">Countries we ship to</div>
-      </div>
-      <div class="aside-stat">
-        <div class="aside-stat-num">0</div>
-        <div class="aside-stat-label">Machine-made pieces. Ever.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Moved from the homepage in the redesign -->
-<section class="mv promise">
-  <div class="intro"><h2>Rooted in Jaipur. Uncompromised in every detail.</h2>
-    <p>We work closely with local craftsmen in and around Jaipur, ensuring fair practices, authentic techniques, and uncompromised quality in every piece.</p>
-    <p>Every order is personally reviewed before it leaves the workshop. Because the distance between a Jaipur alley and a New York shelf is bridged only by trust — and we take that seriously.</p>
-    <div class="sig">— The Raivana Promise</div></div>
-  <ol>
-    <li><i class="num">I</i><h3>Fair Craft Practices</h3><p>Artisans receive above-market rates with full transparency. No exploitation. No shortcuts.</p></li>
-    <li><i class="num">II</i><h3>Authentic Techniques Only</h3><p>We never substitute hand-work with machine replication. If it isn't made by hand, it isn't Raivana.</p></li>
-    <li><i class="num">III</i><h3>Uncompromised Quality</h3><p>Every piece is inspected at source before export. Defects go back to the artisan — not to you.</p></li>
-    <li><i class="num">IV</i><h3>Stories, Not Just Objects</h3><p>Each piece ships with the maker's name, village, and craft tradition. You know exactly who made it.</p></li>
-  </ol>
-</section>
-
-<section class="mv craft" id="craft">
-  <h2>From earth to art</h2>
-  <p class="sub">A slow, intricate journey — shaped by hand and heritage.</p>
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-k="ceramics">Ceramics &amp; Pottery</button><button role="tab" aria-selected="false" data-k="brass">Brass Metalwork</button><button role="tab" aria-selected="false" data-k="paintings">Paintings</button><button role="tab" aria-selected="false" data-k="woodwork">Woodwork</button>
   </div>
   <ol class="steps" id="craft-steps"></ol>
 </section>
 
-<section class="mv trade" id="trade">
-  <div class="in"><div><h2>Delivering to the US, UK, Europe, and the Gulf — seamlessly.</h2>
-    <p>Wholesale pricing, consolidated freight, and white-label options for trade buyers and boutique retailers.</p>
-    <div class="regions">USA · UK · UAE · EU</div></div>
-    <a class="btn" href="contact.html">Trade enquiry</a></div>
+<section class="sv-makers">
+  <div class="sv-makers-imgs">
+    <img src="img/story-12-man-painting-cups-with-total-focus.webp" alt="Painting cups with total focus" loading="lazy">
+    <img src="img/story-13-woman-in-orange-saree-painting.webp" alt="Artisan in an orange saree painting" loading="lazy">
+  </div>
+  <div>
+    <h2>Every brushstroke carries intention</h2>
+    <p>The artisans we work with have spent decades mastering a single craft. They sit close — closer than you'd expect — leaning into each brushstroke with the kind of focus that comes only from years of practice.</p>
+    <blockquote>When you hold a Raivana piece, you are holding the result of someone's absolute best.</blockquote>
+  </div>
 </section>
+
+<section class="sv-promise">
+  <div class="sv-head"><h2>The Raivana promise</h2><p>Every order is personally reviewed before it leaves the workshop.</p></div>
+  <ol>
+    <li><h3>Fair craft practices</h3><p>Artisans receive above-market rates with full transparency.</p></li>
+    <li><h3>Authentic techniques only</h3><p>If it isn't made by hand, it isn't Raivana.</p></li>
+    <li><h3>Inspected at source</h3><p>Defects go back to the artisan — not to you.</p></li>
+    <li><h3>Stories, not just objects</h3><p>Each piece ships with the maker's name, village, and craft tradition.</p></li>
+  </ol>
+</section>
+
+<section class="sv-end" id="trade">
+  <div><h2>Trade &amp; bulk orders</h2><p>Wholesale pricing, consolidated freight, and white-label options for trade buyers and boutique retailers — delivering to the US, UK, Europe, and the Gulf.</p><a class="btn sv-btn-light" href="contact.html">Trade enquiry</a></div>
+  <div><h2>Crafted in Rajasthan. Curated for timeless homes.</h2><p>Explore the collection — each piece handmade, each one a story.</p><a class="btn sv-btn-light" href="products.html">Explore the collection</a></div>
+</section>
+</main>
 
 <script>
   (function () {
     var STEPS = {
-      ceramics: [["The Clay", "Raw earth sourced from Jaipur's surroundings is cleaned and kneaded by hand until perfect consistency. No machines. Pure mineral memory."], ["Shaping", "On a hand-turned wheel, the artisan coaxes the clay into form — plates, cups, vases — each one sculpted with muscle memory built over decades."], ["Painting", "Using a fine brush and mineral pigments, floral motifs and patterns are traced freehand, from memory. No stencils. No templates."], ["Finished Piece", "After glazing and kiln-firing, each piece emerges with its final colour and sheen. Inspected, signed, and ready to travel the world."]],
-      brass: [["Raw Brass", "Sheets of brass sourced from Jaipur's old city foundries — the same alloys used for centuries in Rajasthani temple ware."], ["Hammering", "The Thathera craftsman beats the metal over a mould in rhythmic patterns — a sound that has echoed through these lanes for generations."], ["Engraving", "Fine chisels carve intricate motifs — deities, elephants, florals — into the surface by hand. No laser. No press. Only patience."], ["Finished Piece", "Polished to a warm glow, quality-checked, and individually wrapped. Heirloom-grade. Built to outlast generations."]],
-      paintings: [["The Canvas", "Natural fabric or handmade paper primed with chalk and gum arabic — a preparation technique unchanged for 400 years."], ["Sketching", "The master outlines intricate compositions in pencil — scenes of Krishna, peacocks, lotus — all drawn from sacred memory."], ["Painting in Layers", "Natural pigments and gold leaf applied in up to 20 layers over weeks. Each dried before the next. Each stroke deliberate."], ["Finished Piece", "Signed by the artist and documented with provenance. A painting is not an object — it is a transmission of devotion."]],
-      woodwork: [["Selecting the Wood", "Seasoned sheesham and teak sourced from sustainable forests — woods chosen for their grain, density, and centuries-long tradition in Indian craft."], ["Hand Carving", "Chisels and gouges guided entirely by hand — jali lattice, floral relief, and deity motifs cut from memory. A single panel can take days."], ["Inlay & Detailing", "Brass wire, shell, and natural resin pressed into routed grooves — a technique of Saharanpur and Rajasthan unchanged for three centuries."], ["Finished Piece", "Buffed with natural oils and beeswax to a warm lustre. Each piece deepens in colour with age — a living record of the hand that made it."]]
+      ceramics: [["The Clay", "Raw earth sourced from Jaipur's surroundings is cleaned and kneaded by hand until perfect consistency."], ["Shaping", "On a hand-turned wheel, the artisan coaxes the clay into form — plates, cups, vases."], ["Painting", "Floral motifs and patterns are traced freehand with mineral pigments. No stencils. No templates."], ["Finished Piece", "Glazed and kiln-fired, then inspected, signed, and ready to travel the world."]],
+      brass: [["Raw Brass", "Sheets of brass from Jaipur's old city foundries — the alloys used for centuries in temple ware."], ["Hammering", "The Thathera craftsman beats the metal over a mould in rhythmic patterns."], ["Engraving", "Deities, elephants and florals carved into the surface by hand. No laser. No press."], ["Finished Piece", "Polished to a warm glow, quality-checked, and individually wrapped."]],
+      paintings: [["The Canvas", "Natural fabric or handmade paper primed with chalk and gum arabic."], ["Sketching", "Krishna, peacocks, lotus — outlined in pencil from sacred memory."], ["Painting in Layers", "Natural pigments and gold leaf, up to 20 layers over weeks."], ["Finished Piece", "Signed by the artist and documented with provenance."]],
+      woodwork: [["Selecting the Wood", "Seasoned sheesham and teak, chosen for grain and density."], ["Hand Carving", "Jali lattice, floral relief and deity motifs cut by hand. A single panel can take days."], ["Inlay & Detailing", "Brass wire, shell and natural resin pressed into routed grooves."], ["Finished Piece", "Buffed with natural oils and beeswax to a warm lustre that deepens with age."]]
     };
     var list = document.getElementById('craft-steps'), tabs = document.querySelectorAll('#craft .tabs button');
     function show(k) {
       tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.k === k); });
-      list.innerHTML = STEPS[k].map(function (s, i) { return '<li><i class="num">0' + (i + 1) + '</i><h3>' + s[0] + '</h3><p>' + s[1] + '</p></li>'; }).join('');
+      list.innerHTML = STEPS[k].map(function (st, i) { return '<li><i class="num">0' + (i + 1) + '</i><h3>' + st[0] + '</h3><p>' + st[1] + '</p></li>'; }).join('');
     }
     tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.k); }); });
     show('ceramics');
   })();
 </script>
-
-<!-- CLOSING BAND -->
-<div class="closing-band">
-  <h3><em>Crafted in Rajasthan.</em><br>Curated for timeless homes.</h3>
-  <p>Explore the collection — each piece handmade, each one a story.</p>
-  <a href="products.html" class="btn-light">Explore Collection</a>
-</div>
 
 <footer class="ft">
   <div class="ftop">
