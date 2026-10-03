@@ -139,18 +139,24 @@ nav.hdr{position:relative;z-index:100;background:var(--cream);border-bottom:1px 
 .nav-cat,.nav-cats>a{position:relative;padding:12px 16px 13px;font:400 12px/1 'Jost',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--deep);background:none;border:0;cursor:pointer}
 .nav-cat:first-child{border-left:0}
 .nav-cats>a:hover{text-decoration:underline;text-underline-offset:4px}
+.mega-panel{grid-template-columns:minmax(260px,30%) 1fr}
+.mega-links{padding:1.6rem 3rem 1.6rem var(--g)}
+.mega-images{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;padding:1.6rem var(--g) 1.6rem 2.2rem}
+.mega-img{min-width:0}.mega-img-frame{height:auto;aspect-ratio:4/5;width:100%;background:var(--blush)}
+.mega-img-frame img{width:100%;height:100%;object-fit:cover}
+.mega-img-cap{font:400 14px/1.35 'Jost',sans-serif;max-width:none}
 
-.hero{display:grid;grid-template-columns:1fr 1fr;min-height:min(78vh,760px);padding:0!important;background:var(--ink);color:var(--cream)}
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:min(78vh,760px);padding:0!important;background:#F4E2CD;color:var(--deep)}
 .hv{position:relative;overflow:hidden;background:var(--deep)}.hv video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ht{align-self:center;padding:64px clamp(28px,6vw,104px)}
-.ht h1{font:500 clamp(44px,4.6vw,68px)/1.02 'Cormorant Garamond',serif;max-width:12ch}
-.ht h1 em{font-style:italic;color:#F2C46B}
-.ht p{margin-top:22px;max-width:40ch;color:rgba(250,246,238,.86);font-size:17px;line-height:1.7}
+.ht h1{font:400 clamp(46px,4.8vw,72px)/1.02 'Cormorant Garamond',serif;max-width:12ch}
+.ht h1 em{font-style:italic;color:var(--ink)}
+.ht p{margin-top:22px;max-width:40ch;color:#57473A;font-size:17px;line-height:1.7}
 .hc{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;margin-top:34px}
-.btn{display:inline-block;background:var(--cream);color:var(--deep);padding:13px 24px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:background .25s}
-.btn:hover{background:var(--sand)}
+.btn{display:inline-block;background:var(--deep);color:var(--cream);padding:13px 24px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:background .25s}
+.btn:hover{background:var(--ink)}
 .cap{display:inline-block;font-size:14px;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(28,16,8,.35)}
-.hc .cap{text-decoration-color:rgba(250,246,238,.6)}
+.hc .cap{text-decoration-color:rgba(28,16,8,.35)}
 
 main>section{padding:64px var(--g) 0}
 .sh{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px}
@@ -294,10 +300,7 @@ footer ul a:hover{color:var(--deep);text-decoration:underline;text-underline-off
         <a href="products.html?cat=brass&sub=Brass Decor" class="mega-link">Decorative Objects <span class="mega-link-arr">→</span></a>
         <a href="products.html?cat=brass" class="mega-view-all">View all Brass</a>
       </div>
-      <div class="mega-images">
-        <a class="mega-img" href="product-detail.html?id=5"><span class="mega-img-frame"><img src="img/p5-1.webp" alt="" width="1400" height="1045" loading="lazy"></span><span class="mega-img-cap">Brass Lakshmi Narayan</span></a>
-        <a class="mega-img" href="product-detail.html?id=15"><span class="mega-img-frame"><img src="img/p15-1.webp" alt="" width="1400" height="1045" loading="lazy"></span><span class="mega-img-cap">Brass Nandi</span></a>
-      </div>
+      <div class="mega-images"><a class="mega-img" href="product-detail.html?id=5"><span class="mega-img-frame"><img src="img/p5-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Brass Lakshmi Narayan Idol on Sheshnag</span></a><a class="mega-img" href="product-detail.html?id=15"><span class="mega-img-frame"><img src="img/p15-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Brass Cow (Holy Cow / Nandi)</span></a><a class="mega-img" href="product-detail.html?id=1"><span class="mega-img-frame"><img src="img/p1-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Brass Lord Ganesha Idol</span></a><a class="mega-img" href="product-detail.html?id=9"><span class="mega-img-frame"><img src="img/p9-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Brass Engraved Pooja Kalash</span></a></div>
     </div>
 
     <div class="mega-panel" id="mega-ceramics">
@@ -308,10 +311,7 @@ footer ul a:hover{color:var(--deep);text-decoration:underline;text-underline-off
         <a href="products.html?cat=ceramics&sub=Miniatures%20%26%20Decor" class="mega-link">Figurines &amp; Accents <span class="mega-link-arr">→</span></a>
         <a href="products.html?cat=ceramics" class="mega-view-all">View all Ceramics</a>
       </div>
-      <div class="mega-images">
-        <a class="mega-img" href="product-detail.html?id=150"><span class="mega-img-frame"><img src="img/nc150-1.webp" alt="" width="607" height="814" loading="lazy"></span><span class="mega-img-cap">Sapphire Plumage Vase</span></a>
-        <a class="mega-img" href="product-detail.html?id=148"><span class="mega-img-frame"><img src="img/nc148-2.webp" alt="" width="592" height="793" loading="lazy"></span><span class="mega-img-cap">Vrinda Muse Vase</span></a>
-      </div>
+      <div class="mega-images"><a class="mega-img" href="product-detail.html?id=150"><span class="mega-img-frame"><img src="img/nc150-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Sapphire Plumage Vase</span></a><a class="mega-img" href="product-detail.html?id=148"><span class="mega-img-frame"><img src="img/nc148-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Vrinda Muse Vase</span></a><a class="mega-img" href="product-detail.html?id=54"><span class="mega-img-frame"><img src="img/p54-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Radha Krishna Yamuna Plate</span></a><a class="mega-img" href="product-detail.html?id=76"><span class="mega-img-frame"><img src="img/v7-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Hiranwali Rani Figurative Vase</span></a></div>
     </div>
 
     <div class="mega-panel" id="mega-woodwork">
@@ -325,10 +325,7 @@ footer ul a:hover{color:var(--deep);text-decoration:underline;text-underline-off
         <a href="products.html?cat=woodwork&sub=Animal Sculptures" class="mega-link">Animal Sculptures <span class="mega-link-arr">→</span></a>
         <a href="products.html?cat=woodwork" class="mega-view-all">View all Woodwork</a>
       </div>
-      <div class="mega-images">
-        <a class="mega-img" href="product-detail.html?id=157"><span class="mega-img-frame"><img src="img/nc157-1.webp" alt="" width="502" height="627" loading="lazy"></span><span class="mega-img-cap">Marigold Courtyard Armoire</span></a>
-        <a class="mega-img" href="product-detail.html?id=158"><span class="mega-img-frame"><img src="img/nc158-1.webp" alt="" width="601" height="751" loading="lazy"></span><span class="mega-img-cap">Desert Caravan Armoire</span></a>
-      </div>
+      <div class="mega-images"><a class="mega-img" href="product-detail.html?id=157"><span class="mega-img-frame"><img src="img/nc157-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Marigold Courtyard Armoire</span></a><a class="mega-img" href="product-detail.html?id=158"><span class="mega-img-frame"><img src="img/nc158-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Desert Caravan Armoire</span></a><a class="mega-img" href="product-detail.html?id=121"><span class="mega-img-frame"><img src="img/nc121-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Sheesh Mahal Mirror</span></a><a class="mega-img" href="product-detail.html?id=33"><span class="mega-img-frame"><img src="img/w1-2.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Heritage Elephant Sculpture</span></a></div>
     </div>
 
     <div class="mega-panel" id="mega-new">
@@ -340,10 +337,7 @@ footer ul a:hover{color:var(--deep);text-decoration:underline;text-underline-off
         <a href="products.html?cat=brass" class="mega-link">Kamdhenu Sculpture <span class="mega-link-arr">→</span></a>
         <a href="products.html" class="mega-view-all">View all New Arrivals</a>
       </div>
-      <div class="mega-images">
-        <a class="mega-img" href="product-detail.html?id=153"><span class="mega-img-frame"><img src="img/nc153-1.webp" alt="" width="668" height="668" loading="lazy"></span><span class="mega-img-cap">Azure Whisker Cat</span></a>
-        <a class="mega-img" href="product-detail.html?id=156"><span class="mega-img-frame"><img src="img/nc156-1.webp" alt="" width="502" height="673" loading="lazy"></span><span class="mega-img-cap">Firozi Jharoka Mirror</span></a>
-      </div>
+      <div class="mega-images"><a class="mega-img" href="product-detail.html?id=153"><span class="mega-img-frame"><img src="img/nc153-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Azure Whisker Cat</span></a><a class="mega-img" href="product-detail.html?id=156"><span class="mega-img-frame"><img src="img/nc156-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Firozi Jharoka Mirror</span></a><a class="mega-img" href="product-detail.html?id=229"><span class="mega-img-frame"><img src="img/nc229-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Noor Rani Plate</span></a><a class="mega-img" href="product-detail.html?id=223"><span class="mega-img-frame"><img src="img/nc223-1.webp" alt="" loading="lazy"></span><span class="mega-img-cap">Diya Shelf Jharoka</span></a></div>
     </div>
 
   </div>
