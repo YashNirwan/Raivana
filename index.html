@@ -611,6 +611,22 @@
   .currency-option.active { color: var(--terracotta); }
   .currency-name { font-size: 0.65rem; color: rgba(28,16,8,0.45); margin-left: auto; }
 
+
+  /* ── Layout corrections (2026-10) ── */
+  /* Nav links jump to #process and #trade; the sticky header (197px, 159px
+     at tablet, 61px on phones) was landing on top of their headings. */
+  html { scroll-padding-top: 213px; }
+  @media (max-width: 900px) { html { scroll-padding-top: 175px; } }
+  @media (max-width: 480px) {
+    html { scroll-padding-top: 77px; }
+    /* Hero buttons sat side by side and both wrapped mid-label
+       ("EXPLORE / COLLECTION", "OUR / STORY  ->"). Stack them. */
+    .hero-cta { flex-direction: column; align-items: stretch; gap: 0.9rem; }
+    .hero-cta .btn-primary { text-align: center; }
+    .hero-cta .btn-ghost { justify-content: center; }
+    /* The image caption ran under the 500+ badge and was cut off. */
+    .hero-product-text { right: calc(42% + 1rem) !important; bottom: 1.2rem !important; left: 1.2rem !important; }
+  }
 </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFCMV6P07V"></script>
@@ -1336,7 +1352,7 @@
   </div>
   <div style="text-align:center;padding:1rem 2rem;border-top:1px solid rgba(255,255,255,0.07);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(242,234,216,0.45);">Worldwide shipping &nbsp;·&nbsp; Secure checkout</div>
   <div class="footer-bottom">
-    <span>© 2025 Raivana. Crafted in Rajasthan, delivered to the world.</span>
+    <span>© 2026 Raivana. Crafted in Rajasthan, delivered to the world.</span>
     <span>Privacy · Terms · Cookies</span>
   </div>
 </footer>

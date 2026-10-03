@@ -511,6 +511,13 @@
   @media(max-width:900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } footer { padding: 3rem 2rem; } }
   @media(max-width:600px) { .footer-grid { grid-template-columns: 1fr; } }
 
+
+  /* ── Layout corrections (2026-10) ── */
+  /* The tablet rule pushes the hero down 155px to clear a 159px header; on
+     phones the header is 61px, which left a 94px empty band above the photo. */
+  @media (max-width: 480px) {
+    .story-hero { margin-top: 61px !important; min-height: calc(100vh - 61px) !important; }
+  }
 </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFCMV6P07V"></script>
@@ -748,7 +755,7 @@
   </div>
   <div style="text-align:center;padding:1rem 2rem;border-top:1px solid rgba(255,255,255,0.07);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(242,234,216,0.45);">Worldwide shipping &nbsp;·&nbsp; Secure checkout</div>
   <div class="footer-bottom">
-    <span>© 2025 Raivana. Crafted in Rajasthan.</span>
+    <span>© 2026 Raivana. Crafted in Rajasthan.</span>
     <span>Privacy · Terms · Cookies</span>
   </div>
 </footer>

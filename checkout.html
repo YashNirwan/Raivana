@@ -109,6 +109,15 @@
     line-height: 1.4;
   }
   .addr-item:hover { background: var(--blush); color: var(--terracotta); }
+
+  /* ── Layout corrections (2026-10) ── */
+  /* Phones: emblem only, as on every other page, so "Continue Shopping"
+     no longer wraps into the wordmark. */
+  @media (max-width: 480px) {
+    .nav-logo > span { display: none !important; }
+    .nav-logo img { height: 52px !important; width: 52px !important; }
+    .nav-back { white-space: nowrap; }
+  }
 </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFCMV6P07V"></script>
