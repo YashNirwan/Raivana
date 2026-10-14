@@ -24,10 +24,9 @@ function paymentStore() {
 // Which steps are already done for a payment. A payment the old webhook recorded as a
 // whole (key = payment id) counts as fully done.
 async function doneSteps(store, paymentId) {
-  if (await store.get(paymentId)) return new Set(STEPS);
-  const done = new Set();
-  for (const step of STEPS) if (await store.get(`${paymentId}:${step}`)) done.add(step);
-  return done;
+  const [whole, ...each] = await Promise.all([paymentId, ...STEPS.map(s => `${paymentId}:${s}`)].map(k => store.get(k)));
+  if (whole) return new Set(STEPS);
+  return new Set(STEPS.filter((_, i) => each[i]));
 }
 
 async function processPayment(payment) {
