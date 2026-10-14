@@ -4,23 +4,20 @@
 //
 // POST { password, action: 'list', since: 'YYYY-MM-DD' }
 // POST { password, action: 'process', payment_id: 'pay_...' }
+import lib from '../lib/process-payment.js';
 
-const { connectLambda } = require('@netlify/blobs');
-const { processPayment, razorpayClient, paymentStore, doneSteps, STEPS } = require('../lib/process-payment');
+const { processPayment, razorpayClient, paymentStore, doneSteps, STEPS } = lib;
+const json = (status, body) => Response.json(body, { status });
 
-const json = (statusCode, body) => ({ statusCode, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-
-exports.handler = async (event) => {
-  if (event.httpMethod !== 'POST') return json(405, { error: 'Method Not Allowed' });
+export default async (req) => {
+  if (req.method !== 'POST') return json(405, { error: 'Method Not Allowed' });
   let body;
-  try { body = JSON.parse(event.body || '{}'); } catch { return json(400, { error: 'Bad request.' }); }
+  try { body = await req.json(); } catch { return json(400, { error: 'Bad request.' }); }
   if (!process.env.ADMIN_PASSWORD || body.password !== process.env.ADMIN_PASSWORD) {
     return json(401, { error: 'Incorrect password.' });
   }
 
-  connectLambda(event);
   const razorpay = razorpayClient();
-
   try {
     if (body.action === 'list') {
       const from = Math.floor(new Date(body.since || '2026-06-19').getTime() / 1000);
