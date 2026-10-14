@@ -18,7 +18,9 @@ function razorpayClient() {
 }
 
 function paymentStore() {
-  return getStore({ name: 'processed-payments', consistency: 'strong' });
+  // Standard (eventual) reads: strong consistency is not available to Lambda-compatible
+  // functions, and the v2 format could not load the razorpay package.
+  return getStore({ name: 'processed-payments' });
 }
 
 // Which steps are already done for a payment. A payment the old webhook recorded as a
