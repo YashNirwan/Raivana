@@ -201,11 +201,59 @@
     <div id="manageMsg" class="msg" style="margin-top:0;margin-bottom:1rem;"></div>
     <div id="productList"></div>
   </div>
+
+  <!-- MISSED ORDERS -->
+  <div style="margin-top:4rem;">
+    <div class="section-label" style="margin-top:0;">Missed Orders</div>
+    <p style="font-size:0.82rem;color:rgba(28,16,8,0.55);line-height:1.8;margin-bottom:1.5rem;">Paid orders whose confirmation email, order email or Shiprocket order did not go out. Uses the admin password at the top of the page. "Send what's missing" only does the steps listed, so nobody gets an email twice.</p>
+    <label style="font-size:0.78rem;">Paid since <input type="date" id="recoverSince" value="2026-06-19" style="width:auto;display:inline-block;margin-left:0.5rem;"></label>
+    <button class="btn-add-variant" onclick="findMissed()" id="findBtn" style="margin:1rem 0 1.2rem;border-style:solid;display:block;">Find missed orders</button>
+    <div id="recoverMsg" class="msg" style="margin-top:0;margin-bottom:1rem;"></div>
+    <div id="missedList"></div>
+  </div>
 </div>
 
 <div class="deco-border"></div>
 
 <script>
+
+  const STEP_NAMES = { 'customer-email': 'customer email', 'merchant-email': 'order email to you', 'shiprocket': 'Shiprocket order' };
+  function recoverMsg(type, text) { const el = document.getElementById('recoverMsg'); el.className = 'msg ' + type; el.textContent = text; el.style.display = 'block'; }
+  async function callRecover(payload) {
+    const password = document.getElementById('password').value.trim();
+    if (!password) { recoverMsg('error', 'Enter your admin password at the top of the page first.'); return null; }
+    const res = await fetch('/.netlify/functions/recover-orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, ...payload }) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) { recoverMsg('error', data.error || 'Something went wrong.'); return null; }
+    return data;
+  }
+  async function findMissed() {
+    const btn = document.getElementById('findBtn'); btn.disabled = true; btn.textContent = 'Checking Razorpay…';
+    document.getElementById('recoverMsg').style.display = 'none';
+    const data = await callRecover({ action: 'list', since: document.getElementById('recoverSince').value });
+    btn.disabled = false; btn.textContent = 'Find missed orders';
+    if (!data) return;
+    const list = document.getElementById('missedList');
+    const missed = data.payments.filter(p => p.missing.length);
+    recoverMsg('success', `${data.payments.length} paid order(s) found; ${missed.length} with something missing.`);
+    list.innerHTML = data.payments.map(p => `
+      <div style="border-top:1px solid rgba(28,16,8,0.1);padding:0.9rem 0;font-size:0.85rem;">
+        <strong>${new Date(p.date).toLocaleString()}</strong> · ${p.amount} · ${p.email || ''}<br>
+        <span style="color:rgba(28,16,8,0.55);">${p.payment_id}</span><br>
+        ${p.missing.length
+          ? `<span style="color:#9E4A1F;">Missing: ${p.missing.map(s => STEP_NAMES[s] || s).join(', ')}</span>
+             <button class="btn-add-variant" style="border-style:solid;margin-top:0.5rem;" onclick="processMissed('${p.payment_id}', this)">Send what's missing</button>`
+          : '<span style="color:#2D4A35;">All done</span>'}
+      </div>`).join('') || '<div class="empty-manage">No paid orders in this period.</div>';
+  }
+  async function processMissed(id, btn) {
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const data = await callRecover({ action: 'process', payment_id: id });
+    if (!data) { btn.disabled = false; btn.textContent = "Send what's missing"; return; }
+    const report = Object.entries(data.steps || {}).map(([k, v]) => `${STEP_NAMES[k] || k}: ${v}`).join(', ');
+    recoverMsg(data.ok ? 'success' : 'error', `${id}: ${report || 'nothing to do'}`);
+    btn.textContent = data.ok ? 'Done' : 'Retry'; btn.disabled = data.ok;
+  }
   let variantCounter = 0;
 
   function togglePassword() {
